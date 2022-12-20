@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
+const { setTokenCookie } = require('../../utils/auth');
 const { User } = require('../../db/models');
 
 const { check } = require('express-validator');
@@ -34,17 +34,39 @@ const validateSignup = [
   handleValidationErrors
 ];
 
+// signup
 router.post(
   '/',
   validateSignup,
-  async (req, res) => {
+  async (req, res, next) => {
     const { email, password, username, firstName, lastName } = req.body;
+
+    const emailExists = await User.findAll({
+      where: {
+        email
+      }
+    })
+
+    if (emailExists) {
+      const err = new Error('User already exists');
+      err.status = 403;
+      err.title = 'Email alreay exists';
+      err.errors = ["User with that email already exists"];
+      return next(err);
+    }
+
     const user = await User.signup({ email, username, password, firstName, lastName });
 
     await setTokenCookie(res, user);
 
     return res.json({
-      user: user
+      user: {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        userName: user.username
+      }
     });
   }
 );

@@ -22,8 +22,6 @@ module.exports = (sequelize, DataTypes) => {
       const user = await User.scope('loginUser').findOne({
         where: {
           [Op.or]: {
-            firstName,
-            lastName,
             username: credential,
             email: credential
           }
@@ -75,7 +73,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           len: [3, 256],
-          isEmail: true
+          isEmail: true,
         }
       },
       username: {
