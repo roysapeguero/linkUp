@@ -13,7 +13,7 @@ module.exports = {
         organizerId: 1,
         name: 'Fruit Cakes',
         about: 'We are bakers who love fruit cakes. Tasty treats every week!',
-        type: 'In-Person',
+        type: 'In person',
         private: false,
         city: 'Hoboken',
         state: 'NJ'
@@ -31,7 +31,7 @@ module.exports = {
         organizerId: 3,
         name: 'You Scream, I Scream',
         about: 'We all scream for ice cream! Join us for ice cream taste parties.',
-        type: 'In-Person',
+        type: 'In person',
         private: false,
         city: 'Woodbridge',
         state: 'NJ'
