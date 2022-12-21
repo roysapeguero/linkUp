@@ -110,6 +110,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         loginUser: {
           attributes: {}
+        },
+        nonoScope: {
+          attributes: {
+            exclude: ['createdAt', 'updatedAt']
+          }
         }
       }
     }

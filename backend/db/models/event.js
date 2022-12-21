@@ -48,18 +48,25 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     startDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
       // validate, date is in the future
     },
     endDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
       // validate, date is after startDate
     }
   }, {
     sequelize,
     modelName: 'Event',
+    scopes: {
+      nonoScope: {
+        attributes: {
+          exclude: ['createdAt', 'updatedAt']
+        }
+      }
+    }
   });
   return Event;
 };
