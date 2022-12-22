@@ -29,7 +29,7 @@ module.exports = {
         eventId: 4,
         url: 'Watcher.png',
         preview: true
-      }
+      },
     ], {})
   },
 

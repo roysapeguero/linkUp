@@ -44,7 +44,7 @@ module.exports = {
         private: true,
         city: 'New York City',
         state: 'NY'
-      }
+      },
     ], {})
   },
 

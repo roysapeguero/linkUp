@@ -19,7 +19,7 @@ module.exports = {
         capacity: 20,
         price: 10.95,
         startDate: '2023-01-22 18:00:00',
-        endDate: '2023-01-22 22:00:00'
+        endDate: '2023-01-23 22:00:00'
       },
       {
         venueId: 2,
@@ -41,7 +41,7 @@ module.exports = {
         capacity: 50,
         price: 10.95,
         startDate: '2023-02-25 18:00:00',
-        endDate: '2023-02-25 20:00:00'
+        endDate: '2023-02-26 20:00:00'
       },
       {
         venueId: null,
@@ -52,7 +52,7 @@ module.exports = {
         capacity: 40,
         price: 10.00,
         startDate: '2023-01-14 09:00:00',
-        endDate: '2023-01-14 10:00:00'
+        endDate: '2023-01-15 10:00:00'
       },
     ], {})
   },

@@ -33,7 +33,7 @@ module.exports = {
         state: 'NJ',
         lat: 75,
         lng: -108
-      }
+      },
     ], {})
   },
 

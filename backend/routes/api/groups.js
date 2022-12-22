@@ -101,16 +101,21 @@ router.get('/', async (req, res, next) => {
       }
     })
 
-    const groupImage = await GroupImage.findOne({
+    let groupImage = await GroupImage.findOne({
       where: {
         groupId: group.id,
         preview: true
       },
-        attributes: ['url']
+      attributes: ['url']
     })
 
+    if (!groupImage) {
+      group.previewImage = "No images yet"
+    } else {
+      group.previewImage = groupImage.toJSON().url;
+    }
+
     group.numMembers = numMembers;
-    group.previewImage = groupImage;
     groupInfo.push(group)
   }
 
@@ -204,8 +209,13 @@ router.get('/current', requireAuth, async (req, res, next) => {
       }
     })
 
+    if (!groupImage) {
+      group.previewImage = "No images yet"
+    } else {
+      group.previewImage = groupImage.toJSON().url;
+    }
+
     group.numMembers = numMembers;
-    group.previewImage = groupImage;
     groupList.push(group)
   }
 
@@ -248,6 +258,14 @@ router.get('/:groupId', async (req, res, next) => {
     }
   })
 
+  // const groupImages = await
+  // for (let groupImage of groupImages ) {
+  //   if (!groupImage) {
+  //     group.previewImage = "No images yet"
+  //   } else {
+  //     group.previewImage = groupImages
+  //   }
+  // }
 
   group = group.toJSON()
 
@@ -322,12 +340,19 @@ router.get('/:groupId/events', async (req, res, next) => {
     let eventImage = await EventImage.findOne({
       where: {
         eventId: event.id
-      }
+      },
+      attributes: ['url']
     })
+
+    if (!eventImage) {
+      event.previewImage = "No images yet"
+    } else {
+      event.previewImage = eventImage.toJSON().url;
+    }
+
 
     event.Venue = eventVenue
     event.numAttending = numAttending
-    event.previewImage = eventImage.toJSON().url
     groupEvents.push(event)
   }
 
@@ -372,8 +397,10 @@ router.get('/:groupId/members', async (req, res, next) => {
       attributes: ['status']
     })
 
-    const { user } = req;
+    const { user }= req;
 
+    user.toJSON();
+    console.log(user.id)
     if (user.id === group.organizerId) {
       member = member.toJSON()
       member.Membership = memStatus
@@ -512,6 +539,11 @@ router.post('/:groupId/events', requireAuth, validateEvent, async (req, res, nex
     err.message = "User must be organizer or co-host";
     return next(err);
   }
+})
+
+// Add image to group
+router.post('/:groupId/images', requireAuth, async (req, res, next) => {
+
 })
 
 module.exports = router;

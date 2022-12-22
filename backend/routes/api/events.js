@@ -35,11 +35,17 @@ router.get('/', async (req, res, next) => {
     const eventImage = await EventImage.findOne({
       where: {
         eventId: event.id
-      }
+      },
+      attributes: ['url']
     })
 
+    if (!eventImage) {
+      event.previewImage = "No images yet"
+    } else {
+      event.previewImage = eventImage.toJSON().url;
+    }
+
     event.numAttending = numAttending
-    event.previewImage = eventImage.toJSON().url
 
     eventsInfo.push(event)
   }
@@ -79,16 +85,22 @@ router.get('/:eventId', async (req, res, next) => {
     }
   })
 
-  const eventImage = await EventImage.findAll({
+  const eventImages= await EventImage.findAll({
     where: {
-      eventId: event.id,
-      preview: true
+      eventId: event.id
     },
     attributes: ['id', 'url', 'preview']
   })
 
+  for (let eventImage of eventImages ) {
+    if (!eventImage) {
+      event.previewImage = "No images yet"
+    } else {
+      event.previewImage = eventImages
+    }
+  }
+
   event.numAttending = numAttending;
-  event.EventImages = eventImage;
 
   res.json(event)
 })

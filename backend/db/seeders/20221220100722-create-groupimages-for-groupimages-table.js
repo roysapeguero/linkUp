@@ -29,7 +29,7 @@ module.exports = {
         groupId: 4,
         url: 'Animes.png',
         preview: false
-      }
+      },
     ], {})
   },
 
