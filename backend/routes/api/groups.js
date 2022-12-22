@@ -152,11 +152,6 @@ router.put('/:groupId', requireAuth, validateGroup, async (req, res, next) => {
   }
 
   const {user} = req;
-  const membership = await Membership.findOne(({
-    where: {
-      groupId: reqGroup.id
-    }
-  }))
 
   if (user.id === reqGroup.organizerId) {
     reqGroup.name = name
@@ -381,12 +376,12 @@ router.get('/:groupId/members', async (req, res, next) => {
 
     if (user.id === group.organizerId) {
       member = member.toJSON()
-      member.Membership = memStatus.dataValues
+      member.Membership = memStatus
 
       allUsers.push(member)
-    } else if (user.id !== group.organizerId && memStatus.dataValues.status !== 'pending'){
+    } else if (user.id !== group.organizerId && memStatus.status !== 'pending'){
         member = member.toJSON()
-        member.Membership = memStatus.dataValues
+        member.Membership = memStatus
 
         allUsers.push(member)
     }
@@ -417,8 +412,8 @@ router.post('/:groupId/venues', requireAuth, validateVenue, async (req, res, nex
       userId: user.id
     }
   })
-  console.log(membership.dataValues.groupId === group.id)
-  if (user.id === group.organizerId || (membership.dataValues.groupId === group.id && membership.dataValues.status === 'co-host')) {
+  console.log(membership.groupId === group.id)
+  if (user.id === group.organizerId || (membership.groupId === group.id && membership.status === 'co-host')) {
     const newVenue = await Venue.create({
       groupId: group.id,
       address: address,
@@ -484,8 +479,7 @@ router.post('/:groupId/events', requireAuth, validateEvent, async (req, res, nex
     return next(err);
   }
 
-  // if (venue === null || venue) {
-  if (user.id === group.organizerId || (membership.dataValues.groupId === group.id && membership.dataValues.status === 'co-host')) {
+  if (user.id === group.organizerId || (membership.groupId === group.id && membership.status === 'co-host')) {
     const newEvent = await Event.create({
       groupId: group.id,
       venueId,

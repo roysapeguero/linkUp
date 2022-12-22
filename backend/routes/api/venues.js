@@ -54,7 +54,7 @@ router.put('/:venueId', requireAuth, validateVenue, async (req, res, next) => {
     }
   })
 
-  if (user.id === group.organizerId || (membership.dataValues.userId === reqVenue.userId && membership.dataValues.status === 'co-host')) {
+  if (user.id === group.organizerId || (membership.userId === reqVenue.userId && membership.status === 'co-host')) {
     reqVenue.address = address
     reqVenue.city = city
     reqVenue.state = state

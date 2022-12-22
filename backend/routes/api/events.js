@@ -138,16 +138,16 @@ router.get('/:eventId/attendees', async (req, res, next) => {
     })
 
     console.log(event.groupId)
-    if (user.id === group.organizerId || (membership.dataValues.userId === group.userId && membership.dataValues.status === 'co-host') ) {
+    if (user.id === group.organizerId || (membership.userId === group.userId && membership.status === 'co-host') ) {
       attendee = attendee.toJSON()
       attendee.Attendance = attendStatus.dataValues
 
       allUsers.push(attendee)
 
     }
-    if (user.id !== group.organizerId && attendStatus.dataValues.status !== 'pending'){
+    if (user.id !== group.organizerId && attendStatus.status !== 'pending'){
         attendee = attendee.toJSON()
-        attendee.Attendance = attendStatus.dataValues
+        attendee.Attendance = attendStatus
 
         allUsers.push(attendee)
     }
