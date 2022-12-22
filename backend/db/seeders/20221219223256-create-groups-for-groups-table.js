@@ -37,7 +37,7 @@ module.exports = {
         state: 'NJ'
       },
       {
-        organizerId: 4,
+        organizerId: 3,
         name: 'Anime Crew',
         about: 'We love anime and discuss our current favorites!',
         type: 'Online',

@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { requireAuth } = require('../../utils/auth');
-const { Event, Group, Attendance, EventImage, Venue } = require('../../db/models');
+const { Event, Group, Attendance, EventImage, Venue, User, Membership } = require('../../db/models');
 
 
 const router = express.Router();
@@ -92,4 +92,70 @@ router.get('/:eventId', async (req, res, next) => {
 
   res.json(event)
 })
+
+// Get all attendees by event id
+router.get('/:eventId/attendees', async (req, res, next) => {
+  let event = await Event.findByPk(req.params.eventId)
+
+  if (!event) {
+    const err = new Error("Event not found");
+    err.status = 404;
+    err.title = "Event not found";
+    err.errors = ["Event couldn't be found"];
+    return next(err);
+  }
+
+  event = event.toJSON()
+
+  let attendees = await Attendance.findAll({
+    where: {
+      eventId: event.id
+    }
+  })
+
+  let allUsers = []
+  for (let attendee of attendees) {
+    attendee = await User.findOne({
+      where: {
+        id: attendee.userId
+      },
+      attributes: ['id', 'firstName', 'lastName']
+    })
+
+    let attendStatus = await Attendance.findOne({
+      where: {
+        userId: attendee.id
+      },
+      attributes: ['status']
+    })
+
+    const { user } = req;
+    const group = await Group.findByPk(event.groupId)
+    const membership = await Membership.findOne({
+      where: {
+        groupId: event.groupId
+      }
+    })
+
+    console.log(event.groupId)
+    if (user.id === group.organizerId || (membership.dataValues.userId === group.userId && membership.dataValues.status === 'co-host') ) {
+      attendee = attendee.toJSON()
+      attendee.Attendance = attendStatus.dataValues
+
+      allUsers.push(attendee)
+
+    }
+    if (user.id !== group.organizerId && attendStatus.dataValues.status !== 'pending'){
+        attendee = attendee.toJSON()
+        attendee.Attendance = attendStatus.dataValues
+
+        allUsers.push(attendee)
+    }
+  }
+
+  res.json({
+    Attendees: allUsers
+  })
+})
+
 module.exports = router;

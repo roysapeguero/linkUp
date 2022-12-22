@@ -40,6 +40,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATEONLY,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATEONLY,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     }, options);
   },
