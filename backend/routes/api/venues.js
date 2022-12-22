@@ -42,19 +42,34 @@ router.put('/:venueId', requireAuth, validateVenue, async (req, res, next) => {
     return next(err);
   }
 
-  const { user }= req;
-  const group = await Group.findOne({
+  let { user }= req;
+  let group = await Group.findOne({
     where: {
       id: reqVenue.groupId
     }
   })
-  const membership = await Membership.findOne({
+
+  let membership = await Membership.findOne({
     where: {
-      groupId: group.id
+      userId: user.id
     }
   })
 
-  if (user.id === group.organizerId || (membership.userId === reqVenue.userId && membership.status === 'co-host')) {
+  if (!membership) {
+    const err = new Error('Authorization error')
+    err.title = "Authorization error";
+    err.status = 403;
+    err.message = "User must be organizer or co-host";
+    return next(err);
+  }
+
+  membership = membership.toJSON();
+  user = user.toJSON();
+  group = group.toJSON();
+
+  console.log(user.id === group.organizerId)
+
+  if (user.id === group.organizerId || (membership.groupId === group.id && membership.status === 'co-host')) {
     reqVenue.address = address
     reqVenue.city = city
     reqVenue.state = state

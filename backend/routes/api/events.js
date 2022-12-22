@@ -216,7 +216,7 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
     return next(err);
   }
 
-  const { user } = req;
+  let { user } = req;
   const attendee = await Attendance.findOne({
     where: {
       eventId: event.id,
@@ -224,7 +224,24 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
     }
   })
 
-  if (attendee) {
+  let group = await Group.findOne({
+    where: {
+      organizerId: user.id
+    }
+  })
+  group = group.toJSON();
+
+  let membership = await Membership.findOne({
+    where: {
+      groupId: group.id,
+      status: 'co-host'
+    }
+  })
+
+
+  user = user.toJSON();
+
+  if (attendee || user.id === group.organizer.id ) {
     const reqImg = await EventImage.create({
       eventId: event.id,
       url: url,
@@ -239,7 +256,7 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
     const err = new Error('Authorization error')
     err.title = "Authorization error";
     err.status = 403;
-    err.message = "User must be organizer";
+    err.message = "User must be attending event";
     return next(err);
   }
 })

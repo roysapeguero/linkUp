@@ -409,7 +409,7 @@ router.get('/:groupId/members', async (req, res, next) => {
     Members: allUsers
   })
 })
-
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // Create a venue for a group
 router.post('/:groupId/venues', requireAuth, validateVenue, async (req, res, next) => {
   const { address, city, state, lat, lng } = req.body;
@@ -425,13 +425,22 @@ router.post('/:groupId/venues', requireAuth, validateVenue, async (req, res, nex
     return next(err);
   }
 
-  const membership = await Membership.findOne({
+  let membership = await Membership.findOne({
     where: {
       userId: user.id
     }
   })
-  console.log(membership.groupId === group.id)
-  if (user.id === group.organizerId || (membership.groupId === group.id && membership.status === 'co-host')) {
+
+  if (!membership) {
+    const err = new Error('Authorization error')
+    err.title = "Authorization error";
+    err.status = 403;
+    err.message = "User must be organizer or co-host";
+    return next(err);
+  }
+
+  membership = membership.toJSON();
+  if (user.id === group.organizerId || (membership.groupId === group.id && membership.status === 'co-host'))  {
     const newVenue = await Venue.create({
       groupId: group.id,
       address: address,

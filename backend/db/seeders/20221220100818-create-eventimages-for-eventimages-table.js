@@ -13,7 +13,7 @@ module.exports = {
       {
         eventId: 1,
         url: 'Bakeoff.png',
-        preview: true
+        preview: false
       },
       {
         eventId: 2,
@@ -28,6 +28,26 @@ module.exports = {
       {
         eventId: 4,
         url: 'Watcher.png',
+        preview: false
+      },
+      {
+        eventId: 1,
+        url: 'when.png',
+        preview: true
+      },
+      {
+        eventId: 2,
+        url: 'will.png',
+        preview: true
+      },
+      {
+        eventId: 3,
+        url: 'it.png',
+        preview: true
+      },
+      {
+        eventId: 4,
+        url: 'end.png',
         preview: true
       },
     ], {})
@@ -37,7 +57,7 @@ module.exports = {
     options.tableName = 'EventImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      id: { [Op.in]: [1, 2, 3, 4] }
+      id: { [Op.in]: [1, 2, 3, 4, 5, 6, 7, 8] }
     }, {});
   }
 };
