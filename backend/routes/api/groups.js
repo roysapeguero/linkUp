@@ -258,15 +258,6 @@ router.get('/:groupId', async (req, res, next) => {
     }
   })
 
-  // const groupImages = await
-  // for (let groupImage of groupImages ) {
-  //   if (!groupImage) {
-  //     group.previewImage = "No images yet"
-  //   } else {
-  //     group.previewImage = groupImages
-  //   }
-  // }
-
   group = group.toJSON()
 
   group.numMembers = numMembers;
@@ -407,10 +398,10 @@ router.get('/:groupId/members', async (req, res, next) => {
 
       allUsers.push(member)
     } else if (user.id !== group.organizerId && memStatus.status !== 'pending'){
-        member = member.toJSON()
-        member.Membership = memStatus
+      member = member.toJSON()
+      member.Membership = memStatus
 
-        allUsers.push(member)
+      allUsers.push(member)
     }
   }
 
@@ -472,13 +463,6 @@ router.post('/:groupId/venues', requireAuth, validateVenue, async (req, res, nex
 router.post('/:groupId/events', requireAuth, validateEvent, async (req, res, next) => {
   const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body;
 
-  if (`${endDate}` < `${startDate}`) {
-    const err = new Error("Bad request.");
-    err.status = 400;
-    err.title = "Bad request.";
-    err.errors = ["End date is less than start date"];
-    return next(err);
-  }
   const { user } = req;
   const group = await Group.findByPk(req.params.groupId)
   if (!group) {
@@ -496,7 +480,6 @@ router.post('/:groupId/events', requireAuth, validateEvent, async (req, res, nex
   })
 
   const venue = await Venue.findByPk(venueId)
-  console.log(venue)
 
   if (venueId !== null && !venue) {
     const err = new Error("Bad request.");
@@ -543,6 +526,37 @@ router.post('/:groupId/events', requireAuth, validateEvent, async (req, res, nex
 
 // Add image to group
 router.post('/:groupId/images', requireAuth, async (req, res, next) => {
+  const { url, preview } = req.body;
+
+  const group = await Group.findByPk(req.params.groupId)
+  if (!group) {
+    const err = new Error('Group does not exist')
+    err.title = "Group does not exist";
+    err.status = 404;
+    err.message = "Group couldn't be found";
+    return next(err);
+  }
+
+  const { user } = req;
+
+  if (user.id === group.organizerId) {
+    const reqImg = await GroupImage.create({
+      groupId: group.id,
+      url: url,
+      preview: preview
+    })
+    res.json({
+      id: reqImg.id,
+      url: reqImg.url,
+      preview: reqImg.preview
+    })
+  } else {
+    const err = new Error('Authorization error')
+    err.title = "Authorization error";
+    err.status = 403;
+    err.message = "User must be organizer";
+    return next(err);
+  }
 
 })
 

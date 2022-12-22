@@ -3,8 +3,41 @@ const express = require('express')
 const { requireAuth } = require('../../utils/auth');
 const { Event, Group, Attendance, EventImage, Venue, User, Membership } = require('../../db/models');
 
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
+
+const validateEvent = [
+  check('name')
+    .exists({ checkFalsy: true })
+    .isLength({ min: 5})
+    .withMessage("Name must be at least 5 characters"),
+  check('type')
+    .exists({ checkFalsy: true })
+    .isIn(['Online', 'In person'])
+    .withMessage("Type must be 'Online' or 'In person'"),
+  check('capacity')
+    .exists({ checkFalsy: true })
+    .isNumeric()
+    .withMessage("Capavity must be an integer"),
+  check('price')
+    .exists({ checkFalsy: true })
+    .isNumeric()
+    .withMessage("Price is invalid"),
+  check('description')
+    .exists({ checkFalsy: true })
+    .withMessage("Description is required"),
+  check('startDate')
+    .exists({ checkFalsy: true })
+    .isAfter("2022-12-19")
+    .withMessage("Start date must be in the future"),
+  check('endDate')
+    .exists({ checkFalsy: true })
+    .isAfter()
+    .withMessage("End date is less than start date"),
+  handleValidationErrors
+];
 
 // get all events
 router.get('/', async (req, res, next) => {
@@ -169,5 +202,115 @@ router.get('/:eventId/attendees', async (req, res, next) => {
     Attendees: allUsers
   })
 })
+
+// Add image to event
+router.post('/:eventId/images', requireAuth, async (req, res, next) => {
+  const { url, preview } = req.body;
+
+  const event = await Event.findByPk(req.params.eventId)
+  if (!event) {
+    const err = new Error('Event does not exist')
+    err.title = "Event does not exist";
+    err.status = 404;
+    err.message = "Event couldn't be found";
+    return next(err);
+  }
+
+  const { user } = req;
+  const attendee = await Attendance.findOne({
+    where: {
+      eventId: event.id,
+      userId: user.id
+    }
+  })
+
+  if (attendee) {
+    const reqImg = await EventImage.create({
+      eventId: event.id,
+      url: url,
+      preview: preview
+    })
+    res.json({
+      id: reqImg.id,
+      url: reqImg.url,
+      preview: reqImg.preview
+    })
+  } else {
+    const err = new Error('Authorization error')
+    err.title = "Authorization error";
+    err.status = 403;
+    err.message = "User must be organizer";
+    return next(err);
+  }
+})
+
+// edit event
+router.put('/:eventId', requireAuth, validateEvent ,async (req, res, next) => {
+  const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body;
+
+  const reqEvent = await Event.findByPk(req.params.eventId)
+
+  if (!reqEvent) {
+    const err = new Error('Event does not exist')
+    err.title = "Event does not exist";
+    err.status = 404;
+    err.message = "Event couldn't be found";
+    return next(err);
+  }
+
+  const venue = await Venue.findByPk(venueId)
+
+  if (venueId !== null && !venue) {
+    const err = new Error("Bad request.");
+    err.status = 404;
+    err.title = "Bad request.";
+    err.errors = ["Venue does not exist"];
+    return next(err);
+  }
+
+  const membership = await Membership.findAll({
+    where: {
+      groupId: reqEvent.groupId
+    }
+  })
+
+  const group = await Group.findByPk(reqEvent.groupId)
+
+  const { user } = req;
+
+  if (user.id === group.organizerId || (membership.groupId === reqEvent.groupId && membership.status === 'co-host')) {
+    reqEvent.venueId = venueId
+    reqEvent.groupId = group.id
+    reqEvent.name = name
+    reqEvent.type = type
+    reqEvent.capacity = capacity
+    reqEvent.price = price
+    reqEvent.description = description
+    reqEvent.startDate = startDate
+    reqEvent.endDate = endDate
+
+    reqEvent.save()
+
+    await res.json({
+      id: reqEvent.id,
+      venueId: reqEvent.venueId,
+      groupId: reqEvent.groupId,
+      name: reqEvent.name,
+      type: reqEvent.type,
+      capacity: reqEvent.capacity,
+      price: reqEvent.price,
+      description: reqEvent.description,
+      startDate: reqEvent.startDate,
+      endDate: reqEvent.endDate,
+    })
+  } else {
+    const err = new Error('Authorization error')
+    err.title = "Authorization error";
+    err.status = 403;
+    err.message = "User must be organizer or co-host";
+    return next(err);
+  }
+})
+
 
 module.exports = router;
