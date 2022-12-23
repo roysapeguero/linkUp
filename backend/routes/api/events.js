@@ -2,7 +2,7 @@ const express = require('express')
 
 const { requireAuth } = require('../../utils/auth');
 const { Event, Group, Attendance, EventImage, Venue, User, Membership } = require('../../db/models');
-
+const { Op } = require("sequelize");
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -182,7 +182,7 @@ router.get('/:eventId/attendees', async (req, res, next) => {
       }
     })
 
-    console.log(event.groupId)
+    // console.log(event.groupId)
     if (user.id === group.organizerId || (membership.userId === group.userId && membership.status === 'co-host') ) {
       attendee = attendee.toJSON()
       attendee.Attendance = attendStatus.dataValues
@@ -207,7 +207,7 @@ router.get('/:eventId/attendees', async (req, res, next) => {
 router.post('/:eventId/images', requireAuth, async (req, res, next) => {
   const { url, preview } = req.body;
 
-  const event = await Event.findByPk(req.params.eventId)
+  let event = await Event.findByPk(req.params.eventId)
   if (!event) {
     const err = new Error('Event does not exist')
     err.title = "Event does not exist";
@@ -216,32 +216,45 @@ router.post('/:eventId/images', requireAuth, async (req, res, next) => {
     return next(err);
   }
 
-  let { user } = req;
-  const attendee = await Attendance.findOne({
+  if (!url || typeof preview !== 'boolean') {
+    const err = new Error('Bad request')
+    err.title = "Bad request";
+    err.status = 400;
+    err.message = "Provide valid values for url and preview";
+    return next(err);
+  }
+  event = event.toJSON();
+  let {user} = req;
+  user = user.toJSON()
+  let attending = await User.findOne({
     where: {
-      eventId: event.id,
-      userId: user.id
+      id: user.id
+    },
+    include: {
+      model: Attendance,
+      where: {
+        eventId: event.id
+      },
     }
   })
 
-  let group = await Group.findOne({
+
+  let isOrganizer = await Group.findOne({
     where: {
+      id: event.groupId,
       organizerId: user.id
     }
   })
-  group = group.toJSON();
 
-  let membership = await Membership.findOne({
+  let isCohost = await Membership.findOne({
     where: {
-      groupId: group.id,
+      userId: user.id,
+      groupId: event.groupId,
       status: 'co-host'
     }
   })
 
-
-  user = user.toJSON();
-
-  if (attendee || user.id === group.organizer.id ) {
+  if (attending || isOrganizer || isCohost) {
     const reqImg = await EventImage.create({
       eventId: event.id,
       url: url,
@@ -284,18 +297,19 @@ router.put('/:eventId', requireAuth, validateEvent ,async (req, res, next) => {
     err.errors = ["Venue does not exist"];
     return next(err);
   }
+  const { user } = req;
 
-  const membership = await Membership.findAll({
+  const isCohost = await Membership.findOne({
     where: {
+      userId: user.id,
+      status: 'co-host',
       groupId: reqEvent.groupId
     }
   })
 
   const group = await Group.findByPk(reqEvent.groupId)
 
-  const { user } = req;
-
-  if (user.id === group.organizerId || (membership.groupId === reqEvent.groupId && membership.status === 'co-host')) {
+  if (user.id === group.organizerId || isCohost) {
     reqEvent.venueId = venueId
     reqEvent.groupId = group.id
     reqEvent.name = name
@@ -329,5 +343,48 @@ router.put('/:eventId', requireAuth, validateEvent ,async (req, res, next) => {
   }
 })
 
+// Delete a event
+router.delete('/:eventId', requireAuth, async (req, res, next) => {
+  let reqEventId = req.params.eventId
+  let deleteMe = await Event.findByPk(reqEventId)
+
+  if (!deleteMe) {
+    const err = new Error('Event not found')
+    err.title = "Event not found";
+    err.status = 404;
+    err.message = "Event couldn't be found";
+    return next(err);
+  }
+
+  let { user } = req;
+
+  let group = await Group.findByPk(deleteMe.groupId)
+
+  const isCohost = await Membership.findOne({
+    where: {
+      userId: user.id,
+      status: 'co-host',
+      groupId: group.id
+    }
+  })
+
+  console.log(user.id === group.organizerId, ' ORG')
+  console.log(isCohost, ' CO')
+
+  if (user.id === group.organizerId || isCohost) {
+    await deleteMe.destroy()
+    return res.json({
+      message: "Successfully deleted",
+      statusCode: 200
+    })
+  } else {
+    const err = new Error('Authorization error')
+    err.title = "Authorization error";
+    err.status = 403;
+    err.message = "User must be organizer";
+    return next(err);
+  }
+
+})
 
 module.exports = router;

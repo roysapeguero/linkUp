@@ -182,18 +182,32 @@ router.put('/:groupId', requireAuth, validateGroup, async (req, res, next) => {
 // all groups user belongs to
 router.get('/current', requireAuth, async (req, res, next) => {
 
-  const { user } = req;
+  let { user } = req;
 
   const currentUser = user.id
 
   const groupList = []
-  const userGroups = await Group.findAll({
+
+  const orgGroups = await Group.findAll({
     where: {
       organizerId: currentUser
     }
+	});
+
+  let memOfIds = await Membership.findAll({
+    where: {
+      userId: currentUser
+    }
   })
 
-  for (let group of userGroups) {
+  for (let memOf of memOfIds) {
+    memOf = memOf.toJSON()
+    let group = await Group.findByPk(memOf.groupId)
+
+    orgGroups.push(group)
+  }
+
+  for (let group of orgGroups) {
     group = group.toJSON()
 
     const numMembers = await Membership.count({
@@ -537,6 +551,14 @@ router.post('/:groupId/events', requireAuth, validateEvent, async (req, res, nex
 router.post('/:groupId/images', requireAuth, async (req, res, next) => {
   const { url, preview } = req.body;
 
+  if (!url || typeof preview !== 'boolean') {
+    const err = new Error('Bad request')
+    err.title = "Bad request";
+    err.status = 400;
+    err.message = "Provide valid values for url and preview";
+    return next(err);
+  }
+
   const group = await Group.findByPk(req.params.groupId)
   if (!group) {
     const err = new Error('Group does not exist')
@@ -558,6 +580,36 @@ router.post('/:groupId/images', requireAuth, async (req, res, next) => {
       id: reqImg.id,
       url: reqImg.url,
       preview: reqImg.preview
+    })
+  } else {
+    const err = new Error('Authorization error')
+    err.title = "Authorization error";
+    err.status = 403;
+    err.message = "User must be organizer";
+    return next(err);
+  }
+})
+
+
+// Delete a group
+router.delete('/:groupId', requireAuth, async (req, res, next) => {
+  let reqGroupId = req.params.groupId
+  let deleteMe = await Group.findByPk(reqGroupId)
+
+  if (!deleteMe) {
+    const err = new Error('Group not found')
+    err.title = "Group not found";
+    err.status = 404;
+    err.message = "Group couldn't be found";
+    return next(err);
+  }
+
+  let { user } = req;
+  if (user.id === deleteMe.organizerId) {
+    await deleteMe.destroy()
+    return res.json({
+      message: "Successfully deleted",
+      statusCode: 200
     })
   } else {
     const err = new Error('Authorization error')

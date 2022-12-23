@@ -77,7 +77,15 @@ router.put('/:venueId', requireAuth, validateVenue, async (req, res, next) => {
     reqVenue.lng = lng
 
     reqVenue.save()
-    res.json(await reqVenue)
+    await res.json({
+      id: reqVenue.id,
+      groupId: reqVenue.groupId,
+      address: reqVenue.address,
+      city: reqVenue.city,
+      state: reqVenue.state,
+      lat: reqVenue.lat,
+      lng: reqVenue.lng
+    })
   } else {
     const err = new Error('Authorization error')
     err.title = "Authorization error";
