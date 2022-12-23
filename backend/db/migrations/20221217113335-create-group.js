@@ -18,7 +18,8 @@ module.exports = {
       organizerId: {
         type: Sequelize.INTEGER,
         references: { model: 'Users', key: 'id' },
-        allowNull: false
+        allowNull: false,
+        onDelete: 'CASCADE'
       },
       name: {
         type: Sequelize.STRING(60),
