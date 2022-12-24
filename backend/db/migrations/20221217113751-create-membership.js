@@ -28,7 +28,7 @@ module.exports = {
         onDelete: 'CASCADE'
       },
       status: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM('co-host', 'member', 'pending'),
         allowNull: false
       },
       createdAt: {

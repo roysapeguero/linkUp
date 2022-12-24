@@ -368,9 +368,6 @@ router.delete('/:eventId', requireAuth, async (req, res, next) => {
     }
   })
 
-  console.log(user.id === group.organizerId, ' ORG')
-  console.log(isCohost, ' CO')
-
   if (user.id === group.organizerId || isCohost) {
     await deleteMe.destroy()
     return res.json({
@@ -382,6 +379,165 @@ router.delete('/:eventId', requireAuth, async (req, res, next) => {
     err.title = "Authorization error";
     err.status = 403;
     err.message = "User must be organizer";
+    return next(err);
+  }
+})
+
+// request attendance
+router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
+  let reqId = req.params.eventId
+  let event = await Event.findByPk(reqId)
+
+  if (!event) {
+    const err = new Error('Event not found')
+    err.title = "Event not found";
+    err.status = 404;
+    err.message = "Event couldn't be found";
+    return next(err);
+  }
+
+  event = event.toJSON()
+
+  let {user} = req
+  user = user.toJSON()
+
+  let membership = await Membership.findOne({
+    where: {
+      groupId: event.groupId,
+      userId: user.id,
+      status: {
+        [Op.ne]: 'pending'
+      }
+    }
+  })
+
+  if (!membership) {
+    const err = new Error('Authorization error')
+    err.title = "Authorization error";
+    err.status = 403;
+    err.message = "User must be a member";
+    return next(err);
+  }
+
+  let attendee = await Attendance.findOne({
+    where: {
+      eventId: event.id,
+      userId: user.id
+    }
+  })
+
+  let pendAtt = await Attendance.findOne({
+    where: {
+      eventId: event.id,
+      userId: user.id,
+      status: 'pending'
+    }
+  })
+
+  if (membership && !attendee && !pendAtt) {
+    let newAtt = await Attendance.create({
+      userId: user.id,
+      eventId: event.id,
+      status: 'pending'
+    })
+    return res.json({
+      userId: newAtt.userId,
+      eventId: newAtt.eventId,
+      status: newAtt.status
+    })
+  } else if (pendAtt) {
+    const err = new Error('Duplicate request')
+    err.title = "Duplicate request";
+    err.status = 400;
+    err.message = "Attendance has already been requested";
+    return next(err);
+  } else if (attendee) {
+    const err = new Error('Already attending')
+    err.title = "Already attending";
+    err.status = 400;
+    err.message = "User is already attending this event";
+    return next(err);
+  }
+})
+
+// change status of a attendee
+router.put('/:eventId/attendance', requireAuth, async (req, res, next) => {
+  let { user } = req;
+  user = user.toJSON();
+  const { userId, status } = req.body;
+
+  let event = await Event.findByPk(req.params.eventId)
+
+  if (!event) {
+    const err = new Error('Event not found')
+    err.title = "Event not found";
+    err.status = 404;
+    err.message = "Event couldn't be found";
+    return next(err);
+  }
+
+  event = event.toJSON()
+
+  if (status === 'pending'){
+    const err = new Error('Validation Error')
+    err.title = "Validation Error";
+    err.status = 400;
+    err.message = "Cannot change a attendance status to pending";
+    return next(err);
+  }
+
+  let isAttending = await Attendance.findOne({
+    where: {
+      userId: userId,
+      eventId: req.params.eventId
+    }
+  })
+
+  if (!isAttending) {
+    const err = new Error('Attendee not found')
+    err.title = "Attendee not found";
+    err.status = 404;
+    err.message = "Attendance between the user and the event does not exits";
+    return next(err);
+  }
+
+  let isOrganizer = await Group.findOne({
+    where: {
+      id: event.groupId,
+      organizerId: user.id
+    }
+  })
+
+  const isCohost = await Membership.findOne({
+    where: {
+      groupId: event.groupId,
+      userId: user.id,
+      status: 'co-host'
+    }
+  })
+  console.log(isCohost.userId)
+
+
+  if (isOrganizer || isCohost) {
+    let attendee = await Attendance.findOne({
+      where: {
+        userId: userId,
+        eventId: event.id
+      }
+    })
+    attendee.status = status
+    await attendee.save()
+    return res.json({
+      id: attendee.id,
+      userId: attendee.userId,
+      eventId: attendee.eventId,
+      status: attendee.status
+    })
+  } else {
+    const err = new Error('Authorization error')
+    err.title = "Authorization error";
+    err.status = 403;
+    err.message = "User must be organizer or cohost";
     return next(err);
   }
 

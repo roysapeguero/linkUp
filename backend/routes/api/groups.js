@@ -2,6 +2,7 @@ const express = require('express')
 
 const { requireAuth } = require('../../utils/auth');
 const { User, Group, Membership, GroupImage, Venue, Event, Attendance, EventImage} = require('../../db/models');
+const { Op } = require("sequelize")
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -368,62 +369,78 @@ router.get('/:groupId/events', async (req, res, next) => {
 
 // get all members of a group by id
 router.get('/:groupId/members', async (req, res, next) => {
+  const { user } = req;
+  const allMembers = [];
+  const membersArr = [];
+
   let group = await Group.findByPk(req.params.groupId)
 
+  const isCohost = await Membership.findOne({
+    where: {
+      groupId: req.params.groupId,
+      userId: user.id,
+      status: 'co-host'
+    }
+  })
+
+  const isPending = await Membership.findOne({
+    where: {
+      groupId: req.params.groupId,
+      userId: user.id,
+      status: 'pending'
+    }
+  })
+
+  let members;
+
   if (!group) {
-    const err = new Error("Group not found");
+    const err = new Error("Group does not exist");
     err.status = 404;
-    err.title = "Group not found";
+    err.title = "Group does not exist";
     err.errors = ["Group couldn't be found"];
     return next(err);
   }
 
   group = group.toJSON()
 
-  let members = await Membership.findAll({
-    where: {
-      groupId: group.id
-    }
-  })
-
-  let allUsers = []
-  for (let member of members) {
-    member = await User.findOne({
+  if (group.organizerId === user.id || isCohost ) {
+    members = await Membership.findAll({
       where: {
-        id: member.id
-      },
-      attributes: ['id', 'firstName', 'lastName']
+        groupId: req.params.groupId
+      }
     })
-
-    let memStatus = await Membership.findOne({
+  } else {
+    members = await Membership.findAll({
       where: {
-        userId: member.id
-      },
-      attributes: ['status']
+        groupId: req.params.groupId,
+        status: {
+          [Op.or]: ['co-host', 'member']
+        }
+      }
     })
-
-    const { user }= req;
-
-    user.toJSON();
-    console.log(user.id)
-    if (user.id === group.organizerId) {
-      member = member.toJSON()
-      member.Membership = memStatus
-
-      allUsers.push(member)
-    } else if (user.id !== group.organizerId && memStatus.status !== 'pending'){
-      member = member.toJSON()
-      member.Membership = memStatus
-
-      allUsers.push(member)
-    }
   }
 
-  res.json({
-    Members: allUsers
+  members.forEach(member => {
+      membersArr.push(member.toJSON())
   })
+
+  for (let i = 0; i < membersArr.length; i++) {
+    const member = membersArr[i]
+    let user = await User.findByPk(member.userId, {
+      attributes: ['id', 'firstName', 'lastName'],
+      include: {
+          model: Membership,
+          attributes: ['status']
+      }
+    })
+    user = user.toJSON()
+    user.Membership = user.Memberships[0]
+    delete user.Memberships
+    allMembers.push(user)
+  }
+  res.json({ Members: allMembers })
 })
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 // Create a venue for a group
 router.post('/:groupId/venues', requireAuth, validateVenue, async (req, res, next) => {
   const { address, city, state, lat, lng } = req.body;
@@ -618,6 +635,205 @@ router.delete('/:groupId', requireAuth, async (req, res, next) => {
     err.message = "User must be organizer";
     return next(err);
   }
+
+})
+
+// request membership
+router.post('/:groupId/membership', requireAuth, async (req, res, next) => {
+  let reqId = req.params.groupId
+  let group = await Group.findByPk(reqId)
+
+  if (!group) {
+    const err = new Error('Group not found')
+    err.title = "Group not found";
+    err.status = 404;
+    err.message = "Group couldn't be found";
+    return next(err);
+  }
+
+  let {user} = req
+  user = user.toJSON()
+  let membership = await Membership.findOne({
+    where: {
+      groupId: reqId,
+      userId: user.id
+    }
+  })
+
+  if (!membership) {
+    let newMem = await Membership.create({
+      userId: user.id,
+      groupId: group.id,
+      status: 'pending'
+    })
+    return res.json({
+      memberId: newMem.id,
+      status: newMem.status
+    })
+  } else if (membership.status === 'pending') {
+    const err = new Error('Duplicate request')
+    err.title = "Duplicate request";
+    err.status = 400;
+    err.message = "Membership has already been requested";
+    return next(err);
+  } else {
+    const err = new Error('Already member')
+    err.title = "Already member";
+    err.status = 400;
+    err.message = "User is already a member of this group";
+    return next(err);
+  }
+})
+
+// change status of a member
+router.put('/:groupId/membership', requireAuth, async (req, res, next) => {
+  let {user} = req;
+  user = user.toJSON();
+  const { memberId, status } = req.body;
+
+  let group = await Group.findByPk(req.params.groupId)
+
+  if (!group) {
+    const err = new Error('Group not found')
+    err.title = "Group not found";
+    err.status = 404;
+    err.message = "Group couldn't be found";
+    return next(err);
+  }
+
+  if (status === 'pending'){
+    const err = new Error('Validation Error')
+    err.title = "Validation Error";
+    err.status = 400;
+    err.message = "Cannot change a membership status to pending";
+    return next(err);
+  }
+
+
+  let isMember = await Membership.findOne({
+    where: {
+      userId: memberId,
+      groupId: req.params.groupId
+    }
+  })
+
+  if (!isMember) {
+    const err = new Error('Member not found')
+    err.title = "Member not found";
+    err.status = 404;
+    err.message = "Membership between the user and this group does not exist";
+    return next(err);
+  }
+
+
+  let isOrganizer = await Group.findOne({
+    where: {
+      id: req.params.groupId,
+      organizerId: user.id
+    }
+  })
+
+  const isCohost = await Membership.findOne({
+    where: {
+      groupId: req.params.groupId,
+      userId: user.id,
+      status: 'co-host'
+    }
+  })
+
+  if (!isOrganizer && status === 'co-host') {
+    const err = new Error('Authorization error')
+    err.title = "Authorization error";
+    err.status = 403;
+    err.message = "User must be organizer";
+    return next(err);
+  }
+
+  if (isOrganizer || isCohost) {
+    let member = await Membership.findOne({
+      where: {
+        userId: memberId,
+        groupId: req.params.groupId
+      }
+    })
+    member.status = status
+    await member.save()
+    return res.json({
+      id: member.id,
+      groupId: member.groupId,
+      memberId: memberId,
+      status: member.status
+    })
+  } else {
+    const err = new Error('Authorization error')
+    err.title = "Authorization error";
+    err.status = 403;
+    err.message = "User must be organizer or cohost";
+    return next(err);
+  }
+})
+
+// delete a member
+router.delete('/:groupId/membership', requireAuth, async (req, res, next) => {
+  let reqGroupId = req.params.groupId;
+  let { memberId } = req.body;
+  let { user } = req
+
+  let group = await Group.findByPk(reqGroupId);
+
+  if (!group) {
+    const err = new Error('Group not found')
+    err.title = "Group not found";
+    err.status = 404;
+    err.message = "Group couldn't be found";
+    return next(err);
+  }
+
+  let reqUser = await User.findByPk(memberId)
+
+  if (!reqUser) {
+    const err = new Error('Validation Error')
+    err.title = 'Validation Error';
+    err.status = 400;
+    err.message = "User couldn't be found";
+    return next(err);
+  }
+
+  let isMember = await Membership.findOne({
+    where: {
+      userId: memberId,
+      groupId: req.params.groupId
+    }
+  })
+
+  if (!isMember) {
+    const err = new Error('Member not found')
+    err.title = "Member not found";
+    err.status = 404;
+    err.message = "Membership between the user and this group does not exist";
+    return next(err);
+  }
+
+  let isOrganizer = await Group.findOne({
+    where: {
+      id: req.params.groupId,
+      organizerId: user.id
+    }
+  })
+
+  if (memberId === user.id || isOrganizer) {
+    await isMember.destroy()
+    return res.json({
+      message: "Successfully deleted membership from group",
+    })
+  } else {
+    const err = new Error('Authorization error')
+    err.title = "Authorization error";
+    err.status = 403;
+    err.message = "User must be owner of the group or deletion request member";
+    return next(err);
+  }
+
 
 })
 
