@@ -667,7 +667,7 @@ router.post('/:groupId/membership', requireAuth, async (req, res, next) => {
       status: 'pending'
     })
     return res.json({
-      memberId: newMem.id,
+      memberId: newMem.userId,
       status: newMem.status
     })
   } else if (membership.status === 'pending') {

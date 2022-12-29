@@ -488,7 +488,7 @@ router.put('/:eventId/attendance', requireAuth, async (req, res, next) => {
 
   let isAttending = await Attendance.findOne({
     where: {
-      userId: userId,
+      userId: req.body.userId,
       eventId: req.params.eventId
     }
   })
@@ -515,13 +515,12 @@ router.put('/:eventId/attendance', requireAuth, async (req, res, next) => {
       status: 'co-host'
     }
   })
-  console.log(isCohost.userId)
 
 
   if (isOrganizer || isCohost) {
     let attendee = await Attendance.findOne({
       where: {
-        userId: userId,
+        userId: req.body.userId,
         eventId: event.id
       }
     })
