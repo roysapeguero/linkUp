@@ -1,38 +1,34 @@
-const express = require('express')
+const express = require("express");
 
-const { requireAuth } = require('../../utils/auth');
-const { Venue, User, Group, Membership } = require('../../db/models');
+const { requireAuth } = require("../../utils/auth");
+const { Venue, Group, Membership } = require("../../db/models");
 
-const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
+const { check } = require("express-validator");
+const { handleValidationErrors } = require("../../utils/validation");
 
 const router = express.Router();
 
 const validateVenue = [
-  check('address')
+  check("address")
     .exists({ checkFalsy: true })
-    .isLength({ min: 1, max: 60})
+    .isLength({ min: 1, max: 60 })
     .withMessage("Street address is required"),
-  check('lat')
+  check("lat")
     .exists({ checkFalsy: true })
     .withMessage("Latitude is not valid"),
-  check('lng')
+  check("lng")
     .exists({ checkFalsy: true })
     .withMessage("Longitude is not valid"),
-  check('city')
-    .exists({ checkFalsy: true })
-    .withMessage("City is required"),
-  check('state')
-    .exists({ checkFalsy: true })
-    .withMessage("State is required"),
-  handleValidationErrors
+  check("city").exists({ checkFalsy: true }).withMessage("City is required"),
+  check("state").exists({ checkFalsy: true }).withMessage("State is required"),
+  handleValidationErrors,
 ];
 
-// Edit venue by id
-router.put('/:venueId', requireAuth, validateVenue, async (req, res, next) => {
+// Edit a Venue specified by its id
+router.put("/:venueId", requireAuth, validateVenue, async (req, res, next) => {
   const { address, city, state, lat, lng } = req.body;
 
-  const reqVenue = await Venue.scope('nonoScope').findByPk(req.params.venueId)
+  const reqVenue = await Venue.scope("nonoScope").findByPk(req.params.venueId);
 
   if (!reqVenue) {
     const err = new Error("Venue does not exist");
@@ -42,21 +38,21 @@ router.put('/:venueId', requireAuth, validateVenue, async (req, res, next) => {
     return next(err);
   }
 
-  let { user }= req;
+  let { user } = req;
   let group = await Group.findOne({
     where: {
-      id: reqVenue.groupId
-    }
-  })
+      id: reqVenue.groupId,
+    },
+  });
 
   let membership = await Membership.findOne({
     where: {
-      userId: user.id
-    }
-  })
+      userId: user.id,
+    },
+  });
 
   if (!membership) {
-    const err = new Error('Authorization error')
+    const err = new Error("Authorization error");
     err.title = "Authorization error";
     err.status = 403;
     err.message = "User must be organizer or co-host";
@@ -67,16 +63,19 @@ router.put('/:venueId', requireAuth, validateVenue, async (req, res, next) => {
   user = user.toJSON();
   group = group.toJSON();
 
-  console.log(user.id === group.organizerId)
+  console.log(user.id === group.organizerId);
 
-  if (user.id === group.organizerId || (membership.groupId === group.id && membership.status === 'co-host')) {
-    reqVenue.address = address
-    reqVenue.city = city
-    reqVenue.state = state
-    reqVenue.lat = lat
-    reqVenue.lng = lng
+  if (
+    user.id === group.organizerId ||
+    (membership.groupId === group.id && membership.status === "co-host")
+  ) {
+    reqVenue.address = address;
+    reqVenue.city = city;
+    reqVenue.state = state;
+    reqVenue.lat = lat;
+    reqVenue.lng = lng;
 
-    reqVenue.save()
+    reqVenue.save();
     await res.json({
       id: reqVenue.id,
       groupId: reqVenue.groupId,
@@ -84,17 +83,15 @@ router.put('/:venueId', requireAuth, validateVenue, async (req, res, next) => {
       city: reqVenue.city,
       state: reqVenue.state,
       lat: reqVenue.lat,
-      lng: reqVenue.lng
-    })
+      lng: reqVenue.lng,
+    });
   } else {
-    const err = new Error('Authorization error')
+    const err = new Error("Authorization error");
     err.title = "Authorization error";
     err.status = 403;
     err.message = "User must be organizer or co-host";
     return next(err);
   }
-})
-
-
+});
 
 module.exports = router;
