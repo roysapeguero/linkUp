@@ -34,7 +34,7 @@ const validateGroup = [
     .isIn(["Online", "In person"])
     .withMessage("Type must be 'Online' or 'In person'"),
   check("private")
-    .exists({ checkFalsy: true })
+    .exists({ checkNull: true })
     .isBoolean()
     .withMessage("Private must be a boolean"),
   check("city").exists({ checkFalsy: true }).withMessage("City is required"),
@@ -149,7 +149,9 @@ router.get("/current", requireAuth, async (req, res, next) => {
   for (let memOf of memOfIds) {
     memOf = memOf.toJSON();
     let group = await Group.findByPk(memOf.groupId);
-
+    if (memOf && group.organizerId === user.id) {
+      continue
+    }
     orgGroups.push(group);
   }
 
@@ -394,24 +396,16 @@ router.post(
       return next(err);
     }
 
-    let membership = await Membership.findOne({
+    let isCohost = await Membership.findOne({
       where: {
         userId: user.id,
+        groupId: group.id,
+        status: 'co-host'
       },
     });
 
-    if (!membership) {
-      const err = new Error("Authorization error");
-      err.title = "Authorization error";
-      err.status = 403;
-      err.message = "User must be organizer or co-host";
-      return next(err);
-    }
-
-    membership = membership.toJSON();
     if (
-      user.id === group.organizerId ||
-      (membership.groupId === group.id && membership.status === "co-host")
+      user.id === group.organizerId || isCohost
     ) {
       const newVenue = await Venue.create({
         groupId: group.id,

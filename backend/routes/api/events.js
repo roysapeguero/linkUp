@@ -62,7 +62,7 @@ const validatePagination = [
     ),
   check("name")
     .optional()
-    .isAlphanumeric("en-US")
+    .isString()
     .withMessage("Name must be a string"),
   check("type")
     .optional()
@@ -96,8 +96,7 @@ router.get("/", validatePagination, async (req, res, next) => {
 
   let where = {};
 
-  console.log("console ", startDate);
-  if (name && !Number.isInteger(+name)) where.name = { [Op.substring]: name };
+  if (name) where.name = { [Op.substring]: name };
 
   if (type) where.type = type;
 
