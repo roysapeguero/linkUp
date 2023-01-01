@@ -38,7 +38,7 @@ const validateEvent = [
     .withMessage("Description is required"),
   check("startDate")
     .exists({ checkFalsy: true })
-    .isAfter("2022-12-19")
+    .isAfter("2022-12-31")
     .withMessage("Start date must be in the future"),
   check("endDate")
     .exists({ checkFalsy: true })
@@ -96,12 +96,12 @@ router.get("/", validatePagination, async (req, res, next) => {
 
   let where = {};
 
-  if (name) where.name = { [Op.substring]: name };
+  if (name) where.name = { [Op.like]: `%${name}%` };
 
   if (type) where.type = type;
 
   if (startDate) {
-    where.startDate = { [Op.substring]: startDate };
+    where.startDate = { [Op.like]: `%${startDate}%` };
   }
 
   const events = await Event.scope("nonoScope").findAll({
@@ -202,9 +202,9 @@ router.get("/:eventId", async (req, res, next) => {
 
   for (let eventImage of eventImages) {
     if (!eventImage) {
-      event.previewImage = "No images yet";
+      event.EventImages = "No images yet";
     } else {
-      event.previewImage = eventImages;
+      event.EventImages = eventImages;
     }
   }
 
@@ -390,7 +390,6 @@ router.delete("/:eventId", requireAuth, async (req, res, next) => {
     await deleteMe.destroy();
     return res.json({
       message: "Successfully deleted",
-      statusCode: 200,
     });
   } else {
     const err = new Error("Authorization error");
@@ -668,13 +667,12 @@ router.delete("/:eventId/attendance", requireAuth, async (req, res, next) => {
     await deleteMe.destroy();
     return res.json({
       message: "Successfully deleted",
-      statusCode: 200,
     });
   } else {
     const err = new Error("Authorization error");
     err.title = "Authorization error";
     err.status = 403;
-    err.message = "User must be organizer";
+    err.message = "User must be organizer or request user to delete an attendance";
     return next(err);
   }
 });

@@ -80,9 +80,11 @@ const validateVenue = [
     .withMessage("Street address is required"),
   check("lat")
     .exists({ checkFalsy: true })
+    .isNumeric()
     .withMessage("Latitude is not valid"),
   check("lng")
     .exists({ checkFalsy: true })
+    .isNumeric()
     .withMessage("Longitude is not valid"),
   check("city").exists({ checkFalsy: true }).withMessage("City is required"),
   check("state").exists({ checkFalsy: true }).withMessage("State is required"),
@@ -531,9 +533,11 @@ router.post(
       return next(err);
     }
 
-    const membership = await Membership.findOne({
+    const isCohost = await Membership.findOne({
       where: {
         userId: user.id,
+        groupId: groupId,
+        status: 'co-host'
       },
     });
 
@@ -548,16 +552,15 @@ router.post(
     }
 
     if (
-      user.id === group.organizerId ||
-      (membership.groupId === group.id && membership.status === "co-host")
-    ) {
+      user.id === group.organizerId || isCohost)
+     {
       const newEvent = await Event.create({
         groupId: group.id,
         venueId,
         name,
         type,
         capacity,
-        price,
+        price: price,
         description,
         startDate,
         endDate,

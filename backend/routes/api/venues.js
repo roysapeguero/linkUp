@@ -15,9 +15,11 @@ const validateVenue = [
     .withMessage("Street address is required"),
   check("lat")
     .exists({ checkFalsy: true })
+    .isNumeric()
     .withMessage("Latitude is not valid"),
   check("lng")
     .exists({ checkFalsy: true })
+    .isNumeric()
     .withMessage("Longitude is not valid"),
   check("city").exists({ checkFalsy: true }).withMessage("City is required"),
   check("state").exists({ checkFalsy: true }).withMessage("State is required"),
@@ -46,7 +48,7 @@ router.put("/:venueId", requireAuth, validateVenue, async (req, res, next) => {
   });
   group = group.toJSON();
 
-  let membership = await Membership.findOne({
+  let isCohost = await Membership.findOne({
     where: {
       userId: user.id,
       groupId: group.id,
