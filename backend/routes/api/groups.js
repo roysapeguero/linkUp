@@ -581,7 +581,7 @@ router.post(
         name: newEvent.name,
         type: newEvent.type,
         capacity: newEvent.capacity,
-        price: newEvent.price,
+        price: +newEvent.price,
         description: newEvent.description,
         startDate: newEvent.startDate,
         endDate: newEvent.endDate,

@@ -209,6 +209,7 @@ router.get("/:eventId", async (req, res, next) => {
     }
   }
 
+  event.price = +event.price
   event.numAttending = numAttending;
 
   res.json(event);
@@ -334,7 +335,7 @@ router.put("/:eventId", requireAuth, validateEvent, async (req, res, next) => {
     reqEvent.name = name;
     reqEvent.type = type;
     reqEvent.capacity = capacity;
-    reqEvent.price = price;
+    reqEvent.price = +price;
     reqEvent.description = description;
     reqEvent.startDate = startDate;
     reqEvent.endDate = endDate;
@@ -348,7 +349,7 @@ router.put("/:eventId", requireAuth, validateEvent, async (req, res, next) => {
       name: reqEvent.name,
       type: reqEvent.type,
       capacity: reqEvent.capacity,
-      price: reqEvent.price,
+      price: +reqEvent.price,
       description: reqEvent.description,
       startDate: reqEvent.startDate,
       endDate: reqEvent.endDate,
