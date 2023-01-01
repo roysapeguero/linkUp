@@ -425,8 +425,8 @@ router.post(
         address: newVenue.address,
         city: newVenue.city,
         state: newVenue.state,
-        lat: newVenue.lat,
-        lng: newVenue.lng,
+        lat: +newVenue.lat,
+        lng: +newVenue.lng,
       });
     } else {
       const err = new Error("Authorization error");
