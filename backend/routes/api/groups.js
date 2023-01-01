@@ -375,7 +375,7 @@ router.get("/:groupId/venues", requireAuth, async (req, res, next) => {
   });
 
   res.json({
-    Venues: groupVenues,
+    Venues: groupVenues
   });
 });
 

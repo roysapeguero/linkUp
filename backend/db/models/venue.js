@@ -38,7 +38,8 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         min: -90,
         max: 90
-      }
+      },
+      raw: true
     },
     lng: {
       type: DataTypes.DECIMAL,
@@ -46,7 +47,8 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         min: -180,
         max: 180
-      }
+      },
+      raw: true
     }
   }, {
     sequelize,

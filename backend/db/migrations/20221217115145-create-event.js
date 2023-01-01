@@ -44,7 +44,8 @@ module.exports = {
       },
       price: {
         type: Sequelize.DECIMAL(4, 2),
-        allowNull: false
+        allowNull: false,
+        raw: true
       },
       startDate: {
         type: Sequelize.DATEONLY,
