@@ -374,6 +374,13 @@ router.get("/:groupId/venues", requireAuth, async (req, res, next) => {
     },
   });
 
+  let resVenues = []
+
+  for (let groupVenue of groupVenues) {
+    groupVenue.lat = +groupVenue.lat;
+    groupVenue.lng = +groupVenue.lng;
+  }
+
   res.json({
     Venues: groupVenues
   });
