@@ -96,12 +96,12 @@ router.get("/", validatePagination, async (req, res, next) => {
 
   let where = {};
 
-  if (name) where.name = { [Op.like]: `%${name}%` };
+  if (name) where.name = name;
 
   if (type) where.type = type;
 
   if (startDate) {
-    where.startDate = { [Op.like]: `%${startDate}%` };
+    where.startDate = startDate;
   }
 
   const events = await Event.scope("nonoScope").findAll({
@@ -165,6 +165,7 @@ router.get("/", validatePagination, async (req, res, next) => {
 // Get details of an Event specified by its id
 router.get("/:eventId", async (req, res, next) => {
   let event = await Event.scope("nonoScope").findByPk(req.params.eventId, {
+
     include: [
       {
         model: Group,

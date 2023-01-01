@@ -536,7 +536,7 @@ router.post(
     const isCohost = await Membership.findOne({
       where: {
         userId: user.id,
-        groupId: groupId,
+        groupId: group.id,
         status: 'co-host'
       },
     });
