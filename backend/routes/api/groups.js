@@ -236,13 +236,13 @@ router.post("/", requireAuth, validateGroup, async (req, res, next) => {
 
   const { user } = req;
   const newGroup = await Group.create({
-    name: name,
+    name,
     organizerId: user.id,
-    about: about,
-    type: type,
-    private: private,
-    city: city,
-    state: state,
+    about,
+    type,
+    private,
+    city,
+    state,
   });
   res.status(201);
   res.json(newGroup);
@@ -274,8 +274,8 @@ router.post("/:groupId/images", requireAuth, async (req, res, next) => {
   if (user.id === group.organizerId) {
     const reqImg = await GroupImage.create({
       groupId: group.id,
-      url: url,
-      preview: preview,
+      url,
+      preview,
     });
     res.json({
       id: reqImg.id,
@@ -418,11 +418,11 @@ router.post(
     ) {
       const newVenue = await Venue.create({
         groupId: group.id,
-        address: address,
-        city: city,
-        state: state,
-        lat: lat,
-        lng: lng,
+        address,
+        city,
+        state,
+        lat,
+        lng
       });
 
       newVenue.save();
@@ -567,7 +567,7 @@ router.post(
         name,
         type,
         capacity,
-        price: price,
+        price,
         description,
         startDate,
         endDate,

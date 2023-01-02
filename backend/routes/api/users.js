@@ -55,7 +55,7 @@ router.post("/", validateSignup, async (req, res, next) => {
     username,
     password,
     firstName,
-    lastName,
+    lastName
   });
 
   await setTokenCookie(res, user);
@@ -64,7 +64,14 @@ router.post("/", validateSignup, async (req, res, next) => {
   delete user["createdAt"];
   delete user["updatedAt"];
 
-  return res.json(user);
+  return res.json({
+    id: user.id,
+		firstName: user.firstName,
+		lastName: user.lastName,
+		email: user.email,
+    username: user.username,
+		token: req.cookies.token
+  });
 });
 
 module.exports = router;

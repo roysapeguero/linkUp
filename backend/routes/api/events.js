@@ -268,8 +268,8 @@ router.post("/:eventId/images", requireAuth, async (req, res, next) => {
   if (attending || isOrganizer || isCohost) {
     const reqImg = await EventImage.create({
       eventId: event.id,
-      url: url,
-      preview: preview,
+      url,
+      preview,
     });
     res.json({
       id: reqImg.id,
