@@ -64,12 +64,20 @@ const validateEvent = [
     .withMessage("Description is required"),
   check("startDate")
     .exists({ checkFalsy: true })
-    .isAfter("2022-12-19")
-    .withMessage("Start date must be in the future"),
+    .custom((value, { req }) => {
+      if(new Date(value) <= new Date()) {
+        throw new Error ("Start date must be in the future");
+      }
+      return true;
+    }),
   check("endDate")
     .exists({ checkFalsy: true })
-    .isAfter()
-    .withMessage("End date is less than start date"),
+    .custom((value, { req }) => {
+      if(new Date(value) <= new Date(req.body.startDate)) {
+        throw new Error ('End date must be after start date');
+      }
+      return true;
+    }),
   handleValidationErrors,
 ];
 
