@@ -221,6 +221,13 @@ router.get("/:groupId", async (req, res, next) => {
     },
   });
 
+  if (venues) {
+    for (let venue of venues) {
+      venue.lat = +venue.lat
+      venue.lng = +venue.lng
+    }
+  }
+
   group = group.toJSON();
 
   group.numMembers = numMembers;

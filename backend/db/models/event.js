@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATEONLY,
       allowNull: false,
       validate: {
-        isAfter: "2022-12-19"
+        isAfter: "2023-01-03"
       }
     },
     endDate: {

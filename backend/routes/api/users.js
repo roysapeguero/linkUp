@@ -37,9 +37,14 @@ router.post("/", validateSignup, async (req, res, next) => {
 
   const emailExists = await User.findOne({
     where: {
-      email: email,
-    },
-    attributes: ["id", "firstName", "lastName", "email", "username"],
+      email: email
+    }
+  });
+
+  const usernameExists = await User.findOne({
+    where: {
+      username: username
+    }
   });
 
   if (emailExists) {
@@ -47,6 +52,14 @@ router.post("/", validateSignup, async (req, res, next) => {
     err.status = 403;
     err.title = "Email alreay exists";
     err.errors = ["User with that email already exists"];
+    return next(err);
+  }
+
+  if (usernameExists) {
+    const err = new Error("User already exists");
+    err.status = 403;
+    err.title = "Username alreay exists";
+    err.errors = ["User with that username already exists"];
     return next(err);
   }
 
