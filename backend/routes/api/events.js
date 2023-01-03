@@ -38,7 +38,7 @@ const validateEvent = [
     .withMessage("Description is required"),
   check("startDate")
     .exists({ checkFalsy: true })
-    .isAfter("2022-12-31")
+    .isAfter("2022-01-03")
     .withMessage("Start date must be in the future"),
   check("endDate")
     .exists({ checkFalsy: true })
