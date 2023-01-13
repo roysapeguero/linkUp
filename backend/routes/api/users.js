@@ -78,12 +78,13 @@ router.post("/", validateSignup, async (req, res, next) => {
   delete user["updatedAt"];
 
   return res.json({
-    id: user.id,
-		firstName: user.firstName,
-		lastName: user.lastName,
-		email: user.email,
-    username: user.username,
-		token: req.cookies.token
+    user: {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      username: user.username,
+    }
   });
 });
 

@@ -24,8 +24,4 @@ router.use("/event-images", eventImagesRouter);
 
 router.use("/venues", venuesRouter);
 
-router.post("/test", (req, res) => {
-  res.json({ requestBody: req.body });
-});
-
 module.exports = router;

@@ -57,7 +57,7 @@ router.delete("/", (_req, res) => {
 });
 
 // get current user
-router.get("/", restoreUser, requireAuth, (req, res) => {
+router.get("/", restoreUser, (req, res) => {
   const { user } = req;
   if (user) {
     return res.json({
