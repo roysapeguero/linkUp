@@ -14,6 +14,15 @@ form {
   border-radius: 8px;
 }
 
+.close-modal {
+  font-size: medium;
+  color: #757575;
+  cursor: pointer;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+}
+
 .modal-form-container {
   padding: 20px 40px;
   width: 400px;

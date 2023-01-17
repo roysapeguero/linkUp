@@ -26,6 +26,9 @@ function LoginFormModal() {
 
   return (
     <div className="modal-container">
+      <div className="close-modal" onClick={closeModal}>
+        <i className="fa-solid fa-x"></i>
+      </div>
       <div className="modal-form-container">
         <h1 className="modal-form-title">Log In</h1>
         <form onSubmit={handleSubmit}>
