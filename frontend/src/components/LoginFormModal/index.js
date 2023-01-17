@@ -57,9 +57,9 @@ function LoginFormModal() {
               required
             />
           </label>
-          <button className="button" type="submit">Log In</button>
+          <button id="btns3" type="submit">Log In</button>
           <button
-            className="button"
+            id="btns4"
             type="submit"
             onClick={(e) => {
               setCredential("demo@user.io");

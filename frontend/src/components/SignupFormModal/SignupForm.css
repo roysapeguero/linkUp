@@ -44,7 +44,7 @@ form {
   width: 100%;
 }
 
-.button {
+#btns5 {
   display: block;
   height: 40px;
   font-size: 20px;
@@ -58,7 +58,7 @@ form {
   margin-bottom: 15px;
 }
 
-.button:hover {
+#btns5:hover {
   background-color: #f65858e2;
   cursor: pointer;
 }
