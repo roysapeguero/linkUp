@@ -3,19 +3,21 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 100%;
 }
 
 .page-left {
   width: 50%;
   flex-direction: column;
   display: flex;
-  margin: 5px 15px;
+  margin: 0 15px;
 }
 
 .page-title {
   width: 100%;
   font-size: 48px;
   font-weight: 800;
+  margin-top: 50px;
 }
 
 .page-description {
@@ -33,7 +35,6 @@
 }
 
 .main-img {
-
   height: 232px;
   width: 100%;
 }
@@ -65,7 +66,7 @@
   justify-content: center;
 }
 
-.btns {
+#btn1, #btn2 {
   display: block;
   height: 40px;
   font-size: 20px;
@@ -79,7 +80,7 @@
   margin: 50px 15px;
 }
 
-.btns:hover {
+#btn1:hover, #btn2:hover {
   background-color: #f65858e2;
   cursor: pointer;
 }
@@ -92,8 +93,7 @@
   }
 
   .page-left {
-    width: 100%;
-    height: fit-content;
+    width: 500px;
     margin: 5px 25px;
   }
 
@@ -116,14 +116,10 @@
   .yellow-blob, .red-blob {
     visibility: hidden;
   }
-
 }
 
 @media screen and (min-width: 1120px) {
-
   .splash-page-content {
     margin: 5px 50px;
-
   }
-
 }

@@ -13,13 +13,13 @@ function Navigation({ isLoaded }){
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <li>
+      <>
         <ProfileButton user={sessionUser} />
-      </li>
+      </>
     );
   } else {
     sessionLinks = (
-      <li>
+      <div>
         <OpenModalButton
           buttonText="Log In"
           modalComponent={<LoginFormModal />}
@@ -28,17 +28,19 @@ function Navigation({ isLoaded }){
           buttonText="Sign Up"
           modalComponent={<SignupFormModal />}
         />
-      </li>
+      </div>
     );
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
-      </li>
-      {isLoaded && sessionLinks}
-    </ul>
+    <div className='nav-bar'>
+      <div className='nav-bar-left'>
+        <NavLink exact to="/"><img className='home-logo' src='https://see.fontimg.com/api/renderfont4/dEqR/eyJyIjoiZnMiLCJoIjoxMDIsInciOjIwMDAsImZzIjo1MSwiZmdjIjoiI0Y2NTg1OCIsImJnYyI6IiNGRkZGRkYiLCJ0IjoxfQ/bGlua1Vw/lemon-jelly-personal-use.png' /></NavLink>
+      </div>
+      <div className='nav-bar-right'>
+        {isLoaded && sessionLinks}
+      </div>
+    </div>
   );
 }
 

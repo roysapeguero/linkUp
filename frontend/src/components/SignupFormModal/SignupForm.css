@@ -1,8 +1,6 @@
 form {
   display: block;
   width: 100%;
-  /* letter-spacing: .05em; */
-  /* font-family: "Graphik Bold"; */
 }
 
 .modal-form-title {
@@ -33,7 +31,6 @@ form {
 .input-label {
   font-size: 16px;
   font-weight: 500;
-  /* text-size-adjust: 100%; */
 }
 
 .input-item {
@@ -63,6 +60,5 @@ form {
 
 .button:hover {
   background-color: #f65858e2;
-  /* background-color: #f38d8d; */
   cursor: pointer;
 }
