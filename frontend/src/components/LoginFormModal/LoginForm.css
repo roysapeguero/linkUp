@@ -47,7 +47,7 @@ form {
   width: 100%;
 }
 
-.button {
+#btns3, #btns4 {
   display: block;
   height: 40px;
   font-size: 20px;
@@ -61,8 +61,7 @@ form {
   margin-bottom: 15px;
 }
 
-.button:hover {
+#btns3:hover, #btns4:hover {
   background-color: #f65858e2;
-  /* background-color: #f38d8d; */
   cursor: pointer;
 }
