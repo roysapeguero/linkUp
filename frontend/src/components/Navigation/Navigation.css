@@ -1,3 +1,39 @@
+
 .hidden {
 	display: none;
+}
+
+.home-logo {
+	width: 94px;
+	height: 34px;
+	margin: 5px;
+}
+
+.nav-bar {
+	margin: 10px;
+}
+
+.nav-bar-left {
+	display: inline;
+	float: left;
+}
+
+.nav-bar-right {
+	float: right;
+	display: flex;
+	height: 34px;
+}
+
+button {
+	font-family: -apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+	border: none;
+	background-color: transparent;
+	font-size: 15px;
+	color: rgb(33, 33, 33);
+	font-weight: 500;
+}
+
+button:hover {
+	cursor: pointer;
+	color: rgb(0, 130, 148);
 }
