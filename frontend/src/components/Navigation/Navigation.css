@@ -24,13 +24,14 @@
 	height: 34px;
 }
 
-button {
+button{
 	font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
 	border: none;
 	background-color: transparent;
 	font-size: 15px;
 	color: rgb(33, 33, 33);
 	font-weight: 500;
+	margin-top: 10px;
 }
 
 button:hover {

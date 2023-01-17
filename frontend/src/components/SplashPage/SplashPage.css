@@ -17,7 +17,6 @@
   width: 100%;
   font-size: 48px;
   font-weight: 800;
-  margin-top: 50px;
 }
 
 .page-description {
@@ -32,6 +31,8 @@
   position: relative;
   box-sizing: border-box;
   margin: 0;
+  margin-top: 50px;
+  padding-top: 0;
 }
 
 .main-img {
@@ -64,9 +65,10 @@
 .feature-buttons {
   display: flex;
   justify-content: center;
+  margin-top: 8%;
 }
 
-#btn1, #btn2 {
+#btns1, #btns2 {
   display: block;
   height: 40px;
   font-size: 20px;
@@ -80,11 +82,16 @@
   margin: 50px 15px;
 }
 
-#btn1:hover, #btn2:hover {
+#btns1:hover, #btns2:hover {
   background-color: #f65858e2;
   cursor: pointer;
 }
 
+@media screen and (max-width: 635px) {
+  .feature-buttons {
+    margin-top: 0;
+  }
+}
 
 @media screen and (max-width: 575px) {
   .splash-page-content {
@@ -94,7 +101,7 @@
 
   .page-left {
     width: 500px;
-    margin: 5px 25px;
+    margin: 50px 25px 0;
   }
 
   .page-title {
@@ -106,6 +113,7 @@
   }
 
   .page-right {
+    margin-top: 0;
     width: 500;
   }
 

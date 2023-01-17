@@ -19,8 +19,8 @@ function SplashPage() {
         </div>
       </div>
       <div className="feature-buttons">
-        <button id="btn1">All Groups</button>
-        <button id="btn2">All Events</button>
+        <button id="btns1">All Groups</button>
+        <button id="btns2">All Events</button>
       </div>
     </div>
   )
