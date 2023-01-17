@@ -19,8 +19,8 @@ form {
   color: #757575;
   cursor: pointer;
   position: absolute;
-  top: 8px;
-  left: 8px;
+  top: 10px;
+  right: 15px;
 }
 
 .modal-form-container {

@@ -1,0 +1,129 @@
+
+.splash-page-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.page-left {
+  width: 50%;
+  flex-direction: column;
+  display: flex;
+  margin: 5px 15px;
+}
+
+.page-title {
+  width: 100%;
+  font-size: 48px;
+  font-weight: 800;
+}
+
+.page-description {
+  width: 100%;
+  font-size: 16px;
+}
+
+.page-right {
+  display: inline-block;
+  width: 50%;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.main-img {
+
+  height: 232px;
+  width: 100%;
+}
+
+.yellow-blob {
+  width: 75%;
+  position: absolute;
+  top: 200;
+  right: 100;
+  z-index: -75;
+}
+
+.green-blob {
+  width: 500px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -75;
+}
+
+.red-blob {
+  position: absolute;
+  bottom: -200;
+  z-index: -75;
+}
+
+.feature-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.btns {
+  display: block;
+  height: 40px;
+  font-size: 20px;
+  font-weight: 600;
+  width: 200px;
+  background-color: rgb(246, 88, 88);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  margin: 50px 15px;
+}
+
+.btns:hover {
+  background-color: #f65858e2;
+  cursor: pointer;
+}
+
+
+@media screen and (max-width: 575px) {
+  .splash-page-content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .page-left {
+    width: 100%;
+    height: fit-content;
+    margin: 5px 25px;
+  }
+
+  .page-title {
+    font-size: 30px;
+  }
+
+  .page-description {
+    font-size: 16px;
+  }
+
+  .page-right {
+    width: 500;
+  }
+
+  .green-blob {
+    width: 80%;
+  }
+
+  .yellow-blob, .red-blob {
+    visibility: hidden;
+  }
+
+}
+
+@media screen and (min-width: 1120px) {
+
+  .splash-page-content {
+    margin: 5px 50px;
+
+  }
+
+}

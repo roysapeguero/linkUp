@@ -5,4 +5,5 @@ body {
   font-family: Graphik Meetup,-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
   color: #212121;
   word-break: break-word;
+  overflow: hidden;
 }
