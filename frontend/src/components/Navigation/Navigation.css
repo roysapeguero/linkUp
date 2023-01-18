@@ -24,6 +24,10 @@
 	height: 34px;
 }
 
+.profile-dropdown {
+	z-index: 1000;
+}
+
 button{
 	font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
 	border: none;
@@ -31,7 +35,7 @@ button{
 	font-size: 15px;
 	color: rgb(33, 33, 33);
 	font-weight: 500;
-	margin-top: 10px;
+	z-index: 100 !important;
 }
 
 button:hover {

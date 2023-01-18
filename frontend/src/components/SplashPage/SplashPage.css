@@ -1,3 +1,6 @@
+/* .splash-page-container {
+  position: fixed;
+} */
 
 .splash-page-content {
   display: flex;
@@ -68,7 +71,12 @@
   margin-top: 8%;
 }
 
-#btns1, #btns2 {
+.link {
+
+  text-decoration: none;
+}
+
+#btn1, #btn2 {
   display: block;
   height: 40px;
   font-size: 20px;

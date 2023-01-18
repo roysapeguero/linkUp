@@ -35,7 +35,7 @@ function Navigation({ isLoaded }){
   return (
     <div className='nav-bar'>
       <div className='nav-bar-left'>
-        <NavLink exact to="/"><img className='home-logo' src='https://see.fontimg.com/api/renderfont4/dEqR/eyJyIjoiZnMiLCJoIjoxMDIsInciOjIwMDAsImZzIjo1MSwiZmdjIjoiI0Y2NTg1OCIsImJnYyI6IiNGRkZGRkYiLCJ0IjoxfQ/bGlua1Vw/lemon-jelly-personal-use.png' alt='personal logo' /></NavLink>
+        <NavLink exact to="/"><img alt='' className='home-logo' src='https://see.fontimg.com/api/renderfont4/dEqR/eyJyIjoiZnMiLCJoIjoxMDIsInciOjIwMDAsImZzIjo1MSwiZmdjIjoiI0Y2NTg1OCIsImJnYyI6IiNGRkZGRkYiLCJ0IjoxfQ/bGlua1Vw/lemon-jelly-personal-use.png' /></NavLink>
       </div>
       <div className='nav-bar-right'>
         {isLoaded && sessionLinks}
