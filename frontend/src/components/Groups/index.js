@@ -8,7 +8,7 @@ const Groups = () => {
 const dispatch = useDispatch()
 const groupsObj = useSelector(state=> state.groups.allGroups)
 const groups = Object.values(groupsObj)
-const history = useHistory();
+// const history = useHistory();
 
 useEffect(() => {
   dispatch(getGroups())
