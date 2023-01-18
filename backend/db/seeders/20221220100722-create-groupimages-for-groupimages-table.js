@@ -12,7 +12,7 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         groupId: 1,
-        url: 'https://www.foodnavigator-usa.com/var/wrbm_gb_food_pharma/storage/images/publications/food-beverage-nutrition/foodnavigator-usa.com/article/2020/04/13/from-scratch-cooking-to-home-baking-what-coronavirus-fueled-trends-could-linger-post-pandemic/10903518-1-eng-GB/From-scratch-cooking-to-home-baking-What-coronavirus-fueled-trends-could-linger-post-pandemic.jpg',
+        url: 'https://preppykitchen.com/wp-content/uploads/2022/05/Naked-Cake-Recipe-Card.jpg',
         preview: true
       },
       {
@@ -22,7 +22,7 @@ module.exports = {
       },
       {
         groupId: 3,
-        url: 'https://www.southernliving.com/thmb/S88tSbQx8jDPhoDqpa9pKymJIQw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/cookies-and-cream-ice-cream-0419seo_011_0_0_0-2000-e7ac7ccf54b94ae2a5524545eec6dbfc.jpg',
+        url: 'https://blog.thermoworks.com/wp-content/uploads/2021/06/Ice_Cream_Compressed-43.jpg',
         preview: true
       },
       {
