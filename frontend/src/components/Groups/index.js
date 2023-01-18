@@ -28,7 +28,6 @@ const groupInfo = groups.map((group) => {
     <div onClick={() => handleGroupClick(group.id)} key = {group.id} className="group-container">
       <hr />
       <div className='img-container'>
-        {console.log(group.previewImage)}
         <img
           className='preview-img'
           src={group.previewImage !== 'No images yet' ? group.previewImage : "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"}
