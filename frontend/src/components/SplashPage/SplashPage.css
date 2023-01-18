@@ -1,3 +1,6 @@
+/* .splash-page-container {
+  position: fixed;
+} */
 
 .splash-page-content {
   display: flex;
@@ -64,6 +67,11 @@
 .feature-buttons {
   display: flex;
   justify-content: center;
+}
+
+.link {
+
+  text-decoration: none;
 }
 
 #btn1, #btn2 {

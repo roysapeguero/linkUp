@@ -1,4 +1,5 @@
 import "./SplashPage.css"
+import { NavLink } from "react-router-dom";
 
 function SplashPage() {
   return (
@@ -19,8 +20,8 @@ function SplashPage() {
         </div>
       </div>
       <div className="feature-buttons">
-        <button id="btn1">All Groups</button>
-        <button id="btn2">All Events</button>
+        <NavLink className="link" to='/groups'><button id="btn1">All Groups</button></NavLink>
+        <NavLink className="link" to='/events'><button id="btn2">All Events</button></NavLink>
       </div>
     </div>
   )
