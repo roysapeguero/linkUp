@@ -13,3 +13,7 @@
 .toggle-area-container {
   margin: 0 10px 0 5px;
 }
+
+.group-container:hover {
+  cursor: pointer;
+}
