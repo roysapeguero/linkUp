@@ -1,6 +1,5 @@
 import { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { getGroups } from '../../store/groups.js';
 import './Groups.css';
 
@@ -8,13 +7,13 @@ const Groups = () => {
 const dispatch = useDispatch()
 const groupsObj = useSelector(state=> state.groups.allGroups)
 const groups = Object.values(groupsObj)
-// const history = useHistory();
 
 useEffect(() => {
   dispatch(getGroups())
-}, [])
+}, [dispatch])
 
 if (!groups) return null;
+
 const groupInfo = groups.map((group) => {
   return (
     <div key = {group.id} className="group-container">
