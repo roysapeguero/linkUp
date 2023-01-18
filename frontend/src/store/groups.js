@@ -10,7 +10,7 @@ export const loadGroups = (groups) => {
   }
 }
 
-export const getGroup = (group) => {
+export const loadGroup = (group) => {
   return {
     type: GET_GROUP,
     payload: group
@@ -27,11 +27,11 @@ export const getGroups = () => async (dispatch) => {
   }
 }
 
-export const getGroupThunk = (groupId) => async (dispatch) => {
+export const getGroup = (groupId) => async (dispatch) => {
   const response = await csrfFetch(`/api/groups/${groupId}`)
   if (response.ok) {
     const data = await response.json()
-    dispatch(getGroup(data))
+    dispatch(loadGroup(data))
   }
 }
 

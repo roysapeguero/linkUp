@@ -1,5 +1,6 @@
 import { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { getGroups } from '../../store/groups.js';
 import './Groups.css';
 
@@ -8,18 +9,31 @@ const dispatch = useDispatch()
 const groupsObj = useSelector(state=> state.groups.allGroups)
 const groups = Object.values(groupsObj)
 
+const history = useHistory();
+const redirectOneGroupPage = groupId => history.push(`/groups/${groupId}`);
+
 useEffect(() => {
   dispatch(getGroups())
 }, [dispatch])
+
+const handleGroupClick = (groupId) => {
+  redirectOneGroupPage(groupId)
+}
 
 if (!groups) return null;
 
 const groupInfo = groups.map((group) => {
   return (
-    <div key = {group.id} className="group-container">
+
+    <div onClick={() => handleGroupClick(group.id)} key = {group.id} className="group-container">
       <hr />
       <div className='img-container'>
-        <img className='preview-img' alt='' src="https://secure.meetupstatic.com/photos/event/a/1/0/b/600_508961227.webp?w=1080" />
+        {console.log(group.previewImage)}
+        <img
+          className='preview-img'
+          src={group.previewImage !== 'No images yet' ? group.previewImage : "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"}
+          alt={group.name + " preview image"}
+        />
       </div>
       <div className='group-description'>
         <h2 className='group-name'>{group.name}</h2>
@@ -32,6 +46,7 @@ const groupInfo = groups.map((group) => {
     </div>
     );
   })
+
   return <div className="group-list-container">{groupInfo}</div>;
 };
 
