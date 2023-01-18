@@ -35,7 +35,7 @@ export const getGroup = (groupId) => async (dispatch) => {
   }
 }
 
-const initialState = {allGroups: {}, group: {}}
+const initialState = {allGroups: {}, group: {}, display: false}
 
 const groupsReducer = (state = initialState, action) => {
   let newState;

@@ -27,6 +27,5 @@ export default function OneGroupPage (){
       </div>
     </div>
   ) : (<h1>Loading group details...</h1>)
-  console.log(currentGroup)
   return groupInfo
 }

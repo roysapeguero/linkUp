@@ -24,7 +24,6 @@ if (!groups) return null;
 
 const groupInfo = groups.map((group) => {
   return (
-
     <div onClick={() => handleGroupClick(group.id)} key = {group.id} className="group-container">
       <hr />
       <div className='img-container'>

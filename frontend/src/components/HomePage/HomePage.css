@@ -1,0 +1,15 @@
+.home-page-container {
+  border: 1px solid transparent;
+  width: 100%;
+  height: fit-content;
+}
+
+.welcome-user {
+  margin: 60px 10px 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.toggle-area-container {
+  margin: 0 10px 0 5px;
+}
