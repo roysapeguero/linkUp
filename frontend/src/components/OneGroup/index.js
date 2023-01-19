@@ -18,9 +18,11 @@ export default function OneGroupPage (){
   if (!currentGroup.GroupImages) return null
   const images = Object.values(currentGroup.GroupImages)
   const mainImg = images.find(image => image.preview === true)
+  let isOrganizer = false
 
-  if (!currentUser) return null
-  const isOrganizer = currentGroup.organizerId === currentUser.id
+  if (currentUser) {
+    isOrganizer = currentGroup.organizerId === currentUser.id
+  }
 
   const groupInfo = currentGroup ? (
     <div className="one-group-container">
