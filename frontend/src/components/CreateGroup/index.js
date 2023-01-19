@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import { useDispatch} from "react-redux";
 import { useModal } from "../../context/Modal";
-import {createGroup, getGroup} from "../../store/groups";
+import {createGroup} from "../../store/groups";
 import './CreateGroup.css';
 
 function CreateGroupModal() {
@@ -13,7 +13,6 @@ function CreateGroupModal() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [url, setUrl] = useState('');
-  // const [numMembers, setNumMembers] = useState(1)
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal("");
 
@@ -29,11 +28,11 @@ function CreateGroupModal() {
           private: privacy,
           city,
           state,
-          url
         },
+        url
       )
     )
-      .then((group) => dispatch(getGroup(group.id)))
+      // .then((data) => dispatch(getGroup(data.id)))
       .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();
@@ -119,9 +118,10 @@ function CreateGroupModal() {
           <input
             className="input-item"
             id="url"
+            name='url'
             type="url"
-            onChange={(e) => setUrl(e.target.value)}
             value={url}
+            onChange={(e) => setUrl(e.target.value)}
             placeholder="Please image add url"
           />
           <label className="input-label">
