@@ -28,8 +28,6 @@ export default function OneGroupPage (){
 
   if (!currentGroup.GroupImages) return;
 
-  const images = Object.values(currentGroup.GroupImages)
-  const mainImg = images.find(image => image.preview === true)
   let isOrganizer = false
 
   if (currentUser) {

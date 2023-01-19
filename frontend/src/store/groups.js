@@ -122,7 +122,7 @@ const groupsReducer = (state = initialState, action) => {
             ...action.payload,
           },
         },
-        singleGroup: { ...state.singleGroup},
+        group: { ...state.group},
       };
       return newState;
     case CREATE_GROUP:
