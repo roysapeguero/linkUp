@@ -26,10 +26,10 @@ function App() {
           <Route exact path='/'>
             {user ? <HomePage /> : <SplashPage />}
           </Route>
-          <Route path='/groups'>
+          <Route exact path='/groups'>
             <Groups />
           </Route>
-          <Route path='/groups/:groupId'>
+          <Route exact path='/groups/:groupId'>
             <OneGroupPage />
           </Route>
         </Switch>

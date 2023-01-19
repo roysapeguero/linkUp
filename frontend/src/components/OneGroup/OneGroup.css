@@ -1,0 +1,67 @@
+
+
+.img-container {
+  width: 525px;
+
+}
+.group-image {
+  height: 337px;
+  margin-top: 25px;
+  size: 0in;
+  width: 100%;
+  border-radius: 3px;
+}
+
+@media screen and (max-width: 840px) {
+  .img-container {
+    width: 100%;
+
+  }
+}
+
+/* hr {
+  border-top: 1px solid lightgray;
+}
+
+.group-container {
+  width: 300px;
+  height: 145px;
+  position: relative;
+  margin: 0 10px;
+  padding-bottom: 20px;
+}
+
+
+
+.group-name {
+  position: absolute;
+  font-size: 20px;
+  font-weight: 600;
+  top: -7;
+  left: 135px;
+}
+
+.group-location {
+  position: absolute;
+  top: 27px;
+  left: 135px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(135, 116,87)
+}
+
+.group-about {
+  position: absolute;
+  left: 135px;
+  top: 60px;
+  color: rgb(117, 117, 117);
+  font-size: 14px;
+}
+
+.group-info-members {
+  position: absolute;
+  bottom: -10;
+  left: 135px;
+  font-size: 14px;
+  color: rgb(117, 117, 117);
+} */

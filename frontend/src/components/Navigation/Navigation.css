@@ -24,6 +24,9 @@
 	height: 34px;
 }
 
+.profile-dropdown {
+	z-index: 1000;
+}
 
 button{
 	font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
