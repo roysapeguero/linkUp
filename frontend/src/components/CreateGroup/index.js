@@ -1,11 +1,12 @@
 import React, { useState} from "react";
 import { useDispatch} from "react-redux";
 import { useModal } from "../../context/Modal";
-import {createGroup} from "../../store/groups";
+import {createGroup, getGroup} from "../../store/groups";
 import './CreateGroup.css';
 
 function CreateGroupModal() {
   const dispatch = useDispatch();
+
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
   const [type, setType] = useState("");
@@ -32,7 +33,7 @@ function CreateGroupModal() {
         url
       )
     )
-      // .then((data) => dispatch(getGroup(data.id)))
+      .then((group) => dispatch(getGroup(group.id)))
       .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();

@@ -29,8 +29,10 @@ const groupInfo = groups.map((group) => {
       <div className='img-container'>
         <img
           className='preview-img'
-          src={group.previewImage !== 'No images yet' ? group.previewImage : "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"}
-          alt={group.name + " preview image"}
+          src={group.previewImage === 'No images yet' ?
+            "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+            : group.previewImage}
+          alt={`${group.name}'s preview`}
         />
       </div>
       <div className='group-description'>

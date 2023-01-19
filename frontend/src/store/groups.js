@@ -126,7 +126,7 @@ const groupsReducer = (state = initialState, action) => {
       };
       return newState;
     case CREATE_GROUP:
-      newState = {...state, [action.payload]: {numMembers: 1}}
+      newState = {...state}
       return newState;
     case DELETE_GROUP:
       newState = {...state, ...action.payload}

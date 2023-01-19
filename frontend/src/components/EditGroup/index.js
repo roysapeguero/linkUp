@@ -15,9 +15,6 @@ function EditGroupModal({group}) {
   const [state, setState] = useState(group.state);
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
-  const images = Object.values(group.GroupImages)
-  const mainImg = images.find(image => image.preview === true)
-  console.log('look', mainImg.url)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,7 +28,7 @@ function EditGroupModal({group}) {
           type,
           private: privacy,
           city,
-          state,
+          state
         },
         group.id
       )
