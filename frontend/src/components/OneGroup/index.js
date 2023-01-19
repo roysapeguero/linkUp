@@ -1,18 +1,27 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom";
-import { getGroup } from "../../store/groups";
+import { useParams, useHistory } from "react-router-dom";
+import { deleteGroupThunk, getGroup } from "../../store/groups";
 import './OneGroup.css'
 import EditGroupModal from "../EditGroup";
 import OpenModalButton from "../OpenModalButton";
 
 export default function OneGroupPage (){
   const dispatch = useDispatch();
+  const history = useHistory();
   const {groupId} = useParams();
 
   useEffect(() => {
 		dispatch(getGroup(groupId));
 	}, [dispatch, groupId]);
+
+  const handleDelete = async (e, groupId) => {
+    e.preventDefault();
+    const response = await dispatch(deleteGroupThunk(groupId))
+    if (response.message === "Successfully deleted") {
+      history.push('/groups')
+    }
+  }
 
   const currentGroup = useSelector(state => state.groups.group)
   const currentUser = useSelector((state) => state.session.user)
@@ -56,7 +65,9 @@ export default function OneGroupPage (){
           buttonText="Edit Group"
           modalComponent={<EditGroupModal group={currentGroup} />}
         />
-          <button>Delete Group</button>
+          <button onClick={(e) => handleDelete(e, currentGroup.id)}>
+            Delete Group
+          </button>
         </div>
       )}
     </div>

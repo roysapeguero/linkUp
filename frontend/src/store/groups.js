@@ -4,6 +4,7 @@ const LOAD_GROUPS = 'groups/LOAD_GROUPS'
 const GET_GROUP = 'groups/GET_GROUPS'
 const EDIT_GROUP = 'groups/EDIT_GROUP'
 const CREATE_GROUP = 'groups/CREATE_GROUP'
+const DELETE_GROUP = 'groups/DELETE_GROUP'
 
 export const loadGroups = (groups) => {
   return {
@@ -30,6 +31,13 @@ export const makeGroup = (group) => {
   return {
     type: CREATE_GROUP,
     payload: group
+  }
+}
+
+export const deleteGroup = (groupId) => {
+  return {
+    type: DELETE_GROUP,
+    payload: groupId
   }
 }
 
@@ -81,6 +89,17 @@ export const createGroup = (group) => async (dispatch) => {
   }
 }
 
+export const deleteGroupThunk = (groupId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/groups/${groupId}`, {
+    method: "DELETE"
+  })
+  if (response.ok) {
+    const data = await response.json()
+    dispatch(deleteGroup(groupId))
+    return data
+  }
+}
+
 const initialState = {allGroups: {}, group: {}}
 
 const groupsReducer = (state = initialState, action) => {
@@ -109,6 +128,10 @@ const groupsReducer = (state = initialState, action) => {
     case CREATE_GROUP:
       newState = {...state, [action.payload]: {numMembers: 1}}
       return newState;
+    case DELETE_GROUP:
+      newState = {...state, ...action.payload}
+      delete newState.allGroups[action.payload]
+      return newState
     default:
       return state;
   }

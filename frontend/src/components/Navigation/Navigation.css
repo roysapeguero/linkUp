@@ -22,6 +22,7 @@
 	float: right;
 	display: flex;
 	height: 34px;
+	z-index: 1000;
 }
 
 .profile-dropdown {
