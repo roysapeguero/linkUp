@@ -17,7 +17,8 @@ export default function OneGroupPage (){
   const currentGroup = useSelector(state => state.groups.group)
   const currentUser = useSelector((state) => state.session.user)
 
-  if (!currentGroup.GroupImages) return null
+  if (!currentGroup.GroupImages) return;
+
   const images = Object.values(currentGroup.GroupImages)
   const mainImg = images.find(image => image.preview === true)
   let isOrganizer = false
@@ -41,7 +42,10 @@ export default function OneGroupPage (){
       </div>
       <div>
         <p className='one-group-about'>{currentGroup.about}</p>
-        <p className='one-group-info-members'>{`${currentGroup.numMembers} ${currentGroup.numMembers > 1 ? "members" : "member"} `}&#x2022; {currentGroup.private ? "Private" : "Public"}</p>
+        <p className='one-group-info-members'>{
+          `${currentGroup.numMembers} ${currentGroup.numMembers > 1 ? "members" : "member"} `}&#x2022;
+           {currentGroup.private ? " Private" : " Public"}
+        </p>
       </div>
       {isOrganizer && (
         <div className="user-actions">

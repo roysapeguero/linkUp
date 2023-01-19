@@ -6,6 +6,7 @@ import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
+import CreateGroupModal from '../CreateGroup';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
@@ -14,6 +15,9 @@ function Navigation({ isLoaded }){
   if (sessionUser) {
     sessionLinks = (
       <>
+        <OpenModalButton
+          buttonText="Create A Group"
+          modalComponent={<CreateGroupModal />} />
         <ProfileButton user={sessionUser} />
       </>
     );
