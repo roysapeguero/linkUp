@@ -1,4 +1,4 @@
-import { useEffect} from 'react';
+import { useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getGroups } from '../../store/groups.js';
@@ -10,10 +10,13 @@ const groupsObj = useSelector(state=> state.groups.allGroups)
 const groups = Object.values(groupsObj)
 
 const history = useHistory();
+const [isLoaded, setIsLoaded] = useState(false)
 const redirectOneGroupPage = groupId => history.push(`/groups/${groupId}`);
 
 useEffect(() => {
-  dispatch(getGroups())
+  dispatch(getGroups()).then(() =>{
+    setIsLoaded(true)
+  })
 }, [dispatch])
 
 const handleGroupClick = (groupId) => {

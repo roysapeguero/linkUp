@@ -1,6 +1,7 @@
 import React, { useState} from "react";
 import { useDispatch} from "react-redux";
 import { useModal } from "../../context/Modal";
+import { Link } from "react-router-dom";
 import {createGroup, getGroup} from "../../store/groups";
 import './CreateGroup.css';
 
@@ -35,8 +36,8 @@ function CreateGroupModal() {
     )
       .then((group) => dispatch(getGroup(group.id)))
       .then(closeModal)
-      .catch(async (res) => {
-        const data = await res.json();
+      .catch(async (response) => {
+        const data = await response.json();
         if (data && data.errors) setErrors(Object.values(data.errors));
       });
   };

@@ -1,5 +1,5 @@
 import "./HomePage.css"
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import Groups from "../Groups";
@@ -12,6 +12,7 @@ function HomePage() {
   const [groupDisplay, setGroupDisplay] = useState(true);
 
   const handleClick = () => {
+
     setGroupDisplay(!groupDisplay)
   }
 
