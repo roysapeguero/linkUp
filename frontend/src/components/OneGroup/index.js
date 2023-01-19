@@ -32,8 +32,11 @@ export default function OneGroupPage (){
       <div className='image-container'>
       <img
           className='group-image'
-          src={mainImg.url ? mainImg.url : "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"}
-          alt={currentGroup.name + " preview image"}
+          alt={`${currentGroup.name}'s preview`}
+          src={
+            currentGroup.GroupImages?.length > 0 ?
+              `${currentGroup.GroupImages[0].url}` : ""
+            }
         />
       </div>
       <div className='one-group-description'>

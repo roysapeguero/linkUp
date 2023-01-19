@@ -119,9 +119,10 @@ function CreateGroupModal() {
           <input
             className="input-item"
             id="url"
-            type="url"
-            onChange={(e) => setUrl(e.target.value)}
+            type="text"
             value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            required
             placeholder="Please image add url"
           />
           <label className="input-label">
