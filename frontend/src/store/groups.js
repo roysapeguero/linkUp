@@ -74,7 +74,7 @@ export const updateGroup = (group, groupId) => async (dispatch) => {
   }
 };
 
-export const createGroup = (group) => async (dispatch) => {
+export const createGroup = (group, image) => async (dispatch) => {
   const response = await csrfFetch('/api/groups', {
     method: 'POST',
     headers: {
@@ -82,9 +82,20 @@ export const createGroup = (group) => async (dispatch) => {
     },
     body: JSON.stringify(group)
   });
-  const data = await response.json();
-  dispatch(makeGroup(data));
-  return data;
+  if (response.ok) {
+    const group = await response.json();
+    const imgRes = await csrfFetch(`/api/groups/${group.id}/images`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(image)
+    })
+    if (imgRes.ok) {
+      const img = imgRes.json()
+      const dataObj = {...group, ...img}
+      dispatch(makeGroup(dataObj));
+      return dataObj;
+    }
+  }
 }
 
 export const deleteGroupThunk = (groupId) => async (dispatch) => {
