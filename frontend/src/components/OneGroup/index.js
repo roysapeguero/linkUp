@@ -28,20 +28,20 @@ export default function OneGroupPage (){
 
   const groupInfo = currentGroup ? (
     <div className="one-group-container">
-      <div className='img-container'>
+      <div className='image-container'>
       <img
           className='group-image'
           src={mainImg.url ? mainImg.url : "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"}
           alt={currentGroup.name + " preview image"}
         />
       </div>
-      <div className='group-description'>
-        <h2 className='group-name'>{currentGroup.name}</h2>
-        <h2 className='group-location'>{`${currentGroup.city}, ${currentGroup.state}`}</h2>
+      <div className='one-group-description'>
+        <h2 className='one-group-name'>{currentGroup.name}</h2>
+        <h2 className='one-group-location'>{`${currentGroup.city}, ${currentGroup.state}`}</h2>
       </div>
       <div>
-        <p className='group-about'>{currentGroup.about}</p>
-        <p className='group-info-members'>{`${currentGroup.numMembers} ${currentGroup.numMembers > 1 ? "members" : "member"} `}&#x2022; {currentGroup.private ? "Private" : "Public"}</p>
+        <p className='one-group-about'>{currentGroup.about}</p>
+        <p className='one-group-info-members'>{`${currentGroup.numMembers} ${currentGroup.numMembers > 1 ? "members" : "member"} `}&#x2022; {currentGroup.private ? "Private" : "Public"}</p>
       </div>
       {isOrganizer && (
         <div className="user-actions">
@@ -49,7 +49,6 @@ export default function OneGroupPage (){
           buttonText="Edit Group"
           modalComponent={<EditGroupModal group={currentGroup} />}
         />
-          {/* <NavLink className="link" to={`/groups/${currentGroup.id}`}><button id="edit">Edit Group</button></NavLink> */}
           <button>Delete Group</button>
         </div>
       )}

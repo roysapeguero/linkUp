@@ -75,6 +75,7 @@ function EditGroupModal({group}) {
           </label>
           <label className="input-label">
             Type
+          </label>
             <br />
             <br />
             <div>
@@ -97,7 +98,6 @@ function EditGroupModal({group}) {
                 onChange={(e) => setType(e.target.value)}
               />
             </div>
-          </label>
           <label className="input-label">
             City
             <input

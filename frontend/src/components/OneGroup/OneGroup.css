@@ -1,49 +1,66 @@
-
-.img-container {
-  width: 525px;
-
-}
 .group-image {
-  height: 337px;
-  margin-top: 25px;
-  size: 0in;
-  width: 100%;
-  border-radius: 3px;
+  height: 50%;
+  width: fit-content;
+  border-radius: 10px;
 }
-
-@media screen and (max-width: 840px) {
-  .img-container {
-    width: 100%;
-
-  }
+.image-container {
+  width: 50%;
+  height: 600px;
+  margin-left: 20px;
 }
+/* button {
+  display: block;
+  height: 40px;
+  font-size: 20px;
+  font-weight: 600;
+  width: 200px;
+  background-color: rgb(246, 88, 88);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  margin: 50px 15px;
+} */
 
-/* hr {
-  border-top: 1px solid lightgray;
-}
+/* button:hover {
+  background-color: #f65858e2;
+  color: #fff;
+  cursor: pointer;
+} */
 
-.group-container {
-  width: 300px;
-  height: 145px;
+
+/* .one-group-container {
+  border: 1px solid blue;
+  padding-top: 50px;
   position: relative;
-  margin: 0 10px;
-  padding-bottom: 20px;
+  margin-top: 100px;
 }
-
-
 
 .group-name {
   position: absolute;
   font-size: 20px;
   font-weight: 600;
-  top: -7;
-  left: 135px;
+  top: 35;
+  left: 490;
 }
 
-.group-location {
+
+hr {
+  border-top: 1px solid lightgray;
+} */
+
+/* .group-container {
+  width: 300px;
+  height: 145px;
+  position: relative;
+  margin: 0 10px;
+  padding-bottom: 20px;
+} */
+
+/* .group-location {
   position: absolute;
-  top: 27px;
-  left: 135px;
+  top: 68;
+  left: 490;
   font-size: 14px;
   font-weight: 500;
   color: rgb(135, 116,87)
@@ -63,4 +80,11 @@
   left: 135px;
   font-size: 14px;
   color: rgb(117, 117, 117);
+}
+
+@media screen and (max-width: 840px) {
+  .img-container {
+    width: 100%;
+
+  }
 } */
