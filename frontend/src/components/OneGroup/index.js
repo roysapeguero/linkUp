@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom";
 import { getGroup } from "../../store/groups";
 import './OneGroup.css'
+import EditGroupModal from "../EditGroup";
+import OpenModalButton from "../OpenModalButton";
 
 export default function OneGroupPage (){
   const dispatch = useDispatch();
@@ -43,7 +45,11 @@ export default function OneGroupPage (){
       </div>
       {isOrganizer && (
         <div className="user-actions">
-          <button>Edit Group</button>
+          <OpenModalButton
+          buttonText="Edit Group"
+          modalComponent={<EditGroupModal group={currentGroup} />}
+        />
+          {/* <NavLink className="link" to={`/groups/${currentGroup.id}`}><button id="edit">Edit Group</button></NavLink> */}
           <button>Delete Group</button>
         </div>
       )}

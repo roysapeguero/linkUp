@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 const LOAD_GROUPS = 'groups/LOAD_GROUPS'
 const GET_GROUP = 'groups/GET_GROUPS'
+const EDIT_GROUP = 'groups/EDIT_GROUP'
 
 export const loadGroups = (groups) => {
   return {
@@ -13,6 +14,13 @@ export const loadGroups = (groups) => {
 export const loadGroup = (group) => {
   return {
     type: GET_GROUP,
+    payload: group
+  }
+}
+
+export const editGroup = (group) => {
+  return {
+    type: EDIT_GROUP,
     payload: group
   }
 }
@@ -35,6 +43,21 @@ export const getGroup = (groupId) => async (dispatch) => {
   }
 }
 
+export const updateGroup = (group, groupId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/groups/${groupId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(group)
+  });
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(editGroup(data));
+    return data;
+  }
+};
+
 const initialState = {allGroups: {}, group: {}}
 
 const groupsReducer = (state = initialState, action) => {
@@ -48,8 +71,20 @@ const groupsReducer = (state = initialState, action) => {
       return newState
     case GET_GROUP:
       newState = {...state, group:{...state.group, ...action.payload}}
-      console.log(newState)
       return newState
+    case EDIT_GROUP:
+      newState = {
+        ...state,
+        allGroups: {
+          ...state.allGroups,
+          [action.payload.id]: {
+            ...state.allGroups[action.payload.id],
+            ...action.payload,
+          },
+        },
+        singleGroup: { ...state.singleGroup},
+      };
+      return newState;
     default:
       return state;
   }

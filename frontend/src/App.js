@@ -7,12 +7,13 @@ import SplashPage from "./components/SplashPage";
 import Groups from "./components/Groups";
 import OneGroupPage from "./components/OneGroup";
 import HomePage from "./components/HomePage";
+import EditGroupModal from "./components/EditGroup";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const user = useSelector((state) => state.session.user)
-  // // const history = useHistory();
+  const group = useSelector(state => state.session.group)
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
