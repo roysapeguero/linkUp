@@ -74,8 +74,8 @@ export const updateGroup = (group, groupId) => async (dispatch) => {
   }
 };
 
-export const createGroup = (group) => async (dispatch) => {
-  const response = await csrfFetch('api/groups', {
+export const createGroup = (group, image) => async (dispatch) => {
+  const response = await csrfFetch('/api/groups', {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
@@ -83,9 +83,18 @@ export const createGroup = (group) => async (dispatch) => {
     body: JSON.stringify(group)
   });
   if (response.ok) {
-    const data = await response.json();
-    dispatch(makeGroup(data));
-    return data;
+    const group = await response.json();
+    const imgRes = await csrfFetch(`/api/groups/${group.id}/images`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(image)
+    })
+    if (imgRes.ok) {
+      const img = imgRes.json()
+      const dataObj = {...group, ...img}
+      dispatch(makeGroup(dataObj));
+      return dataObj;
+    }
   }
 }
 
@@ -126,7 +135,8 @@ const groupsReducer = (state = initialState, action) => {
       };
       return newState;
     case CREATE_GROUP:
-      newState = {...state}
+      newState = { ...state, allGroups: {...state.allGroups}};
+			newState.allGroups[action.payload.id] = action.payload;
       return newState;
     case DELETE_GROUP:
       newState = {...state, ...action.payload}

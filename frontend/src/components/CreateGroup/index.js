@@ -1,6 +1,7 @@
 import React, { useState} from "react";
 import { useDispatch} from "react-redux";
 import { useModal } from "../../context/Modal";
+import { Link } from "react-router-dom";
 import {createGroup, getGroup} from "../../store/groups";
 import './CreateGroup.css';
 
@@ -13,12 +14,16 @@ function CreateGroupModal() {
   const [privacy, setPrivacy] = useState(false);
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
-  const [url, setUrl] = useState('');
+  const [previewImage, setPreviewImage] = useState('');
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const image = {
+      url: previewImage,
+      "preview": true
+    }
     setErrors([]);
     return dispatch(
       createGroup(
@@ -30,13 +35,13 @@ function CreateGroupModal() {
           city,
           state,
         },
-        url
+        image
       )
     )
       .then((group) => dispatch(getGroup(group.id)))
       .then(closeModal)
-      .catch(async (res) => {
-        const data = await res.json();
+      .catch(async (response) => {
+        const data = await response.json();
         if (data && data.errors) setErrors(Object.values(data.errors));
       });
   };
@@ -119,9 +124,9 @@ function CreateGroupModal() {
           <input
             className="input-item"
             id="url"
-            type="text"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
+            type="url"
+            value={previewImage}
+            onChange={(e) => setPreviewImage(e.target.value)}
             required
             placeholder="Please image add url"
           />
