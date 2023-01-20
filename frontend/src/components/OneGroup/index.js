@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { useParams, useHistory, Link } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { deleteGroupThunk, getGroup } from "../../store/groups";
 import './OneGroup.css'
 import EditGroupModal from "../EditGroup";
+import CreateEventModal from "../CreateEvent";
 import OpenModalButton from "../OpenModalButton";
 
 export default function OneGroupPage (){
@@ -38,13 +39,13 @@ export default function OneGroupPage (){
     <div className="one-group-container">
       {/* <Link to='/groups'><button className='back-btn'>&laquo; Back</button></Link> */}
       <div className='image-container'>
-      <img
-          className='group-image'
-          alt={`${currentGroup.name}'s preview`}
-          src={currentGroup.GroupImages.length > 0 ?
-              `${currentGroup.GroupImages[0].url}`
-              : "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
-            }
+        <img
+            className='group-image'
+            alt={`${currentGroup.name}'s preview`}
+            src={currentGroup.GroupImages.length > 0 ?
+                `${currentGroup.GroupImages[0].url}`
+                : "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+              }
         />
       </div>
       <div className='one-group-description'>
@@ -58,17 +59,23 @@ export default function OneGroupPage (){
            {currentGroup.private ? " Private" : " Public"}
         </p>
       </div>
-      {isOrganizer && (
+      <div>
+        {isOrganizer && (
         <div className="user-actions">
           <OpenModalButton
           buttonText="Edit Group"
           modalComponent={<EditGroupModal group={currentGroup} />}
-        />
+          />
+          <OpenModalButton
+          buttonText="Create An Event"
+          modalComponent={<CreateEventModal group={currentGroup} />}
+          />
           <button onClick={(e) => handleDelete(e, currentGroup.id)}>
             Delete Group
           </button>
         </div>
-      )}
+          )}
+      </div>
     </div>
   ) : (<h1>Loading group details...</h1>)
   return groupInfo;

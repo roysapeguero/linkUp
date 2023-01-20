@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_EVENTS = 'events/LOAD_EVENTS'
 const GET_EVENT = 'events/GET_EVENT'
-// const CREATE_EVENT = 'events/CREATE_EVENT'
+const CREATE_EVENT = 'events/CREATE_EVENT'
 // const DELETE_EVENT = 'events/DELETE_EVENT'
 
 export const loadEvents = (events) => {
@@ -19,12 +19,12 @@ export const loadEvent = (event) => {
   }
 }
 
-// export const makeEvent = (event) => {
-//   return {
-//     type: CREATE_EVENT,
-//     payload: event
-//   }
-// }
+export const makeEvent = (event) => {
+  return {
+    type: CREATE_EVENT,
+    payload: event
+  }
+}
 
 // export const deleteEvent = (eventId) => {
 //   return {
@@ -45,7 +45,6 @@ export const getEvents = () => async (dispatch) => {
 
 export const getEvent = (eventId) => async (dispatch) => {
   const response = await csrfFetch(`/api/events/${eventId}`)
-
   if (response.ok) {
     const event = await response.json()
     const groupRes = await csrfFetch(`/api/groups/${event.groupId}`)
@@ -58,29 +57,29 @@ export const getEvent = (eventId) => async (dispatch) => {
   }
 }
 
-// export const createGroup = (event, image) => async (dispatch) => {
-//   const response = await csrfFetch('/api/events', {
-//     method: 'POST',
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(event)
-//   });
-//   if (response.ok) {
-//     const event = await response.json();
-//     const imgRes = await csrfFetch(`/api/events/${event.id}/images`, {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify(image)
-//     })
-//     if (imgRes.ok) {
-//       const img = imgRes.json()
-//       const dataObj = {...event, ...img}
-//       dispatch(makeEvent(dataObj));
-//       return dataObj;
-//     }
-//   }
-// }
+export const createEvent = (event, groupId, image) => async (dispatch) => {
+  const response = await csrfFetch(`/api/groups/${groupId}/events`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(event)
+  });
+  if (response.ok) {
+    const event = await response.json();
+    const imgRes = await csrfFetch(`/api/events/${event.id}/images`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(image)
+    })
+    if (imgRes.ok) {
+      const img = await imgRes.json()
+      event.previewImage = img.url
+      dispatch(makeEvent(event));
+      return event;
+    }
+  }
+}
 
 // export const deleteEventThunk = (eventId) => async (dispatch) => {
 //   const response = await csrfFetch(`/api/events/${eventId}`, {
@@ -108,10 +107,10 @@ const eventsReducer = (state = initialState, action) => {
     case GET_EVENT:
       newState = {...state, event: {...state.event, ...action.payload}}
       return newState
-    // case CREATE_GROUP:
-    //   newState = { ...state, allGroups: {...state.allGroups}};
-    //   newState.allGroups[action.payload.id] = action.payload;
-    //   return newState;
+    case CREATE_EVENT:
+      newState = { ...state, allEvents: {...state.allEvents}};
+      newState.allEvents[action.payload.id] = action.payload;
+      return newState;
     // case DELETE_GROUP:
     //   newState = {...state, ...action.payload}
     //   delete newState.allGroups[action.payload]

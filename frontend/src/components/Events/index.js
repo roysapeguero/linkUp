@@ -24,7 +24,7 @@ const Events = () => {
     redirectOneEventPage(eventId)
   }
 
-  if (!events) return null
+  if (!events.length) return null
 
 
   const eventInfo = events.map((event) => {

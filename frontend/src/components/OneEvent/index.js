@@ -18,14 +18,13 @@ export default function OneEventPage () {
   const currentGroup = useSelector(state => state.events.event.Group);
   const currentUser = useSelector((state) => state.session.user)
 
+  console.log(forEName)
   let isOrganizer = false
   if (!currentEvent.EventImages) return;
 
-
   if (currentUser) {
-    isOrganizer = currentGroup.organizerId === currentUser.id
+    isOrganizer = currentEvent.Organizer.id === currentUser.id
   }
-  console.log('look', currentEvent)
 
   const dMD = new Date(currentEvent.startDate).toDateString().split(' ')
   const eDMD = new Date(currentEvent.endDate).toDateString().split(' ')
