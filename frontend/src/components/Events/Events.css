@@ -88,3 +88,8 @@ hr {
   background-color: white;
   border-radius: 3px;
 }
+
+.back-btn {
+  margin-bottom: 20px;
+  font-size: 22px;
+}

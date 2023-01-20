@@ -27,9 +27,30 @@
 
 .profile-dropdown {
 	z-index: 1000;
+	right: 30;
 }
 
-button{
+#logout-btn {
+	display: block;
+	height: 30px;
+	font-size: 14px;
+	font-weight: 600;
+	width: 100%;
+	background-color: rgb(246, 88, 88);
+	color: #fff;
+	padding: 8px 12px;
+	border-radius: 8px;
+	border: none;
+	margin-bottom: 15px;
+}
+
+#logout-btn:hover {
+	background-color: #f65858e2;
+	cursor: pointer;
+}
+
+
+button {
 	font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
 	border: none;
 	background-color: transparent;
@@ -42,4 +63,14 @@ button{
 button:hover {
 	cursor: pointer;
 	color: rgb(0, 130, 148);
+}
+
+.user-name {
+	margin-right: 15px;
+	color:rgb(0, 130, 148);
+	font-weight: 500;
+}
+
+#profile-icon {
+	margin: 0 10px
 }

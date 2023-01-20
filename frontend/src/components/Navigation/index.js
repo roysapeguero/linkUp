@@ -16,7 +16,7 @@ function Navigation({ isLoaded }){
     sessionLinks = (
       <>
         <OpenModalButton
-          buttonText="Create A Group"
+          buttonText="Start a new group - 100% off!"
           modalComponent={<CreateGroupModal />} />
         <ProfileButton user={sessionUser} />
       </>
