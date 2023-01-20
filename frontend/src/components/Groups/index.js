@@ -1,11 +1,12 @@
 import { useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { getGroups } from '../../store/groups.js';
 import './Groups.css';
 
 const Groups = () => {
 const dispatch = useDispatch()
+const user = useSelector((state) => state.session.user)
 const groupsObj = useSelector(state=> state.groups.allGroups)
 const groups = Object.values(groupsObj)
 
@@ -50,7 +51,12 @@ const groupInfo = groups.map((group) => {
     );
   })
 
-  return <div className="group-list-container">{groupInfo}</div>;
+  return (
+    <div className="group-list-container">
+      {!user ? <Link to='/'><button className='back-btn'>&laquo; Back</button></Link> : null}
+      {groupInfo}
+    </div>
+  )
 };
 
 export default Groups;

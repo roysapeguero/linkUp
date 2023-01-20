@@ -1,11 +1,12 @@
 import { useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { getEvents } from '../../store/events.js';
 import './Events.css';
 
 const Events = () => {
   const dispatch = useDispatch()
+  const user = useSelector((state) => state.session.user)
   const eventsObj = useSelector(state => state.events.allEvents)
   const events = Object.values(eventsObj)
 
@@ -54,7 +55,12 @@ const Events = () => {
       );
     })
 
-  return <div className="event-list-container">{eventInfo}</div>;
+  return (
+    <div className="event-list-container">
+      {!user ? <Link to='/'><button className='back-btn'>&laquo; Back</button></Link> : null}
+      {eventInfo}
+    </div>
+  )
 };
 
 export default Events;

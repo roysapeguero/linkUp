@@ -3,6 +3,7 @@
   height: fit-content;
   box-sizing: border-box;
   overflow-y: scroll;
+  overflow-x: hidden;
   position: relative;
   top: 25px;
 }
@@ -64,4 +65,8 @@ hr {
   left: 150;
   font-size: 14px;
   color: rgb(117, 117, 117);
+}
+
+.back-btn {
+  margin-bottom: 10px;
 }
