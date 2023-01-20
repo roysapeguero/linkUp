@@ -14,6 +14,7 @@ export default function OneEventPage () {
   }, [dispatch, eventId])
 
   const currentEvent = useSelector(state => state.events.event);
+  const forEName = useSelector(state => state.events.allEvents[eventId])
   const currentGroup = useSelector(state => state.events.event.Group);
   const currentUser = useSelector((state) => state.session.user)
 
@@ -33,45 +34,48 @@ export default function OneEventPage () {
 
   const eventInfo = currentEvent ? (
     <div className="one-event-container">
-      <div className="image-container">
-        <img
-          className="event-image"
-          alt={`${currentEvent.name}'s preview`}
-          src={currentEvent.EventImages.length > 0 ?
-            `${currentEvent.EventImages[0].url}`
-            : "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
-          }
-        />
+      <div className="name-info">
+        <h1 className="one-event-group-name">{`${forEName.name}`}</h1>
+        <p className="hosted">Hosted By </p>
+        <p className="hoster-name">{currentEvent.Organizer.firstName}</p>
       </div>
-      <div className="one-event-decription">
-        <div className="name-info">
-          <h2 className="one-event-name">{`${currentEvent.name}`}</h2>
-          <p className="hoster-name">{`Hosted by ${currentEvent.Organizer.firstName}`}</p>
+      <div className="content">
+        <div className="image-container">
+          <img
+            className="event-image"
+            alt={`${currentEvent.name}'s preview`}
+            src={currentEvent.EventImages.length > 0 ?
+              `${currentEvent.EventImages[0].url}`
+              : "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+            }
+          />
         </div>
-        <div>
-          <h2 className="detail-title">Details</h2>
-          <p className="event-details">{currentEvent.description}</p>
-          <h2>{`Attendees(${currentEvent.numAttending})`}</h2>
+        <div className="one-event-decription">
+          <div className="group-details">
+            <h4 className="name-group">{currentGroup.name}</h4>
+            <p className="pub-priv">{currentGroup.private ? `Private Group` : `Public Group`}</p>
+          </div>
+          <div className="event-specifics">
+            <p className="date-times">
+              {`${dMD[0]}, ${dMD[1]} ${dMD[2]} ${dMD[3]} at ${newStartDateTime.slice(0, -6)} ${newStartDateTime.slice(-2)}
+                to ${eDMD[0]}, ${eDMD[1]} ${eDMD[2]} ${eDMD[3]} at ${newEndDateTime.slice(0, -6)} ${newEndDateTime.slice(-2)}
+                EST
+              `}
+            </p>
+            <p className="one-event-type">{currentEvent.type}</p>
+          </div>
+          <div>
+            <h2 className="detail-title">Details</h2>
+            <p className="event-details">{currentEvent.description}</p>
+            <h2>{`Attendees(${currentEvent.numAttending})`}</h2>
+          </div>
         </div>
-        <div className="group-details">
-          <h4>{currentGroup.name}</h4>
-          <p>{currentGroup.private ? `Private Group` : `Public Group`}</p>
-        </div>
-        <div className="event-specifics">
-          <p className="date-times">
-            {`${dMD[0]}, ${dMD[1]} ${dMD[2]} ${dMD[3]} at ${newStartDateTime.slice(0, -6)} ${newStartDateTime.slice(-2)}
-              to ${eDMD[0]}, ${eDMD[1]} ${eDMD[2]} ${eDMD[3]} at ${newEndDateTime.slice(0, -6)} ${newEndDateTime.slice(-2)}
-              EST
-            `}
-          </p>
-          <p className="one-event-type">{currentEvent.type}</p>
-        </div>
+        {isOrganizer && (
+          <button>
+            Delete Group
+          </button>
+        )}
       </div>
-      {isOrganizer && (
-        <button>
-          Delete Group
-        </button>
-      )}
     </div>
   ) : (<h1>Loading event details</h1>)
   return eventInfo
