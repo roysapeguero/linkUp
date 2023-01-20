@@ -1,0 +1,13 @@
+
+.event-image {
+  height: 50%;
+  width: fit-content;
+  border-radius: 10px;
+}
+
+.image-container {
+  /* border: 1px solid red; */
+  height: 400px;
+  width: 400px;
+  padding: 30px;
+}

@@ -12,8 +12,17 @@
 
 .toggle-area-container {
   margin: 0 10px 0 5px;
+  overflow-y: hidden;
 }
 
 .group-container:hover {
   cursor: pointer;
+}
+
+.events-btn, .groups-btn {
+  font-size: 22px;
+}
+
+.events-btn:focus, .groups-btn:focus {
+  color: rgb(0, 130, 148);
 }

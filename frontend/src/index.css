@@ -6,4 +6,6 @@ body {
   color: #212121;
   word-break: break-word;
   /* overflow: hidden; */
+  /* overflow-x: hidden; */
+
 }
