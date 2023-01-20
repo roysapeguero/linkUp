@@ -45,7 +45,6 @@ const handleEventClick = () => {
           <button className='events-btn' onClick={() => handleEventClick()}>
             Events
           </button>
-          &#65372;
           <button className='groups-btn' onClick={() => handleGroupClick()}>
             Groups
           </button>

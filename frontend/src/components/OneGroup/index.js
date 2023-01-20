@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { deleteGroupThunk, getGroup } from "../../store/groups";
 import './OneGroup.css'
 import EditGroupModal from "../EditGroup";
@@ -36,6 +36,7 @@ export default function OneGroupPage (){
 
   const groupInfo = currentGroup ? (
     <div className="one-group-container">
+      {/* <Link to='/groups'><button className='back-btn'>&laquo; Back</button></Link> */}
       <div className='image-container'>
       <img
           className='group-image'

@@ -1,7 +1,6 @@
 import React, { useState} from "react";
 import { useDispatch} from "react-redux";
 import { useModal } from "../../context/Modal";
-import { Link } from "react-router-dom";
 import {createGroup, getGroup} from "../../store/groups";
 import './CreateGroup.css';
 

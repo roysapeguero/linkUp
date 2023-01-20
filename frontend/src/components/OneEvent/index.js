@@ -11,17 +11,20 @@ export default function OneEventPage () {
 
   useEffect(() => {
     dispatch(getEvent(eventId))
-  }, [dispatch])
+  }, [dispatch, eventId])
 
   const currentEvent = useSelector(state => state.events.event);
-  const currentGroup = useSelector(state => state.groups.group);
+  const currentGroup = useSelector(state => state.events.event.Group);
   const currentUser = useSelector((state) => state.session.user)
 
   let isOrganizer = false
+  if (!currentEvent.EventImages) return;
+
 
   if (currentUser) {
     isOrganizer = currentGroup.organizerId === currentUser.id
   }
+  console.log('look', currentEvent)
 
   const dMD = new Date(currentEvent.startDate).toDateString().split(' ')
   const eDMD = new Date(currentEvent.endDate).toDateString().split(' ')
@@ -43,7 +46,7 @@ export default function OneEventPage () {
       <div className="one-event-decription">
         <div className="name-info">
           <h2 className="one-event-name">{`${currentEvent.name}`}</h2>
-          <p className="hoster-name">{`Hosted by ${currentGroup.Organizer.firstName}`}</p>
+          <p className="hoster-name">{`Hosted by ${currentEvent.Organizer.firstName}`}</p>
         </div>
         <div>
           <h2 className="detail-title">Details</h2>

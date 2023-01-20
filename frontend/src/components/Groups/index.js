@@ -45,7 +45,7 @@ const groupInfo = groups.map((group) => {
       </div>
       <div>
         <p className='group-about'>{group.about}</p>
-        <p className='group-info-members'>{`${group.numMembers} ${group.numMembers > 1 ? "members" : "member"} `}&#x2022; {group.private ? "Private" : "Public"}</p>
+        <p className='group-info-members'>{`${group.numMembers} ${group.numMembers > 1 || group.numMembers === 0 ? "members" : "member"} `}&#x2022; {group.private ? "Private" : "Public"}</p>
       </div>
     </div>
     );

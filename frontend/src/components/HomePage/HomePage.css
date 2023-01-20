@@ -21,8 +21,11 @@
 
 .events-btn, .groups-btn {
   font-size: 22px;
+  color: rgb(117, 117, 117);
+  margin-right: 8px;
 }
 
 .events-btn:focus, .groups-btn:focus {
   color: rgb(0, 130, 148);
+  border-bottom: 5px solid rgb(0, 130, 148);
 }
