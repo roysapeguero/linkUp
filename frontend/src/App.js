@@ -7,6 +7,7 @@ import SplashPage from "./components/SplashPage";
 import Groups from "./components/Groups";
 import OneGroupPage from "./components/OneGroup";
 import HomePage from "./components/HomePage";
+import Events from "./components/Events";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,7 +30,10 @@ function App() {
             <OneGroupPage />
           </Route>
           <Route path='/groups'>
-            <Groups />
+            {user ? <HomePage /> : <Groups />}
+          </Route>
+          <Route path='/events'>
+            {user ? <HomePage /> : <Events />}
           </Route>
         </Switch>
       )}
