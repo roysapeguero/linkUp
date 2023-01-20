@@ -39,6 +39,7 @@ export const getEvents = () => async (dispatch) => {
   if (response.ok) {
     const data = await response.json()
     dispatch(loadEvents(data))
+    return data
   }
 }
 
@@ -46,7 +47,8 @@ export const getEvent = (eventId) => async (dispatch) => {
   const response = await csrfFetch(`/api/events/${eventId}`)
   if (response.ok) {
     const data = await response.json()
-    dispatch(loadEvents(data))
+    dispatch(loadEvent(data))
+    return data
   }
 }
 
@@ -92,13 +94,13 @@ const eventsReducer = (state = initialState, action) => {
   let newState;
   switch(action.type) {
     case LOAD_EVENTS:
-      newState = {...state}
+      newState = { ...state, allEvents: {...state.allEvents}, event: {...state.event} };
       action.payload.Events.forEach(event => (
         newState.allEvents[event.id] = event
       ))
       return newState
     case GET_EVENT:
-      newState = {...state, event:{...state.event, ...action.payload}}
+      newState = {...state, event: {...state.event, ...action.payload}}
       return newState
     // case CREATE_GROUP:
     //   newState = { ...state, allGroups: {...state.allGroups}};

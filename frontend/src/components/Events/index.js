@@ -44,7 +44,7 @@ const Events = () => {
         </div>
         <div className='event-description'>
           <p className='event-name'>{event.name}</p>
-          <p className='event-dates'>{`${dMD[0].toUpperCase()}, ${dMD[1].toUpperCase()} ${dMD[2]} - ${newStartDateTime}`}</p>
+          <p className='event-dates'>{`${dMD[0].toUpperCase()}, ${dMD[1].toUpperCase()} ${dMD[2]} - ${newStartDateTime.slice(0, -6)} ${newStartDateTime.slice(-2)}`}</p>
         </div>
         <div>
           <p className='event-group-name-location'> {`${event.Group.name}`}&#x2022; {`${event.Group.city}, ${event.Group.state}`}</p>

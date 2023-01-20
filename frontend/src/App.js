@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import SplashPage from "./components/SplashPage";
 import Groups from "./components/Groups";
 import OneGroupPage from "./components/OneGroup";
+import OneEventPage from "./components/OneEvent";
 import HomePage from "./components/HomePage";
 import Events from "./components/Events";
 
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route path='/groups'>
             {user ? <HomePage /> : <Groups />}
+          </Route>
+          <Route path='/events/:eventId'>
+            <OneEventPage />
           </Route>
           <Route path='/events'>
             {user ? <HomePage /> : <Events />}
