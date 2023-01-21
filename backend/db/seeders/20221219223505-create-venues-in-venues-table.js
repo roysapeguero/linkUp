@@ -14,25 +14,25 @@ module.exports = {
         groupId: 1,
         address: '123 Park Ave.',
         city: 'Hoboken',
-        state: 'NJ',
-        lat: 29.90958,
-        lng: 123.80584
+        state: 'NJ'
+        // lat: 29.90958,
+        // lng: 123.80584
       },
       {
         groupId: 2,
         address: '456 Main St.',
         city: 'Newark',
-        state: 'NJ',
-        lat: -55.48721,
-        lng: 100.09348
+        state: 'NJ'
+        // lat: -55.48721,
+        // lng: 100.09348
       },
       {
         groupId: 3,
         address: '789 State St.',
         city: 'Woodbridge',
-        state: 'NJ',
-        lat: 75.90234,
-        lng: -108.21093
+        state: 'NJ'
+        // lat: 75.90234,
+        // lng: -108.21093
       },
     ], {})
   },

@@ -181,7 +181,7 @@ router.get("/:eventId", async (req, res, next) => {
       },
       {
         model: Venue,
-        attributes: ["id", "address", "city", "state", "lat", "lng"],
+        attributes: ["id", "address", "city", "state"],
       },
     ],
   });
@@ -216,8 +216,8 @@ router.get("/:eventId", async (req, res, next) => {
       event.EventImages = eventImages;
     }
   }
-  event['Venue'].lat = +event['Venue'].lat
-  event['Venue'].lng = +event['Venue'].lng
+  // event['Venue'].lat = +event['Venue'].lat
+  // event['Venue'].lng = +event['Venue'].lng
   event.price = +event.price
   event.numAttending = numAttending;
 

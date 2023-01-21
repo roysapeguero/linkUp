@@ -86,14 +86,14 @@ const validateVenue = [
     .exists({ checkFalsy: true })
     .isLength({ min: 1, max: 60 })
     .withMessage("Street address is required"),
-  check("lat")
-    .exists({ checkFalsy: true })
-    .isNumeric()
-    .withMessage("Latitude is not valid"),
-  check("lng")
-    .exists({ checkFalsy: true })
-    .isNumeric()
-    .withMessage("Longitude is not valid"),
+  // check("lat")
+  //   .exists({ checkFalsy: true })
+  //   .isNumeric()
+  //   .withMessage("Latitude is not valid"),
+  // check("lng")
+  //   .exists({ checkFalsy: true })
+  //   .isNumeric()
+  //   .withMessage("Longitude is not valid"),
   check("city").exists({ checkFalsy: true }).withMessage("City is required"),
   check("state").exists({ checkFalsy: true }).withMessage("State is required"),
   handleValidationErrors,
@@ -229,12 +229,12 @@ router.get("/:groupId", async (req, res, next) => {
     },
   });
 
-  if (venues) {
-    for (let venue of venues) {
-      venue.lat = +venue.lat
-      venue.lng = +venue.lng
-    }
-  }
+  // if (venues) {
+  //   for (let venue of venues) {
+  //     venue.lat = +venue.lat
+  //     venue.lng = +venue.lng
+  //   }
+  // }
 
   group = group.toJSON();
 
@@ -391,10 +391,10 @@ router.get("/:groupId/venues", requireAuth, async (req, res, next) => {
 
   let resVenues = []
 
-  for (let groupVenue of groupVenues) {
-    groupVenue.lat = +groupVenue.lat;
-    groupVenue.lng = +groupVenue.lng;
-  }
+  // for (let groupVenue of groupVenues) {
+  //   groupVenue.lat = +groupVenue.lat;
+  //   groupVenue.lng = +groupVenue.lng;
+  // }
 
   res.json({
     Venues: groupVenues
@@ -435,9 +435,9 @@ router.post(
         groupId: group.id,
         address,
         city,
-        state,
-        lat,
-        lng
+        state
+        // lat,
+        // lng
       });
 
       newVenue.save();
@@ -446,9 +446,9 @@ router.post(
         groupId: newVenue.groupId,
         address: newVenue.address,
         city: newVenue.city,
-        state: newVenue.state,
-        lat: +newVenue.lat,
-        lng: +newVenue.lng,
+        state: newVenue.state
+        // lat: +newVenue.lat,
+        // lng: +newVenue.lng,
       });
     } else {
       const err = new Error("Authorization error");
