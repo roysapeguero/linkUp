@@ -37,9 +37,9 @@ export const getEvents = () => async (dispatch) => {
   const response = await csrfFetch('/api/events')
 
   if (response.ok) {
-    const data = await response.json()
-    dispatch(loadEvents(data))
-    return data
+    const event = await response.json()
+    dispatch(loadEvents(event.Events))
+    return event.Events
   }
 }
 
@@ -50,9 +50,7 @@ export const getEvent = (eventId) => async (dispatch) => {
     const groupRes = await csrfFetch(`/api/groups/${event.groupId}`)
     if (groupRes.ok) {
       const group = await groupRes.json()
-      event.groupName = group.name
-      event.private = group.private
-      event.Organizer = group.Organizer
+      event.Group = {...group}
       dispatch(loadEvent(event))
       return event;
     }
@@ -102,7 +100,7 @@ const eventsReducer = (state = initialState, action) => {
   switch(action.type) {
     case LOAD_EVENTS:
       newState = { ...state, allEvents: {...state.allEvents}, event: {...state.event} };
-      action.payload.Events.forEach(event => (
+      action.payload.forEach(event => (
         newState.allEvents[event.id] = event
       ))
       return newState

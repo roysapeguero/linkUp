@@ -2,7 +2,7 @@ import React, { useState} from "react";
 import { useDispatch} from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
-import {createEvent, getEvent} from "../../store/events";
+import {createEvent} from "../../store/events";
 import './CreateEvent.css';
 
 function CreateEventModal({group}) {
@@ -43,6 +43,7 @@ function CreateEventModal({group}) {
         image
       )
     )
+    .then((data) => history.push(`/events/${data.id}`))
     .then(closeModal)
     .catch(async (response) => {
       const data = await response.json();

@@ -20,7 +20,7 @@ export default function OneEventPage () {
   if (!currentEvent.EventImages) return;
 
   if (currentUser) {
-    isOrganizer = currentEvent.Organizer.id === currentUser.id
+    isOrganizer = currentEvent.Group.organizerId === currentUser.id
   }
 
   const dMD = new Date(currentEvent.startDate).toDateString().split(' ')
@@ -33,7 +33,7 @@ export default function OneEventPage () {
       <div className="name-info">
         <h1 className="one-event-group-name">{`${currentEvent.name}`}</h1>
         <p className="hosted">Hosted By </p>
-        <p className="hoster-name">{currentEvent.Organizer.firstName}</p>
+        <p className="hoster-name">{currentEvent.Group.Organizer.firstName}</p>
       </div>
       <div className="content">
         <div className="image-container">

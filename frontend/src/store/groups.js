@@ -91,9 +91,9 @@ export const createGroup = (group, image) => async (dispatch) => {
     })
     if (imgRes.ok) {
       const img = imgRes.json()
-      const dataObj = {...group, ...img}
-      dispatch(makeGroup(dataObj));
-      return dataObj;
+      group.previewImage = img.url
+      dispatch(makeGroup(group));
+      return group;
     }
   }
 }

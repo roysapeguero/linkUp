@@ -12,7 +12,6 @@ const Events = () => {
 
   const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false)
-  const redirectOneEventPage = eventId => history.push(`/events/${eventId}`)
 
   useEffect(() => {
     dispatch(getEvents()).then(() =>{
@@ -21,11 +20,10 @@ const Events = () => {
   }, [dispatch])
 
   const handleEventClick = (eventId) => {
-    redirectOneEventPage(eventId)
+    history.push(`/events/${eventId}`)
   }
 
   if (!events.length) return null
-
 
   const eventInfo = events.map((event) => {
     const dMD = new Date(event.startDate).toDateString().split(' ')
@@ -47,7 +45,7 @@ const Events = () => {
           <p className='event-dates'>{`${dMD[0].toUpperCase()}, ${dMD[1].toUpperCase()} ${dMD[2]} - ${newStartDateTime.slice(0, -6)} ${newStartDateTime.slice(-2)}`}</p>
         </div>
         <div>
-          <p className='event-group-name-location'> {`${event.Group.name}`}&#x2022; {`${event.Group.city}, ${event.Group.state}`}</p>
+          <p className='event-group-name-location'> {`${event.Group?.name}`}&#x2022; {`${event.Group?.city}, ${event.Group?.state}`}</p>
           <p className='event-info-members'>{`${event.numAttending} ${event.numAttending > 1 ? "attendees" : "attendant"} `}</p>
           <p className='event-type'>{`${event.type} Event`}</p>
         </div>
