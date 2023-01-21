@@ -50,9 +50,11 @@ export const getEvent = (eventId) => async (dispatch) => {
     const groupRes = await csrfFetch(`/api/groups/${event.groupId}`)
     if (groupRes.ok) {
       const group = await groupRes.json()
-      const dataObj = {...event, ...group}
-      dispatch(loadEvent(dataObj))
-      return dataObj;
+      event.groupName = group.name
+      event.private = group.private
+      event.Organizer = group.Organizer
+      dispatch(loadEvent(event))
+      return event;
     }
   }
 }

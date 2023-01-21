@@ -14,11 +14,8 @@ export default function OneEventPage () {
   }, [dispatch, eventId])
 
   const currentEvent = useSelector(state => state.events.event);
-  const forEName = useSelector(state => state.events.allEvents[eventId])
-  const currentGroup = useSelector(state => state.events.event.Group);
   const currentUser = useSelector((state) => state.session.user)
 
-  console.log(forEName)
   let isOrganizer = false
   if (!currentEvent.EventImages) return;
 
@@ -34,7 +31,7 @@ export default function OneEventPage () {
   const eventInfo = currentEvent ? (
     <div className="one-event-container">
       <div className="name-info">
-        <h1 className="one-event-group-name">{`${forEName.name}`}</h1>
+        <h1 className="one-event-group-name">{`${currentEvent.name}`}</h1>
         <p className="hosted">Hosted By </p>
         <p className="hoster-name">{currentEvent.Organizer.firstName}</p>
       </div>
@@ -51,8 +48,8 @@ export default function OneEventPage () {
         </div>
         <div className="one-event-decription">
           <div className="group-details">
-            <h4 className="name-group">{currentGroup.name}</h4>
-            <p className="pub-priv">{currentGroup.private ? `Private Group` : `Public Group`}</p>
+            <h4 className="name-group">{currentEvent.groupName}</h4>
+            <p className="pub-priv">{currentEvent.private ? `Private Group` : `Public Group`}</p>
           </div>
           <div className="event-specifics">
             <p className="date-times">
@@ -71,7 +68,7 @@ export default function OneEventPage () {
         </div>
         {isOrganizer && (
           <button>
-            Delete Group
+            Delete Event
           </button>
         )}
       </div>
