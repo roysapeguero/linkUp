@@ -13,14 +13,14 @@ const validateVenue = [
     .exists({ checkFalsy: true })
     .isLength({ min: 1, max: 60 })
     .withMessage("Street address is required"),
-  check("lat")
-    .exists({ checkFalsy: true })
-    .isNumeric()
-    .withMessage("Latitude is not valid"),
-  check("lng")
-    .exists({ checkFalsy: true })
-    .isNumeric()
-    .withMessage("Longitude is not valid"),
+  // check("lat")
+  //   .exists({ checkFalsy: true })
+  //   .isNumeric()
+  //   .withMessage("Latitude is not valid"),
+  // check("lng")
+  //   .exists({ checkFalsy: true })
+  //   .isNumeric()
+  //   .withMessage("Longitude is not valid"),
   check("city").exists({ checkFalsy: true }).withMessage("City is required"),
   check("state").exists({ checkFalsy: true }).withMessage("State is required"),
   handleValidationErrors,
@@ -63,8 +63,8 @@ router.put("/:venueId", requireAuth, validateVenue, async (req, res, next) => {
     reqVenue.address = address;
     reqVenue.city = city;
     reqVenue.state = state;
-    reqVenue.lat = lat;
-    reqVenue.lng = lng;
+    // reqVenue.lat = lat;
+    // reqVenue.lng = lng;
 
     reqVenue.save();
     await res.json({
@@ -73,8 +73,8 @@ router.put("/:venueId", requireAuth, validateVenue, async (req, res, next) => {
       address: reqVenue.address,
       city: reqVenue.city,
       state: reqVenue.state,
-      lat: reqVenue.lat,
-      lng: reqVenue.lng,
+      // lat: reqVenue.lat,
+      // lng: reqVenue.lng,
     });
   } else {
     const err = new Error("Authorization error");
