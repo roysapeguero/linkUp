@@ -56,7 +56,8 @@ function CreateGroupModal() {
         <h1 className="modal-form-title">Create A Group</h1>
         <form onSubmit={handleSubmit}>
           <ul>
-            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+            {errors.map((error, idx) =>
+              <p className="errors" key={idx}>{error}</p>)}
           </ul>
           <label className="input-label">
             Name
@@ -145,7 +146,7 @@ function CreateGroupModal() {
               }}
             ></input>
           </label>
-          <button id="btns5" type="submit" >Create Group</button>
+          <button id="modal-btns" type="submit" >Create Group</button>
         </form>
       </div>
     </div>

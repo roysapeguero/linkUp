@@ -60,7 +60,8 @@ function CreateEventModal({group}) {
         <h1 className="modal-form-title">Create An Event</h1>
         <form onSubmit={handleSubmit}>
           <ul>
-            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+            {errors.map((error, idx) =>
+              <p className="errors" key={idx}>{error}</p>)}
           </ul>
           <label className="input-label">
             Name
@@ -153,7 +154,7 @@ function CreateEventModal({group}) {
             required
             placeholder="Please image add url"
           />
-          <button id="btns5" type="submit" >Create An Event</button>
+          <button id="modal-btns" type="submit" >Create An Event</button>
         </form>
       </div>
     </div>

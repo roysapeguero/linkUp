@@ -33,7 +33,6 @@ form {
 .input-label {
   font-size: 16px;
   font-weight: 500;
-  /* text-size-adjust: 100%; */
 }
 
 .input-item {
@@ -64,4 +63,9 @@ form {
 #btns3:hover, #btns4:hover {
   background-color: #f65858e2;
   cursor: pointer;
+}
+
+p > button {
+  color: rgb(0, 130, 148);
+  font-weight: 400;
 }

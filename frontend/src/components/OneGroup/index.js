@@ -42,7 +42,6 @@ export default function OneGroupPage (){
 
   const groupInfo = currentGroup ? (
     <div className="one-group-container">
-      {/* <Link to='/groups'><button className='back-btn'>&laquo; Back</button></Link> */}
       <div className='image-container'>
         <img
             className='group-image'

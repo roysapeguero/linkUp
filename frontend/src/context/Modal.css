@@ -24,5 +24,81 @@
   border-radius: 8px;
   max-height: 80%;
   overflow: scroll;
+}
 
+.errors {
+  color: red;
+}
+
+form {
+  display: block;
+  width: 100%;
+}
+
+.modal-form-title {
+  text-align: center;
+  font-size: 28px;
+}
+
+.not-member {
+  text-align: center;
+}
+
+.modal-container {
+  border-radius: 8px;
+}
+
+.close-modal {
+  font-size: medium;
+  color: #757575c8;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+
+.modal-form-container {
+  padding: 20px 40px;
+  width: 400px;
+  border-radius: 8px;
+}
+
+.input-label {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.input-item {
+  padding: 8px 12px;
+  display: block;
+  height: 40px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-bottom: 24px;
+  margin-top: 8px;
+  width: 100%;
+}
+
+#modal-btns {
+  display: block;
+  height: 40px;
+  font-size: 20px;
+  font-weight: 600;
+  width: 100%;
+  background-color: rgb(246, 88, 88);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 15px;
+}
+
+#modal-btns:hover {
+  background-color: #f65858e2;
+  cursor: pointer;
+}
+
+.input-item:focus {
+  outline: 1px solid teal;
+  border: none;
 }

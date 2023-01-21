@@ -50,7 +50,8 @@ function EditGroupModal({group}) {
         <h1 className="modal-form-title">Edit Group</h1>
         <form onSubmit={handleSubmit}>
           <ul>
-            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+            {errors.map((error, idx) =>
+              <p className="errors" key={idx}>{error}</p>)}
           </ul>
           <label className="input-label">
             Name
@@ -127,7 +128,7 @@ function EditGroupModal({group}) {
               }}
             ></input>
           </label>
-          <button id="btns5" type="submit">Save Changes</button>
+          <button id="modal-btns" type="submit">Save Changes</button>
         </form>
       </div>
     </div>
