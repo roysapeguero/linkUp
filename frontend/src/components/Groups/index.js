@@ -27,6 +27,7 @@ const handleGroupClick = (groupId) => {
 if (!groups) return null;
 
 const groupInfo = groups.map((group) => {
+  if (group.numMembers === 0) group.numMembers = 1
   return (
     <div onClick={() => handleGroupClick(group.id)} key = {group.id} className="group-container">
       <hr />

@@ -35,6 +35,8 @@ export default function OneGroupPage (){
     isOrganizer = currentGroup.organizerId === currentUser.id
   }
 
+  if (currentGroup.numMembers === 0) currentGroup.numMembers = 1
+
   const groupInfo = currentGroup ? (
     <div className="one-group-container">
       {/* <Link to='/groups'><button className='back-btn'>&laquo; Back</button></Link> */}

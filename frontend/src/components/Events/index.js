@@ -28,6 +28,7 @@ const Events = () => {
   const eventInfo = events.map((event) => {
     const dMD = new Date(event.startDate).toDateString().split(' ')
     const newStartDateTime = new Date(event.startDate).toLocaleTimeString()
+    if (event.numAttending === 0) event.numAttending = 1
     return (
       <div onClick={() => handleEventClick(event.id)} key = {event.id} className="event-container">
         <hr />

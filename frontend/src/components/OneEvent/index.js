@@ -14,6 +14,7 @@ export default function OneEventPage () {
   }, [dispatch, eventId])
 
   const currentEvent = useSelector(state => state.events.event);
+  // const currentGroup = useSelector(state => state.groups.group)
   const currentUser = useSelector((state) => state.session.user)
 
   let isOrganizer = false
@@ -22,6 +23,8 @@ export default function OneEventPage () {
   if (currentUser) {
     isOrganizer = currentEvent.Group.organizerId === currentUser.id
   }
+
+  if (currentEvent.numAttending === 0) currentEvent.numAttending = 1
 
   const dMD = new Date(currentEvent.startDate).toDateString().split(' ')
   const eDMD = new Date(currentEvent.endDate).toDateString().split(' ')
@@ -48,7 +51,7 @@ export default function OneEventPage () {
         </div>
         <div className="one-event-decription">
           <div className="group-details">
-            <h4 className="name-group">{currentEvent.groupName}</h4>
+            <h4 className="name-group">{currentEvent.Group?.name}</h4>
             <p className="pub-priv">{currentEvent.private ? `Private Group` : `Public Group`}</p>
           </div>
           <div className="event-specifics">

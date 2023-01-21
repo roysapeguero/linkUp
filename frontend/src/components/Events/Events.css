@@ -71,10 +71,11 @@ hr {
 
 .event-info-members {
   position: absolute;
-  bottom: -5;
+  bottom: 15;
   left: 150px;
   font-size: 14px;
   color: rgb(117, 117, 117);
+
 }
 
 .event-type {
