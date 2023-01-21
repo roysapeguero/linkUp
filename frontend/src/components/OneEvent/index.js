@@ -1,17 +1,26 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getEvent } from "../../store/events";
+import { useParams, useHistory } from "react-router-dom";
+import { deleteEventThunk, getEvent } from "../../store/events";
 import './OneEvent.css'
 
 
 export default function OneEventPage () {
   const dispatch = useDispatch();
   const {eventId} = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getEvent(eventId))
   }, [dispatch, eventId])
+
+  const handleDelete = async (e, eventId) => {
+    e.preventDefault();
+    const response = await dispatch(deleteEventThunk(eventId))
+    if (response.message === "Successfully deleted") {
+      history.push('/events')
+    }
+  }
 
   const currentEvent = useSelector(state => state.events.event);
   // const currentGroup = useSelector(state => state.groups.group)
@@ -70,7 +79,7 @@ export default function OneEventPage () {
           </div>
         </div>
         {isOrganizer && (
-          <button>
+          <button onClick={(e) => handleDelete(e, currentEvent.id)}>
             Delete Event
           </button>
         )}

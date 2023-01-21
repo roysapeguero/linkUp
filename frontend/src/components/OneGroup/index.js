@@ -6,22 +6,25 @@ import './OneGroup.css'
 import EditGroupModal from "../EditGroup";
 import CreateEventModal from "../CreateEvent";
 import OpenModalButton from "../OpenModalButton";
+import { deleteEventThunk, loadEvents } from "../../store/events";
 
 export default function OneGroupPage (){
   const dispatch = useDispatch();
   const history = useHistory();
   const {groupId} = useParams();
+  const eventsObj = useSelector(state => state.events.allEvents)
+  const events = Object.values(eventsObj)
 
   useEffect(() => {
 		dispatch(getGroup(groupId));
-	}, [dispatch, groupId]);
+	}, [dispatch]);
 
-  const handleDelete = async (e, groupId) => {
+  const handleDelete = (e) => {
     e.preventDefault();
-    const response = await dispatch(deleteGroupThunk(groupId))
-    if (response.message === "Successfully deleted") {
+    dispatch(deleteGroupThunk(groupId))
+    .then(async () => {
       history.push('/groups')
-    }
+    })
   }
 
   const currentGroup = useSelector(state => state.groups.group)
@@ -72,7 +75,7 @@ export default function OneGroupPage (){
           buttonText="Create An Event"
           modalComponent={<CreateEventModal group={currentGroup} />}
           />
-          <button onClick={(e) => handleDelete(e, currentGroup.id)}>
+          <button onClick={handleDelete}>
             Delete Group
           </button>
         </div>

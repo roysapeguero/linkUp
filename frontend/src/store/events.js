@@ -3,7 +3,7 @@ import { csrfFetch } from "./csrf";
 const LOAD_EVENTS = 'events/LOAD_EVENTS'
 const GET_EVENT = 'events/GET_EVENT'
 const CREATE_EVENT = 'events/CREATE_EVENT'
-// const DELETE_EVENT = 'events/DELETE_EVENT'
+const DELETE_EVENT = 'events/DELETE_EVENT'
 
 export const loadEvents = (events) => {
   return {
@@ -26,20 +26,20 @@ export const makeEvent = (event) => {
   }
 }
 
-// export const deleteEvent = (eventId) => {
-//   return {
-//     type: DELETE_EVENT,
-//     payload: eventId
-//   }
-// }
+export const deleteEvent = (eventId) => {
+  return {
+    type: DELETE_EVENT,
+    payload: eventId
+  }
+}
 
 export const getEvents = () => async (dispatch) => {
   const response = await csrfFetch('/api/events')
 
   if (response.ok) {
     const event = await response.json()
-    dispatch(loadEvents(event.Events))
-    return event.Events
+    dispatch(loadEvents(event))
+    return event
   }
 }
 
@@ -81,16 +81,16 @@ export const createEvent = (event, groupId, image) => async (dispatch) => {
   }
 }
 
-// export const deleteEventThunk = (eventId) => async (dispatch) => {
-//   const response = await csrfFetch(`/api/events/${eventId}`, {
-//     method: "DELETE"
-//   })
-//   if (response.ok) {
-//     const data = await response.json()
-//     dispatch(deleteEvent(eventId))
-//     return data
-//   }
-// }
+export const deleteEventThunk = (eventId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/events/${eventId}`, {
+    method: "DELETE"
+  })
+  if (response.ok) {
+    const data = await response.json()
+    dispatch(deleteEvent(eventId))
+    return data
+  }
+}
 
 
 const initialState = {allEvents: {}, event: {}}
@@ -99,22 +99,24 @@ const eventsReducer = (state = initialState, action) => {
   let newState;
   switch(action.type) {
     case LOAD_EVENTS:
-      newState = { ...state, allEvents: {...state.allEvents}, event: {...state.event} };
-      action.payload.forEach(event => (
-        newState.allEvents[event.id] = event
-      ))
+      let filler = {}
+      action.payload.Events.forEach(event => {
+        filler[event.id] = event
+      })
+      newState = { ...state};
+      newState.allEvents = {...filler}
       return newState
     case GET_EVENT:
-      newState = {...state, event: {...state.event, ...action.payload}}
+      newState = {...state, allEvents: {...state.allEvents}, event: {...state.event, ...action.payload}}
       return newState
     case CREATE_EVENT:
       newState = { ...state, allEvents: {...state.allEvents}};
       newState.allEvents[action.payload.id] = action.payload;
       return newState;
-    // case DELETE_GROUP:
-    //   newState = {...state, ...action.payload}
-    //   delete newState.allGroups[action.payload]
-    //   return newState
+    case DELETE_EVENT:
+      newState = {...state, allEvents: {...state.allEvents}, event: {} }
+      delete newState.allEvents[action.payload]
+      return newState
     default:
       return state;
   }
