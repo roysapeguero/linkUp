@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { deleteEventThunk, getEvent } from "../../../store/events";
+// import { login } from "../../../store/session";
 import './OneEvent.css'
 
 
@@ -23,7 +24,6 @@ export default function OneEventPage () {
   }
 
   const currentEvent = useSelector(state => state.events.event);
-  // const currentGroup = useSelector(state => state.groups.group)
   const currentUser = useSelector((state) => state.session.user)
 
   let isOrganizer = false
@@ -35,15 +35,26 @@ export default function OneEventPage () {
 
   if (currentEvent.numAttending === 0) currentEvent.numAttending = 1
 
-  const dMD = new Date(currentEvent.startDate).toDateString().split(' ')
-  const eDMD = new Date(currentEvent.endDate).toDateString().split(' ')
+  const options = {
+    'weekday': 'long',
+    'year': 'numeric',
+    'month': 'long',
+    'day': 'numeric'
+  }
+
+  const dMD = new Date(currentEvent.startDate).toLocaleDateString("en-US", options)
+  const eDMD = new Date(currentEvent.endDate).toLocaleDateString("en-US", options)
   const newStartDateTime = new Date(currentEvent.startDate).toLocaleTimeString()
   const newEndDateTime = new Date(currentEvent.endDate).toLocaleTimeString()
 
   const eventInfo = currentEvent ? (
+    <div className="one-event-page">
     <div className="one-event-container">
       <div className="name-info">
         <h1 className="one-event-group-name">{`${currentEvent.name}`}</h1>
+        <div className="circle">
+          <p>{currentEvent.Group.Organizer.firstName[0]}</p>
+        </div>
         <p className="hosted">Hosted By </p>
         <p className="hoster-name">{currentEvent.Group.Organizer.firstName}</p>
       </div>
@@ -58,32 +69,35 @@ export default function OneEventPage () {
             }
           />
         </div>
-        <div className="one-event-decription">
-          <div className="group-details">
-            <h4 className="name-group">{currentEvent.Group?.name}</h4>
-            <p className="pub-priv">{currentEvent.private ? `Private Group` : `Public Group`}</p>
-          </div>
+        <div className="one-event-group-details">
+          <img className="one-event-group-img" src={currentEvent.groupImg} />
+          <h4 className="name-group">{currentEvent.Group?.name}</h4>
+          <p className="pub-priv">{currentEvent.private ? `Private Group` : `Public Group`}</p>
+        </div>
+        <div className="one-event-description">
           <div className="event-specifics">
+            <img className='time-img' src='https://secure.meetupstatic.com/next/images/design-system-icons/time-outline.svg' />
             <p className="date-times">
-              {`${dMD[0]}, ${dMD[1]} ${dMD[2]} ${dMD[3]} at ${newStartDateTime.slice(0, -6)} ${newStartDateTime.slice(-2)}
-                to ${eDMD[0]}, ${eDMD[1]} ${eDMD[2]} ${eDMD[3]} at ${newEndDateTime.slice(0, -6)} ${newEndDateTime.slice(-2)}
-                EST
-              `}
+              {`${dMD} at ${newStartDateTime.slice(0,-6)} ${newStartDateTime.slice(-2)} to
+              ${eDMD} at ${newEndDateTime.slice(0,-6)} ${newEndDateTime.slice(-2)} EST`}
             </p>
-            <p className="one-event-type">{currentEvent.type}</p>
+            <img className="type-img" src={currentEvent.type === 'In person' ? "https://secure.meetupstatic.com/next/images/design-system-icons/map-marker-outline.svg" :
+            'https://secure.meetupstatic.com/next/images/design-system-icons/video-outline.svg'} />
+            <p className="one-event-type">{currentEvent.type} Event</p>
           </div>
           <div>
             <h2 className="detail-title">Details</h2>
             <p className="event-details">{currentEvent.description}</p>
-            <h2>{`Attendees(${currentEvent.numAttending})`}</h2>
+            <h2 className="attendees">{`Attendees(${currentEvent.numAttending})`}</h2>
           </div>
         </div>
         {isOrganizer && (
-          <button onClick={(e) => handleDelete(e, currentEvent.id)}>
+          <button className="delete-event" onClick={(e) => handleDelete(e, currentEvent.id)}>
             Delete Event
           </button>
         )}
       </div>
+    </div>
     </div>
   ) : (<h1>Loading event details</h1>)
   return eventInfo

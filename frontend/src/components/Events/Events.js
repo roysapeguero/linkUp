@@ -57,7 +57,7 @@ const Events = () => {
   return (
     <div className="event-list-container">
       {!user ? <Link to='/'><button className='back-btn'>&laquo; Back</button></Link> : null}
-      {eventInfo}
+      {!user ? <div className='not-logged-in'>{eventInfo}</div> : eventInfo}
     </div>
   )
 };

@@ -51,6 +51,7 @@ export const getEvent = (eventId) => async (dispatch) => {
     if (groupRes.ok) {
       const group = await groupRes.json()
       event.Group = {...group}
+      event.groupImg = group.GroupImages[0].url
       dispatch(loadEvent(event))
       return event;
     }

@@ -55,7 +55,7 @@ const groupInfo = groups.map((group) => {
   return (
     <div className="group-list-container">
       {!user ? <Link to='/'><button className='back-btn'>&laquo; Back</button></Link> : null}
-      {groupInfo}
+      {!user ? <div className='not-logged-in'>{groupInfo}</div> : groupInfo}
     </div>
   )
 };
