@@ -1,19 +1,17 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory } from "react-router-dom";
-import { deleteGroupThunk, getGroup } from "../../store/groups";
+import { deleteGroupThunk, getGroup } from "../../../store/groups";
 import './OneGroup.css'
 import EditGroupModal from "../EditGroup";
-import CreateEventModal from "../CreateEvent";
-import OpenModalButton from "../OpenModalButton";
-import { deleteEventThunk, loadEvents } from "../../store/events";
+import CreateEventModal from "../../Events/CreateEvent";
+import OpenModalButton from "../../OpenModalButton";
+import { deleteEventThunk, loadEvents } from "../../../store/events";
 
 export default function OneGroupPage (){
   const dispatch = useDispatch();
   const history = useHistory();
   const {groupId} = useParams();
-  const eventsObj = useSelector(state => state.events.allEvents)
-  const events = Object.values(eventsObj)
 
   useEffect(() => {
 		dispatch(getGroup(groupId));

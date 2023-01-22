@@ -1,0 +1,10 @@
+.group-image {
+  height: 50%;
+  width: fit-content;
+  border-radius: 10px;
+}
+.image-container {
+  width: 50%;
+  height: 600px;
+  margin-left: 20px;
+}

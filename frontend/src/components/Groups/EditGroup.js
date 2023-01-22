@@ -2,7 +2,6 @@ import React, { useState} from "react";
 import { useDispatch} from "react-redux";
 import { useModal } from "../../context/Modal";
 import {updateGroup, getGroup} from "../../store/groups";
-import './EditGroup.css';
 
 function EditGroupModal({group}) {
   const dispatch = useDispatch();
@@ -74,27 +73,20 @@ function EditGroupModal({group}) {
           <label className="input-label">
             Type
           </label>
-            <br />
-            <br />
             <div>
-              <label htmlFor='in-person'>In Person</label>
-              <input
+              <select
                 className="input-item"
-                name='select-type'
-                id='in-person'
-                type="radio"
-                value='In person'
+                name="type"
                 onChange={(e) => setType(e.target.value)}
-              />
-              <label htmlFor='online'>Online</label>
-              <input
-                className="input-item"
-                name='select-type'
-                id='online'
-                type="radio"
-                value='Online'
-                onChange={(e) => setType(e.target.value)}
-              />
+                value={type}
+                >
+                <option value="In person" className="input-item">
+                  In person
+                </option>
+                <option value="Online" className="input-item">
+                  Online
+                </option>
+              </select>
             </div>
           <label className="input-label">
             City

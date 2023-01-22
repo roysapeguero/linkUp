@@ -13,19 +13,25 @@
 .toggle-area-container {
   margin: 0 10px 0 5px;
   overflow-y: hidden;
+  position: relative;
+  left: 350;
+  width: fit-content;
 }
 
 .group-container:hover {
   cursor: pointer;
 }
 
-.events-btn, .groups-btn {
+.selected-header {
+  color: rgb(0, 130, 148);
+  outline: none;
+  border-bottom: 5px solid rgb(0, 130, 148);
   font-size: 22px;
-  color: rgb(117, 117, 117);
   margin-right: 8px;
 }
 
-.events-btn:focus, .groups-btn:focus {
-  color: rgb(0, 130, 148);
-  border-bottom: 5px solid rgb(0, 130, 148);
+.unselected-header {
+  font-size: 22px;
+  color: rgb(117, 117, 117);
+  margin-right: 8px;
 }

@@ -3,8 +3,7 @@ import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import OpenModalButton from "../OpenModalButton";
-import SignupFormModal from "../SignupFormModal";
-import "./LoginForm.css";
+import SignupFormModal from "./SignupModal";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -31,6 +30,7 @@ function LoginFormModal() {
       <div className="close-modal" onClick={closeModal}>
         <i className="fa-solid fa-x"></i>
       </div>
+        <i class="fa-solid fa-people-pulling"></i>
       <div className="modal-form-container">
         <h1 className="modal-form-title">Log In</h1>
         <p className="not-member">Not a member yet?<OpenModalButton

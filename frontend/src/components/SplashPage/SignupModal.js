@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
-import './SignupForm.css';
+import OpenModalButton from "../OpenModalButton";
+import LoginFormModal from "./LoginModal";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -34,8 +35,13 @@ function SignupFormModal() {
       <div className="close-modal" onClick={closeModal}>
         <i className="fa-solid fa-x"></i>
       </div>
+      <i class="fa-solid fa-people-pulling"></i>
       <div className="modal-form-container">
         <h1 className="modal-form-title">Sign Up</h1>
+        <p className="not-member">Already a member?<OpenModalButton
+          buttonText="Log in"
+          modalComponent={<LoginFormModal />}
+        /></p>
         <form onSubmit={handleSubmit}>
           <ul>
             {errors.map((error, idx) => <p className="errors" key={idx}>{error}</p>)}

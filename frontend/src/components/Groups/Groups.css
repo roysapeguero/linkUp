@@ -13,10 +13,11 @@ hr {
 }
 
 .group-container {
-  width: 100%;
+  width: 50%;
   height: 145px;
   position: relative;
-  margin: 0 10px;
+  left: 350;
+  margin: 30px 10px;
   padding-bottom: 20px;
 }
 
@@ -71,4 +72,8 @@ hr {
   margin-bottom: 20px;
   font-size: 22px;
   color: rgb(117, 117, 117);
+}
+
+form > button {
+  margin-top: 20px;
 }

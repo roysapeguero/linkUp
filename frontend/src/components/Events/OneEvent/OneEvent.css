@@ -2,11 +2,9 @@
 .one-event-container {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
 }
 
 .name-info {
-  /* border: 1px solid red; */
   margin-top: 50px;
   padding-top: 100px;
   padding-bottom: 45px ;
@@ -61,8 +59,6 @@
 }
 
 .image-container {
-  /* height: 50rem;
-  width: 50rem; */
   display: flex;
   align-items: flex-end;
 }

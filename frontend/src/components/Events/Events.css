@@ -14,10 +14,11 @@ hr {
 }
 
 .event-container {
-  width: 100%;
+  width: 50%;
   height: 145px;
   position: relative;
-  margin: 0 10px;
+  left: 350;
+  margin: 30px 10px;
   padding-bottom: 20px;
   cursor: pointer;
 }

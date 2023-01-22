@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import OpenModalButton from '../OpenModalButton';
-import LoginFormModal from '../LoginFormModal';
-import SignupFormModal from '../SignupFormModal';
+import LoginFormModal from '../SplashPage/LoginModal';
+import SignupFormModal from '../SplashPage/SignupModal';
 import './Navigation.css';
-import CreateGroupModal from '../CreateGroup';
+import CreateGroupModal from '../Groups/CreateGroup';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);

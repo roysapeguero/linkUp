@@ -2,14 +2,15 @@ import "./HomePage.css"
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import Groups from "../Groups";
-import Events from "../Events";
+import Groups from "../Groups/Groups";
+import Events from "../Events/Events";
 
 function HomePage() {
   const user = useSelector((state) => state.session.user)
   const [groupDisplay, setGroupDisplay] = useState(false);
   const [eventDisplay, setEventDisplay] = useState(true);
   const history = useHistory()
+
 
 const handleGroupClick = () => {
   if (groupDisplay === false && eventDisplay === true) {
@@ -19,7 +20,6 @@ const handleGroupClick = () => {
   }
   else if (groupDisplay === true && eventDisplay === false) {
     setGroupDisplay(true)
-    history.push('/groups')
   }
 }
 
@@ -31,7 +31,6 @@ const handleEventClick = () => {
   }
   else if (eventDisplay === true && groupDisplay === false) {
     setEventDisplay(true)
-    history.push('/events')
   }
 }
 
@@ -42,15 +41,15 @@ const handleEventClick = () => {
           <p>{`Welcome, ${user.firstName} 👋`}</p>
         </div>
         <div className="toggle-area-container">
-          <button className='events-btn' onClick={() => handleEventClick()}>
+          <button className={`${eventDisplay ? 'selected-header' : 'unselected-header'}`} onClick={() => handleEventClick()}>
             Events
           </button>
-          <button className='groups-btn' onClick={() => handleGroupClick()}>
+          <button className={`${groupDisplay ? 'selected-header' : 'unselected-header'}`} onClick={() => handleGroupClick()}>
             Groups
           </button>
+        </div>
           {groupDisplay ? <Groups /> : null}
           {eventDisplay ? <Events /> : null}
-        </div>
       </div>
     </div>
   )

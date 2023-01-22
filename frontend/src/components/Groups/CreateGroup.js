@@ -3,7 +3,6 @@ import { useDispatch} from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import {createGroup} from "../../store/groups";
-import './CreateGroup.css';
 
 function CreateGroupModal() {
   const dispatch = useDispatch();
@@ -83,24 +82,19 @@ function CreateGroupModal() {
             <br />
             <br />
             <div>
-              <label htmlFor='in-person'>In Person</label>
-              <input
+              <select
                 className="input-item"
-                name='select-type'
-                id='in-person'
-                type="radio"
-                value='In person'
+                name="type"
                 onChange={(e) => setType(e.target.value)}
-              />
-              <label htmlFor='online'>Online</label>
-              <input
-                className="input-item"
-                name='select-type'
-                id='online'
-                type="radio"
-                value='Online'
-                onChange={(e) => setType(e.target.value)}
-              />
+                value={type}
+                >
+                <option value="In person" className="input-item">
+                  In person
+                </option>
+                <option value="Online" className="input-item">
+                  Online
+                </option>
+              </select>
             </div>
           <label className="input-label">
             City
@@ -130,7 +124,7 @@ function CreateGroupModal() {
             value={previewImage}
             onChange={(e) => setPreviewImage(e.target.value)}
             required
-            placeholder="Please image add url"
+            placeholder="Please add image url"
           />
           <label className="input-label">
             Private

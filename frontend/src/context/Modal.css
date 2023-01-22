@@ -26,8 +26,32 @@
   overflow: scroll;
 }
 
+.errors-container {
+  width: 90%;
+  text-align: center;
+  align-items: center;
+}
+
 .errors {
+  width: 90%;
   color: red;
+}
+
+.fa-people-pulling {
+  position: relative;
+  top: 30;
+  left: 216;
+  background-color: rgb(246, 64, 96);
+  padding: 10px;
+  margin: 13px 0 0;
+  border-radius: 50%;
+  color: white;
+  font-size: 21px;
+}
+
+p > button {
+  color: rgb(0, 130, 148);
+  font-weight: 400;
 }
 
 form {
@@ -66,6 +90,7 @@ form {
 .input-label {
   font-size: 16px;
   font-weight: 500;
+
 }
 
 .input-item {
@@ -77,6 +102,7 @@ form {
   margin-bottom: 24px;
   margin-top: 8px;
   width: 100%;
+  font-size: 16px;
 }
 
 #modal-btns {

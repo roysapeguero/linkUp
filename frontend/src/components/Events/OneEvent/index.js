@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { deleteEventThunk, getEvent } from "../../store/events";
+import { deleteEventThunk, getEvent } from "../../../store/events";
 import './OneEvent.css'
 
 
