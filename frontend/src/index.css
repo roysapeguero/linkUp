@@ -16,3 +16,7 @@ body {
   margin: 0;
   width: 100%;
 }
+
+.fa-people-pulling {
+  background-color: rgb(246, 64, 96);
+}
