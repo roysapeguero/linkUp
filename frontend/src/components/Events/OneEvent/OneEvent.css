@@ -203,7 +203,12 @@
   position: absolute;
   bottom: 55;
   left: 20;
+  /* border: 1px solid red; */
+  max-width: 750px;
+  max-height: 30px;
+  /* margin-top: 10px; */
 }
+
 
 .attendees {
   position: absolute;

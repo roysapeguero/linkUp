@@ -22,6 +22,8 @@
 .one-group-name {
   font-size: 32px;
   font-weight: 800;
+  position: absolute;
+  left: -325;
 }
 
 .one-group-info {
@@ -101,6 +103,9 @@
   position: absolute;
   top: 145;
   font-size: 16px;
+  width: 300px;
+  height: 200px;
+  /* border: 1px solid red; */
 }
 
 .user-actions {

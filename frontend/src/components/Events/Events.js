@@ -41,7 +41,7 @@ const Events = () => {
             alt={`${event.name}'s preview`}
           />
         </div>
-        <div className='event-description'>
+        <div className='events-description'>
           <p className='event-name'>{event.name}</p>
           <p className='event-dates'>{`${dMD[0].toUpperCase()}, ${dMD[1].toUpperCase()} ${dMD[2]} - ${newStartDateTime.slice(0, -6)} ${newStartDateTime.slice(-2)}`}</p>
         </div>

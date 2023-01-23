@@ -61,6 +61,10 @@ hr {
   top: 65px;
   color: rgb(117, 117, 117);
   font-size: 14px;
+  /* border: 1px solid red; */
+  max-height: 50px;
+  max-width: 600px;
+  overflow: scroll;
 }
 
 .group-info-members {
