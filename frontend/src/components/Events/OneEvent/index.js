@@ -93,7 +93,7 @@ export default function OneEventPage () {
               )}
             </div>
           </div>
-          <div>
+          <div className="page-bottom">
             <div className="detail-div">
               <h2 className="detail-title">Details</h2>
               <p className="event-details">{currentEvent.description}</p>
