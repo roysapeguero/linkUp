@@ -8,6 +8,7 @@
 	height: 34px;
 	margin: 5px;
 	position: absolute;
+	z-index: 1000;
 }
 
 .nav-bar {

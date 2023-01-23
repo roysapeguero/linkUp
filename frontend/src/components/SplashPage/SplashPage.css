@@ -1,3 +1,8 @@
+
+/* .splash-page-container {
+  overflow: hidden;
+} */
+
 .splash-page-content {
   display: flex;
   flex-direction: row;
@@ -46,6 +51,7 @@
   top: 200;
   right: 100;
   z-index: -75;
+  object-fit: cover;
 }
 
 .green-blob {
