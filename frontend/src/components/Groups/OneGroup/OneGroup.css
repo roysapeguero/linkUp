@@ -1,6 +1,5 @@
-.one-group-container {
-  border: 1px solid red;
-}
+/* .one-group-container {
+} */
 
 .one-group-image {
   height: 400px;
@@ -102,4 +101,24 @@
   position: absolute;
   top: 145;
   font-size: 16px;
+}
+
+.user-actions {
+  margin-left: 40px;
+}
+
+.user-actions > button {
+  background-color: rgba(211, 211, 211, 0.526);
+  width: 250px;
+  height: 45px;
+  border-radius: 15px;
+  font-size: 18px;
+  margin: 0 30px 20px;
+  /* position: absolute;
+  bottom: 10; */
+  /* cursor: pointer; */
+}
+
+.user-actions > button:hover {
+  color: white;
 }

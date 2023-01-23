@@ -10,7 +10,7 @@ function CreateGroupModal() {
 
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState("In person");
   const [privacy, setPrivacy] = useState(false);
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -65,6 +65,7 @@ function CreateGroupModal() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
             />
           </label>
           <label className="input-label">
@@ -74,6 +75,7 @@ function CreateGroupModal() {
               type="text"
               value={about}
               onChange={(e) => setAbout(e.target.value)}
+              required
             />
           </label>
           <label className="input-label">
@@ -87,6 +89,7 @@ function CreateGroupModal() {
                 name="type"
                 onChange={(e) => setType(e.target.value)}
                 value={type}
+                required
                 >
                 <option value="In person" className="input-item">
                   In person
@@ -103,6 +106,7 @@ function CreateGroupModal() {
               type="text"
               value={city}
               onChange={(e) => setCity(e.target.value)}
+              required
             />
           </label>
           <label className="input-label">
@@ -112,6 +116,7 @@ function CreateGroupModal() {
               type="text"
               value={state}
               onChange={(e) => setState(e.target.value)}
+              required
             />
           </label>
           <label htmlFor="url" className="input-label">

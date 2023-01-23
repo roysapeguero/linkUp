@@ -9,7 +9,7 @@ function CreateEventModal({group}) {
   const history = useHistory();
   const [venueId, setVenueId] = useState(null);
   const [name, setName] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState("In person");
   const [capacity, setCapacity] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -69,6 +69,7 @@ function CreateEventModal({group}) {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
             />
           </label>
           <label className="input-label">
@@ -80,6 +81,7 @@ function CreateEventModal({group}) {
                 name="type"
                 onChange={(e) => setType(e.target.value)}
                 value={type}
+                required
                 >
                 <option value="In person" className="input-item">
                   In person
@@ -93,18 +95,20 @@ function CreateEventModal({group}) {
             Capacity
             <input
               className="input-item"
-              type="text"
+              type="number"
               value={capacity}
               onChange={(e) => setCapacity(e.target.value)}
+              required
             />
           </label>
           <label className="input-label">
             Price
             <input
               className="input-item"
-              type="text"
+              type="number"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
+              required
             />
           </label>
           <label className="input-label">
@@ -114,24 +118,27 @@ function CreateEventModal({group}) {
               type="text"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              required
             />
           </label>
           <label className="input-label">
-            Start Date & Time
+            Start Date
             <input
               className="input-item"
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
+              required
             />
           </label>
           <label className="input-label">
-            End Date & Time
+            End Date
             <input
               className="input-item"
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
+              required
             />
           </label>
           <label htmlFor="url" className="input-label">
