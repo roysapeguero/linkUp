@@ -6,7 +6,6 @@ import './OneGroup.css'
 import EditGroupModal from "../EditGroup";
 import CreateEventModal from "../../Events/CreateEvent";
 import OpenModalButton from "../../OpenModalButton";
-import { deleteEventThunk, loadEvents } from "../../../store/events";
 
 export default function OneGroupPage (){
   const dispatch = useDispatch();
@@ -15,7 +14,7 @@ export default function OneGroupPage (){
 
   useEffect(() => {
 		dispatch(getGroup(groupId));
-	}, [dispatch]);
+	}, [dispatch, groupId]);
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -54,14 +53,14 @@ export default function OneGroupPage (){
         <h1 className='one-group-name'>{currentGroup.name}</h1>
       </div>
       <div className="one-group-info">
-        <img className="location-img" src='https://secure.meetupstatic.com/next/images/design-system-icons/map-marker-outline.svg' />
+        <img className="location-img" alt='location icon' src='https://secure.meetupstatic.com/next/images/design-system-icons/map-marker-outline.svg' />
         <p className='one-group-location'>{`${currentGroup.city}, ${currentGroup.state}`}</p>
         <p className='one-group-info-members'>{
           `${currentGroup.numMembers} ${currentGroup.numMembers > 1 ? "members" : "member"} `}&#x2022;
            {currentGroup.private ? " Private group" : " Public group"}
         </p>
-        <img className="users-img" src='https://icons.iconarchive.com/icons/custom-icon-design/silky-line-user/512/users-icon.png' />
-        <img className='user-img' src='https://www.citypng.com/public/uploads/small/3163494658960sph4obyj9nhmdtvj6hp43eehbjake40kkqawxnvpr4kvh4qv2yxsfxmbf2ahxtgdsjwao1bftyicsrks0diqz1jkk2bokzqtvy.png' />
+        <img className="users-img" alt='users icon' src='https://icons.iconarchive.com/icons/custom-icon-design/silky-line-user/512/users-icon.png' />
+        <img className='user-img' alt='user icon' src='https://www.citypng.com/public/uploads/small/3163494658960sph4obyj9nhmdtvj6hp43eehbjake40kkqawxnvpr4kvh4qv2yxsfxmbf2ahxtgdsjwao1bftyicsrks0diqz1jkk2bokzqtvy.png' />
         <p className="organized">Organized by </p>
         <p className="org-user-name">{`${currentGroup.Organizer.firstName} ${currentGroup.Organizer.lastName}`}</p>
         <h3 className="about-title">What we're about</h3>

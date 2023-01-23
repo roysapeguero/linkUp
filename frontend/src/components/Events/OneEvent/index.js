@@ -70,18 +70,18 @@ export default function OneEventPage () {
           />
         </div>
         <div className="one-event-group-details">
-          <img className="one-event-group-img" src={currentEvent.groupImg} />
+          <img className="one-event-group-img" alt="event's group preview" src={currentEvent.groupImg} />
           <h4 className="name-group">{currentEvent.Group?.name}</h4>
           <p className="pub-priv">{currentEvent.private ? `Private Group` : `Public Group`}</p>
         </div>
         <div className="one-event-description">
           <div className="event-specifics">
-            <img className='time-img' src='https://secure.meetupstatic.com/next/images/design-system-icons/time-outline.svg' />
+            <img className='time-img' alt='time icon' src='https://secure.meetupstatic.com/next/images/design-system-icons/time-outline.svg' />
             <p className="date-times">
               {`${dMD} at ${newStartDateTime.slice(0,-6)} ${newStartDateTime.slice(-2)} to
               ${eDMD} at ${newEndDateTime.slice(0,-6)} ${newEndDateTime.slice(-2)} EST`}
             </p>
-            <img className="type-img" src={currentEvent.type === 'In person' ? "https://secure.meetupstatic.com/next/images/design-system-icons/map-marker-outline.svg" :
+            <img className="type-img" alt='type icon' src={currentEvent.type === 'In person' ? "https://secure.meetupstatic.com/next/images/design-system-icons/map-marker-outline.svg" :
             'https://secure.meetupstatic.com/next/images/design-system-icons/video-outline.svg'} />
             <p className="one-event-type">{currentEvent.type} Event</p>
           </div>
