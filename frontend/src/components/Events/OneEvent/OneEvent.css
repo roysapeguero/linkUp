@@ -5,8 +5,6 @@
 
 .one-event-page {
   width: 100%;
-  /* padding: 20px; */
-  border: 1px solid red;
 }
 
 
@@ -54,9 +52,23 @@
   font-weight: 600;
 }
 
-.one-event-description {
-  border: 1px solid blue;
-  padding: 100px;
+.one-event-group-details {
+  width: 300px;
+  height: 100px;
+  position: absolute;
+  right: 20;
+  top: 50;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.one-event-group-img {
+  width: 60px;
+  height:60px;
+  position: absolute;
+  top: 20;
+  left: 20;
+  border-radius: 10px;
 }
 
 .one-event-group-name {
@@ -68,11 +80,11 @@
 }
 
 .content {
-  border: 1px solid red;
   width: 100%;
   background-color: rgb(246, 247, 248);
   margin-top: 197px;
   position: absolute;
+  height: 100%;
 }
 
 .event-image {
@@ -82,6 +94,7 @@
   position: absolute;
   /* left: 150; */
   top: 50;
+  left: 20;
 }
 
 
@@ -181,20 +194,20 @@
 
 .detail-title {
   position: absolute;
-  bottom: 130;
+  bottom: 90;
   left: 20;
   font-size: 20px;
 }
 
 .event-details {
   position: absolute;
-  bottom: 100;
+  bottom: 55;
   left: 20;
 }
 
 .attendees {
   position: absolute;
-  bottom: 50;
+  bottom: 10;
   left: 20;
   font-size: 20px;
 }
