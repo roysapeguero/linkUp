@@ -1,4 +1,5 @@
-# LinkUp ![image](file:///Users/roysapeguero/Downloads/people-pulling-solid-use.svg)
+# LinkUp &nbsp; [![image](https://user-images.githubusercontent.com/110946315/214033449-94cbade9-1666-4908-95f4-aaa644db1c10.png)][1]
+
 
 LinkUp is a Meetup inspired web application. It provides a platform for users to organize themselves in groups of individuals with similar intrests and plan activities together.
 
@@ -21,34 +22,34 @@ LinkUp is a Meetup inspired web application. It provides a platform for users to
 
 ## Splash Page
 ---
-![image](file:///var/folders/yp/l5_r14q92blfnd5_6knmjzrm0000gn/T/TemporaryItems/NSIRD_screencaptureui_b8bAZO/Screen%20Shot%202023-01-23%20at%205.10.01%20AM.png)
+![image](/assets/SplashPage.png)
 
-## Login Modal
----
-![image](file:///var/folders/yp/l5_r14q92blfnd5_6knmjzrm0000gn/T/TemporaryItems/NSIRD_screencaptureui_6Vlumx/Screen%20Shot%202023-01-23%20at%205.53.06%20AM.png)
 
 ## Signup Modal
 ---
-![image](file:///var/folders/yp/l5_r14q92blfnd5_6knmjzrm0000gn/T/TemporaryItems/NSIRD_screencaptureui_P6z0Zn/Screen%20Shot%202023-01-23%20at%205.54.20%20AM.png)
+![image](/assets/Signup.png)
 
+## Login Modal
+---
+![image](/assets/Login.png)
 
 ## Groups Tab
 ---
-![image](file:///var/folders/yp/l5_r14q92blfnd5_6knmjzrm0000gn/T/TemporaryItems/NSIRD_screencaptureui_1cRQjO/Screen%20Shot%202023-01-23%20at%205.19.04%20AM.png)
+![image](/assets/Groups.png)
 
 ## Group View Page
 ---
-- This view is only available to the owner of the group displayed
+- This view with Edit, Create and Delete buttons is only available to the owner of the group displayed
 
 
-![image](file:///var/folders/yp/l5_r14q92blfnd5_6knmjzrm0000gn/T/TemporaryItems/NSIRD_screencaptureui_Mn8DBJ/Screen%20Shot%202023-01-23%20at%205.23.27%20AM.png)
+![image](/assets/GroupView.png)
 
 ## Edit Group Modal
 ---
 - This modal is only available to the owner of the group displayed
 
 
-![image](file:///var/folders/yp/l5_r14q92blfnd5_6knmjzrm0000gn/T/TemporaryItems/NSIRD_screencaptureui_jcKUro/Screen%20Shot%202023-01-23%20at%205.24.31%20AM.png)
+![image](/assets/EditGroup.png)
 
 
 ## Create Event Modal
@@ -56,18 +57,18 @@ LinkUp is a Meetup inspired web application. It provides a platform for users to
 - This modal is only available to the owner of the group displayed
 
 
-![image](file:///var/folders/yp/l5_r14q92blfnd5_6knmjzrm0000gn/T/TemporaryItems/NSIRD_screencaptureui_FBDwYz/Screen%20Shot%202023-01-23%20at%205.40.35%20AM.png)
+![image](/assets/CreateEvent.png)
 
 ## Events Tab
 ---
-![image](file:///var/folders/yp/l5_r14q92blfnd5_6knmjzrm0000gn/T/TemporaryItems/NSIRD_screencaptureui_0I1yUF/Screen%20Shot%202023-01-23%20at%205.18.47%20AM.png)
+![image](/assets/Events.png)
 
 ## Event View Page
 ---
 - The Delete button on the bottom right side of the page is only available to the event organizer
 
 
-![image](file:///var/folders/yp/l5_r14q92blfnd5_6knmjzrm0000gn/T/TemporaryItems/NSIRD_screencaptureui_n9QtQy/Screen%20Shot%202023-01-23%20at%205.47.21%20AM.png)
+![image](/assets/EventView.png)
 
 
 ## Get Started
@@ -85,3 +86,5 @@ LinkUp is a Meetup inspired web application. It provides a platform for users to
 ---
 - [LinkedIn](https://www.linkedin.com/in/roysapeguero/)
 - <roysapeguero@outlook.com>
+
+[1]:https://meetup-clone-rw87.onrender.com/
