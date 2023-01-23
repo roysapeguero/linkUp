@@ -1,10 +1,13 @@
 
 .one-event-container {
-  height: fit-content;
+  height: 100%;
+  width: 100%;
 }
 
 .one-event-page {
   width: 100%;
+  height: 600px;
+  overflow-x: hidden;
 }
 
 
@@ -13,7 +16,9 @@
   padding-top: 100px;
   padding-bottom: 45px ;
   width: 100%;
-  position: absolute;
+  position: relative;
+  left: 0;
+  right: 0;
   border-bottom: 1px solid lightgray;
   border-top: 1px solid lightgray;
 }
@@ -53,11 +58,11 @@
 }
 
 .one-event-group-details {
-  width: 300px;
+  width: 100%;
   height: 100px;
   position: absolute;
-  right: 20;
-  top: 50;
+  /* left: 20; */
+  /* top: 50; */
   background-color: white;
   border-radius: 15px;
 }
@@ -82,40 +87,33 @@
 .content {
   width: 100%;
   background-color: rgb(246, 247, 248);
-  margin-top: 197px;
-  position: absolute;
+  position: relative;
   height: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.one-event-image-container {
+  width: 500px;
+  height: 350px;
+  position: relative;
+  margin: 50px 30px;
 }
 
 .event-image {
   height: 350px;
-  width: 575px;
-  display: block;
+  width: 100%;
+  /* display: block; */
   position: absolute;
-  /* left: 150; */
-  top: 50;
-  left: 20;
+  object-fit: cover;
+  /* top: 50; */
 }
 
-
-.group-details {
-  position: absolute;
-  right: 20;
-  top: 50;
-  border: 1px solid white;
-  background-color: white;
-  border-radius: 15px;
-  width: 300px;
-  height: 100px;
-}
-
-.group-img {
-  position: absolute;
-  top: 22;
-  left: 25;
-  width: 56px;
-  height: 56px;
-  border-radius: 5px;
+.right-side {
+  width: 310px;
+  height: 350px;
+  position: relative;
+  margin: 50px 0 0 30px;
 }
 
 .name-group {
@@ -123,6 +121,7 @@
   left: 85;
   padding: 0 15px;
   font-weight: 600;
+  width: 100%;
 }
 
 .pub-priv {
@@ -137,12 +136,12 @@
 
 .event-specifics {
   position: absolute;
-  right: 20;
-  top: 170;
+  /* left: 20; */
+  top: 120;
   border: 1px solid white;
   background-color: white;
   border-radius: 15px;
-  width: 300px;
+  width: 100%;
   height: 150px
 }
 
@@ -178,15 +177,25 @@
   opacity: 0.4;
 }
 
+.detail-div {
+  width:  100%;
+  height: 200px;
+  /* overflow: hidden; */
+  /* margin-left: 0; */
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 0 30px 0 30px;
+}
+
 .delete-event {
   position: absolute;
-  /* bottom: 450; */
-  /* left: 830; */
-  right: 20;
-  top: 350;
-
+  top: 290;
   background-color: white;
-  width: 300px;
+  width: 100%;
   height: 45px;
   border-radius: 15px;
   font-size: 18px;
@@ -194,15 +203,13 @@
 
 .detail-title {
   position: absolute;
-  bottom: 90;
-  left: 20;
+  top: 10;
   font-size: 20px;
 }
 
 .event-details {
   position: absolute;
-  bottom: 55;
-  left: 20;
+  top: 50;
   /* border: 1px solid red; */
   max-width: 750px;
   max-height: 30px;
@@ -212,32 +219,12 @@
 
 .attendees {
   position: absolute;
-  bottom: 10;
-  left: 20;
+  top: 110;
   font-size: 20px;
 }
 
-
-/* @media only screen and (max-width: 1100px) {
-  .content {
-    border: 1px solid red;
-
+@media only screen and (max-width: 1024px) {
+  .detail-div {
+    margin-left: 20px;
   }
-
-  .group-details {
-    right: 250;
-  }
-
-  .event-image {
-    left: 150;
-  }
-
-  .event-specifics {
-    right: 250;
-  }
-
-  .delete-event {
-    right: 250;
-
-  }
-} */
+}

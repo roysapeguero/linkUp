@@ -10,3 +10,9 @@ body {
   /* overflow-x: hidden; */
 
 }
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+}
