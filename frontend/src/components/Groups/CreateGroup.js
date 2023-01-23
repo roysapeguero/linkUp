@@ -54,7 +54,7 @@ function CreateGroupModal() {
       <div className="modal-form-container">
         <h1 className="modal-form-title">Create A Group</h1>
         <form onSubmit={handleSubmit}>
-          <ul>
+          <ul className="errors-container">
             {errors.map((error, idx) =>
               <p className="errors" key={idx}>{error}</p>)}
           </ul>

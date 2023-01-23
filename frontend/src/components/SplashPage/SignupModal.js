@@ -43,7 +43,7 @@ function SignupFormModal() {
           modalComponent={<LoginFormModal />}
         /></p>
         <form onSubmit={handleSubmit}>
-          <ul>
+          <ul className="errors-container">
             {errors.map((error, idx) => <p className="errors" key={idx}>{error}</p>)}
           </ul>
           <label className="input-label">
