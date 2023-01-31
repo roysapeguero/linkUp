@@ -87,4 +87,4 @@ LinkUp is a Meetup inspired web application. It provides a platform for users to
 - [LinkedIn](https://www.linkedin.com/in/roysapeguero/)
 - <roysapeguero@outlook.com>
 
-[1]:https://meetup-clone-rw87.onrender.com/
+[1]:https://linkup-d9ua.onrender.com/
