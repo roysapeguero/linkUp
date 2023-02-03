@@ -14,7 +14,6 @@ const router = express.Router();
 router.delete("/:imageId", requireAuth, async (req, res, next) => {
   let reqImageId = req.params.imageId;
   let deleteMe = await EventImage.findByPk(reqImageId);
-  console.log(deleteMe);
 
   if (!deleteMe) {
     const err = new Error("Image not found");
