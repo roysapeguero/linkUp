@@ -1,11 +1,11 @@
-import "./HomePage.css"
+import './GroupsEvents.css'
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import Groups from "../Groups/Groups";
 import Events from "../Events/Events";
 
-function HomePage() {
+function GroupsEvents() {
   const user = useSelector((state) => state.session.user)
   const [groupDisplay, setGroupDisplay] = useState(false);
   const [eventDisplay, setEventDisplay] = useState(true);
@@ -35,12 +35,9 @@ const handleEventClick = () => {
 }
 
   return (
-    <div className="home-page-container">
-      <div className="home-page-content">
-        <div className="welcome-user">
-          <p>{`Welcome, ${user.firstName} 👋`}</p>
-        </div>
-        <div className="hp-toggle-area-container">
+    <div className="ge-page-container">
+      <div className="ge-page-content">
+        <div className="toggle-area-container">
           <button className={`${eventDisplay ? 'selected-header' : 'unselected-header'}`} onClick={() => handleEventClick()}>
             Events
           </button>
@@ -55,4 +52,4 @@ const handleEventClick = () => {
   )
 }
 
-export default HomePage;
+export default GroupsEvents;

@@ -9,6 +9,7 @@ import OneGroupPage from "./components/Groups/OneGroup/OneGroup";
 import OneEventPage from "./components/Events/OneEvent";
 import HomePage from "./components/HomePage";
 import Events from "./components/Events/Events";
+import GroupsEvents from "./components/GroupsEvents";
 
 
 function App() {
@@ -32,13 +33,13 @@ function App() {
             <OneEventPage />
           </Route>
           <Route path='/events'>
-            {user ? <HomePage /> : <Events />}
+            {user ? <HomePage /> : <GroupsEvents />}
           </Route>
           <Route path='/groups/:groupId'>
             <OneGroupPage />
           </Route>
           <Route path='/groups'>
-            {user ? <HomePage /> : <Groups />}
+            {user ? <HomePage /> : <GroupsEvents />}
           </Route>
         </Switch>
       )}
