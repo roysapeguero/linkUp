@@ -20,8 +20,27 @@ function SplashPage() {
         </div>
       </div>
       <div className="feature-buttons">
-        <NavLink className="link" to='/groups'><button id="btn1">All Groups</button></NavLink>
-        <NavLink className="link" to='/events'><button id="btn2">All Events</button></NavLink>
+        <NavLink className="link" to='/events'>
+          <img className="link-img" alt='make new friends' src='https://secure.meetupstatic.com/next/images/indexPage/category1.webp?w=3840' />
+          <button className="link-text">
+            Make new friends
+            <img className="arrow-guy" src='https://secure.meetupstatic.com/next/images/shared/right-arrow.svg?w=48'/>
+          </button>
+        </NavLink>
+        <NavLink className="link" to='/events'>
+          <img className="link-img" alt='explore the outdoors' src='https://secure.meetupstatic.com/next/images/indexPage/category2.webp?w=3840' />
+          <button className="link-text">
+            Explore the outdoors
+            <img className="arrow-guy" src='https://secure.meetupstatic.com/next/images/shared/right-arrow.svg?w=48'/>
+          </button>
+        </NavLink>
+        <NavLink className="link" to='/events'>
+          <img className="link-img" alt='connect over tech' src='https://secure.meetupstatic.com/next/images/indexPage/category3.webp?w=2048' />
+          <button className="link-text">
+            Connect over tech
+            <img className="arrow-guy" src='https://secure.meetupstatic.com/next/images/shared/right-arrow.svg?w=48'/>
+          </button>
+        </NavLink>
       </div>
     </div>
   )

@@ -1,21 +1,24 @@
 
-/* .splash-page-container {
+.splash-page-container {
   overflow: hidden;
-} */
+  /* border: 1px solid red; */
+  width: 100%;
+}
 
 .splash-page-content {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%;
+  width: 90%;
   overflow-y: hidden;
+  /* border: 1px solid red; */
 }
 
 .page-left {
   width: 50%;
   flex-direction: column;
   display: flex;
-  margin: 0 15px;
+  margin: 100px 15px 0 90px;
 }
 
 .page-title {
@@ -25,8 +28,9 @@
 }
 
 .page-description {
-  width: 100%;
+  width: 90%;
   font-size: 16px;
+  line-height: 24px;
 }
 
 .page-right {
@@ -35,8 +39,7 @@
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
-  margin: 0;
-  margin-top: 50px;
+  margin-top: 110px;
   padding-top: 0;
 }
 
@@ -71,15 +74,56 @@
 .feature-buttons {
   display: flex;
   justify-content: center;
-  margin-top: 8%;
+  /* margin-top: 8%; */
+  /* margin: 5% 50px; */
+  margin: 5% 30px 5% 70px;
+  width: 90%;
+  /* border: 1px solid red; */
 }
 
 .link {
-
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* border: 1px solid blue; */
+  margin: 15px 10px;
+
+  width: 375px;
 }
 
-#btn1, #btn2 {
+.link-img {
+  border-radius: 10px;
+  width: 100%;
+  height: 200px;
+}
+
+.link-text {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 700;
+	color: rgb(0, 130, 148);
+  position: relative;
+}
+
+.arrow-guy {
+  margin-left: 10px;
+  position: absolute;
+  top: 3;
+  /* width: 15px; */
+}
+
+.link:hover {
+  text-decoration: underline;
+	color: rgb(0, 130, 148);
+  opacity: 0.8;
+}
+
+/* .link-text:hover {
+  text-decoration: underline;
+	color: rgb(0, 130, 148);
+} */
+/* #btn1, #btn2 {
   display: block;
   height: 40px;
   font-size: 20px;
@@ -96,7 +140,7 @@
 #btn1:hover, #btn2:hover {
   background-color: #f65858e2;
   cursor: pointer;
-}
+} */
 
 @media screen and (max-width: 635px) {
   .feature-buttons {
