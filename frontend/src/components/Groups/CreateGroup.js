@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import {createGroup} from "../../store/groups";
@@ -20,6 +20,7 @@ function CreateGroupModal() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const image = {
       url: previewImage,
       "preview": true

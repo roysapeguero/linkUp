@@ -31,6 +31,7 @@
   width: 90%;
   font-size: 16px;
   line-height: 24px;
+  margin-top: 0;
 }
 
 .page-right {
@@ -119,28 +120,119 @@
   opacity: 0.8;
 }
 
-/* .link-text:hover {
-  text-decoration: underline;
-	color: rgb(0, 130, 148);
-} */
-/* #btn1, #btn2 {
-  display: block;
-  height: 40px;
-  font-size: 20px;
-  font-weight: 600;
-  width: 200px;
-  background-color: rgb(246, 88, 88);
-  color: #fff;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: none;
-  margin: 50px 15px;
+.how-it-works {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-#btn1:hover, #btn2:hover {
-  background-color: #f65858e2;
-  cursor: pointer;
-} */
+.how-title {
+  font-size: 30px;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.how-text {
+  margin-top: 6px;
+  width: 40%;
+  text-align: center;
+  line-height: 24px;
+}
+
+.join-find-start {
+  display: flex;
+  width: 80%;
+  align-items: space-evenly;
+}
+
+.start-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 370px;
+  margin: 25px 13px;
+}
+
+.start-link-img {
+  width: 160px;
+  height: 145px;
+}
+
+.start-link-btn, button.start-group > button {
+  margin-top: 15px;
+  color:rgb(0, 130, 148);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.start-link-btn:hover, button.start-group > button:hover {
+  text-decoration: underline;
+}
+
+.start-link-text {
+  line-height: 24px;
+  font-size: 14px;
+  text-align: center;
+  width: 85%;
+}
+
+.join-div {
+  display: flex;
+  justify-content: center;
+}
+
+p.join-btn > button {
+  margin: 35px 0 100px 0;
+  background-color: rgb(0, 130, 148);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  width: 130px;
+  z-index: 100;
+}
+
+p.join-btn > button:hover {
+  opacity: .9;
+  color: white;
+}
+
+.footer {
+  width: 100%;
+  height: 200px;
+  background-color: rgb(33, 33, 33);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dev-info {
+  color: white;
+}
+.contact-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.contact-btns {
+  background-color: white;
+  margin: 5px 10px;
+  font-size: 30px;
+  border-radius: 5px;
+  width: 40px;
+  height: 40px;
+}
+
+a:visited {
+  text-decoration: none;
+  color: transparent;
+}
+
+a:hover {
+  color: rgb(0, 130, 148)
+}
 
 @media screen and (max-width: 635px) {
   .feature-buttons {

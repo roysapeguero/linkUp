@@ -10,6 +10,7 @@ import OneEventPage from "./components/Events/OneEvent";
 import HomePage from "./components/HomePage";
 import Events from "./components/Events/Events";
 
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
