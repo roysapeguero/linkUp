@@ -1,10 +1,10 @@
 # LinkUp &nbsp; [![image](https://user-images.githubusercontent.com/110946315/214033449-94cbade9-1666-4908-95f4-aaa644db1c10.png)][1]
 
 
-LinkUp is a Meetup inspired web application. It provides a platform for users to organize themselves in groups of individuals with similar intrests and plan activities together.
+[LinkUp][1] is a Meetup inspired web application. It provides a platform for users to organize themselves in groups of individuals with similar intrests and plan activities together.
 
 ## Tech Stack
----
+
 ### Frameworks, Platforms and Libraries:
    ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
    ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
@@ -22,31 +22,31 @@ LinkUp is a Meetup inspired web application. It provides a platform for users to
    ![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
 
 ## Splash Page
----
+
 ![image](/assets/SplashPage.png)
 
 
 ## Signup Modal
----
+
 ![image](/assets/Signup.png)
 
 ## Login Modal
----
+
 ![image](/assets/Login.png)
 
 ## Groups Tab
----
+
 ![image](/assets/Groups.png)
 
 ## Group View Page
----
+
 - This view with Edit, Create and Delete buttons is only available to the owner of the group displayed
 
 
 ![image](/assets/GroupView.png)
 
 ## Edit Group Modal
----
+
 - This modal is only available to the owner of the group displayed
 
 
@@ -54,18 +54,17 @@ LinkUp is a Meetup inspired web application. It provides a platform for users to
 
 
 ## Create Event Modal
----
+
 - This modal is only available to the owner of the group displayed
 
 
 ![image](/assets/CreateEvent.png)
 
 ## Events Tab
----
 ![image](/assets/Events.png)
 
 ## Event View Page
----
+
 - The Delete button on the bottom right side of the page is only available to the event organizer
 
 
@@ -73,7 +72,7 @@ LinkUp is a Meetup inspired web application. It provides a platform for users to
 
 
 ## Get Started
----
+
 1. Download project from starter.
 2. CD into /backend folder
 3. NPM install
@@ -84,7 +83,7 @@ LinkUp is a Meetup inspired web application. It provides a platform for users to
 8. NPM start
 
 ## Contact Information
----
+
 - [LinkedIn](https://www.linkedin.com/in/roysapeguero/)
 - <roysapeguero@outlook.com>
 
