@@ -103,13 +103,13 @@
 }
 
 .one-event-image-container {
-  width: auto;
-  height: 350px;
+  max-width: auto;
+  max-height: 372px;
 }
 
 .event-image {
-  height: 350px;
-  width: auto;
+  max-height: 372px;
+  max-width: auto;
   object-fit: cover;
 }
 
@@ -127,8 +127,8 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: center;
+  align-items: left;
   padding: 0 20px;
   text-decoration: none;
 }
@@ -144,10 +144,10 @@
 }
 
 .pub-priv {
-  margin: 0;
-
+  /* margin: 0; */
   font-size: 14px;
   color: rgb(117, 117, 117);
+  width: fit-content;
 }
 
 .event-specifics {
@@ -205,6 +205,7 @@
   height: 45px;
   border-radius: 15px;
   font-size: 18px;
+  margin-top: 15px;
 }
 
 
@@ -217,7 +218,7 @@
   height: 100px;
   display: flex;
   flex-direction: column;
-  line-height: 2px;
+  /* line-height: 2px; */
   padding: 24px 8%;
 }
 
@@ -234,7 +235,7 @@
 .attendees {
   font-size: 20px;
   width:  100%;
-  margin: 40px 0;
+  /* margin: 40px 0; */
 }
 /*
 @media only screen and (max-width: 1024px) {
