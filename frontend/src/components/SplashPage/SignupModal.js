@@ -37,7 +37,7 @@ function SignupFormModal() {
       </div>
       <i class="fa-solid fa-people-pulling"></i>
       <div className="modal-form-container">
-        <h1 className="modal-form-title">Sign Up</h1>
+        <h1 className="modal-form-title">Sign up</h1>
         <p className="not-member">Already a member?<OpenModalButton
           buttonText="Log in"
           modalComponent={<LoginFormModal />}

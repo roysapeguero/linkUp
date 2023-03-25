@@ -32,9 +32,9 @@ function LoginFormModal() {
       </div>
         <i class="fa-solid fa-people-pulling"></i>
       <div className="modal-form-container">
-        <h1 className="modal-form-title">Log In</h1>
+        <h1 className="modal-form-title">Log in</h1>
         <p className="not-member">Not a member yet?<OpenModalButton
-          buttonText="Sign Up"
+          buttonText="Sign up"
           modalComponent={<SignupFormModal />}
         /></p>
         <form onSubmit={handleSubmit}>
