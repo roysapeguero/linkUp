@@ -86,14 +86,18 @@ export default function OneEventPage () {
               </div>
               <div className="one-event-description">
                 <div className="event-specifics">
-                  <img className='time-img' alt='time icon' src='https://secure.meetupstatic.com/next/images/design-system-icons/time-outline.svg' />
-                  <p className="date-times">
-                    {`${dMD} at ${newStartDateTime.slice(0,-6)} ${newStartDateTime.slice(-2)} to
-                    ${eDMD} at ${newEndDateTime.slice(0,-6)} ${newEndDateTime.slice(-2)} EST`}
-                  </p>
-                  <img className="type-img" alt='type icon' src={currentEvent.type === 'In person' ? "https://secure.meetupstatic.com/next/images/design-system-icons/map-marker-outline.svg" :
-                  'https://secure.meetupstatic.com/next/images/design-system-icons/video-outline.svg'} />
-                  <p className="one-event-type">{currentEvent.type} Event</p>
+                  <div className="time-img-container">
+                    <img className='time-img' alt='time icon' src='https://secure.meetupstatic.com/next/images/design-system-icons/time-outline.svg' />
+                    <p className="date-times">
+                      {`${dMD} at ${newStartDateTime.slice(0,-6)} ${newStartDateTime.slice(-2)} to
+                      ${eDMD} at ${newEndDateTime.slice(0,-6)} ${newEndDateTime.slice(-2)} EST`}
+                    </p>
+                  </div>
+                  <div className="event-type-container">
+                    <img className="type-img" alt='type icon' src={currentEvent.type === 'In person' ? "https://secure.meetupstatic.com/next/images/design-system-icons/map-marker-outline.svg" :
+                    'https://secure.meetupstatic.com/next/images/design-system-icons/video-outline.svg'} />
+                    <p className="one-event-type">{currentEvent.type} Event</p>
+                  </div>
                 </div>
                 {isOrganizer && (
                   <button className="delete-event" onClick={(e) => handleDelete(e, currentEvent.id)}>
