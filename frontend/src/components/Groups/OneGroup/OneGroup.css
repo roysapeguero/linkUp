@@ -149,3 +149,84 @@
 .user-actions > button:hover {
   color: white;
 }
+
+.og-middle-page {
+  background-color: rgb(246, 247, 248);
+  height: 100%;
+}
+
+.tabs-container {
+  display: flex;
+  flex-direction: column;
+  /* position: relative; */
+  /* width: 500px; */
+  height: fit-content;
+  /* background: #f8dfe08f; */
+  /* margin: 0 auto 0; */
+  /* word-break: break-all; */
+  /* border: 1px solid rgba(0, 0, 0, 0.274); */
+}
+
+
+.bloc-tabs {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  background-color: white;
+  border-bottom: 1px solid rgba(211, 211, 211, 0.599);
+
+  /* padding: 15px; */
+}
+
+.tabs {
+  /* background: #ffccce; */
+  padding: 15px;
+  text-align: center;
+  width: 100px;
+  cursor: pointer;
+  /* border: 1px solid white; */
+  box-sizing: content-box;
+  /* position: relative; */
+  /* outline: none; */
+  /* margin-top: 5px; */
+}
+/* .tabs:not(:last-child){
+  border-right: 1px solid rgba(0, 0, 0, 0.274);
+} */
+
+.active-tabs  {
+  color: teal;
+  border-bottom: 1px solid transparent;
+}
+
+.content-tabs {
+  flex-grow : 1;
+}
+
+.contents {
+  background: white;
+  padding: 0 20px;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.content hr {
+  width: 100px;
+  height: 2px;
+  background: #222;
+  margin-bottom: 5px;
+}
+
+.content p {
+  width: 100%;
+  height: 100%;
+}
+
+.active-content {
+  display: block;
+  flex-direction: column;
+  height: 100%;
+  background-color: transparent;
+
+}
