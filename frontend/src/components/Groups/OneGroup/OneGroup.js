@@ -173,21 +173,21 @@ export default function OneGroupPage() {
             </div>
           </div>
         </div>
-      </div>
-      <div className="user-btns">
-        {isOrganizer && (
-          <div className="user-actions">
-            <OpenModalButton
-              buttonText="Edit Group"
-              modalComponent={<EditGroupModal group={currentGroup} />}
-            />
-            <OpenModalButton
-              buttonText="Create An Event"
-              modalComponent={<CreateEventModal group={currentGroup} />}
-            />
-            <button onClick={handleDelete}>Delete Group</button>
-          </div>
-        )}
+        <div className="user-btns">
+          {isOrganizer && (
+            <div className="user-actions">
+              <OpenModalButton
+                buttonText="Edit Group"
+                modalComponent={<EditGroupModal group={currentGroup} />}
+              />
+              <OpenModalButton
+                buttonText="Create An Event"
+                modalComponent={<CreateEventModal group={currentGroup} />}
+              />
+              <button onClick={handleDelete}>Delete Group</button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   ) : (

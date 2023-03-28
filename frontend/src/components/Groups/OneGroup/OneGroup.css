@@ -1,29 +1,30 @@
 
 .one-group-container {
-  /* position: relative;*/
   display: flex;
   justify-content: center;
-
   width: 100%;
   border-top: 1px solid rgba(211, 211, 211, 0.599);
   border-bottom: 1px solid rgba(211, 211, 211, 0.599);
+  background-color: white;
+}
+
+.one-group-page {
+  background-color: rgb(246, 247, 248);
+  overflow-x: hidden;
+  height: 100%;
 }
 
 .one-group-image {
   border-radius: 10px;
   height: auto;
   min-width: 500px;
-
   width: 100%;
-  /* display: block; */
-  /* position: absolute; */
   object-fit: cover;
 }
 
 .one-group-image-container {
   width: 500px;
   height: auto;
-  /* position: relative; */
   margin: 50px 30px;
 }
 
@@ -43,19 +44,13 @@
 }
 
 .one-group-name {
-  /* font-size: 32px; */
-  /* border: 1px solid rebeccapurple; */
   height: 60px;
   width: fit-content;
   font-weight: 800;
-  /* position: relative; */
-  /* left: -325; */
   margin-bottom: 0;
 }
 
 .one-group-info {
-  /* position: relative;
-  top: -30; */
   width: 300px;
   height: fit-content;
 }
@@ -64,42 +59,27 @@
   width: 20px;
   height: 20px;
   opacity: .5;
-  /* position: absolute;
-  top: 12;
-  left: 5; */
 }
 
 .one-group-location {
   font-size: 14px;
   color: rgb(117, 117, 117);
-  /* position: absolute;
-  top: 0;
-  left: 35; */
 }
 
 .one-group-info-members {
   font-size: 14px;
   color: rgb(117, 117, 117);
-  /* position: absolute;
-  top: 30;
-  left: 35; */
 }
 
 
 .users-img {
   width: 20px;
   height: 20px;
-  /* position: absolute;
-  top: 40;
-  left: 5; */
 }
 
 .user-img {
   width: 20px;
   height: 20px;
-  /* position: absolute;
-  top: 70;
-  left: 5; */
   opacity: .5;
 }
 
@@ -113,17 +93,12 @@
 }
 
 .about-title {
-  /* position: absolute;
-  top: 110; */
   font-weight: 600;
 }
 
 .one-group-about {
-  /* position: absolute; */
-  /* top: 145; */
   font-size: 16px;
-  width: 100%;
-  /* height: 170px; */
+  width: 70%;
   overflow-y: scroll;
 }
 
@@ -134,7 +109,8 @@
 .user-btns {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  align-items: center;
+  height: 150px;
 }
 
 .user-actions > button {
@@ -151,20 +127,14 @@
 }
 
 .og-middle-page {
+  height: fit-content;
   background-color: rgb(246, 247, 248);
-  height: 100%;
 }
 
 .tabs-container {
   display: flex;
   flex-direction: column;
-  /* position: relative; */
-  /* width: 500px; */
   height: fit-content;
-  /* background: #f8dfe08f; */
-  /* margin: 0 auto 0; */
-  /* word-break: break-all; */
-  /* border: 1px solid rgba(0, 0, 0, 0.274); */
 }
 
 
@@ -174,25 +144,15 @@
   height: 100%;
   background-color: white;
   border-bottom: 1px solid rgba(211, 211, 211, 0.599);
-
-  /* padding: 15px; */
 }
 
 .tabs {
-  /* background: #ffccce; */
   padding: 15px;
   text-align: center;
   width: 100px;
   cursor: pointer;
-  /* border: 1px solid white; */
   box-sizing: content-box;
-  /* position: relative; */
-  /* outline: none; */
-  /* margin-top: 5px; */
 }
-/* .tabs:not(:last-child){
-  border-right: 1px solid rgba(0, 0, 0, 0.274);
-} */
 
 .active-tabs  {
   color: teal;
@@ -201,6 +161,8 @@
 
 .content-tabs {
   flex-grow : 1;
+  /* border: 1px solid black; */
+  /* margin-bottom: 80px; */
 }
 
 .contents {
@@ -209,6 +171,7 @@
   width: 100%;
   height: 100%;
   display: none;
+
 }
 
 .content hr {
@@ -226,7 +189,7 @@
 .active-content {
   display: block;
   flex-direction: column;
-  height: 100%;
+  height: fit-content;
   background-color: transparent;
 
 }
