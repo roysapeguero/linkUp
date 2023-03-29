@@ -6,15 +6,23 @@ import "./OneGroup.css";
 import EditGroupModal from "../EditGroup";
 import CreateEventModal from "../../Events/CreateEvent";
 import OpenModalButton from "../../OpenModalButton";
+import { getMembers, addMemeberThunk } from "../../../store/groups";
 
 export default function OneGroupPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { groupId } = useParams();
   const [toggleState, setToggleState] = useState(1);
+  const [errors, setErrors] = useState([]);
+  const currentUser = useSelector((state) => state.session.user);
+  const groupMemsObj = useSelector((state) => state.groups.allMembers);
+  const currentGroup = useSelector((state) => state.groups.group);
+  const groupMems = useSelector((state) => state.groups.group.numMembers);
+
 
   useEffect(() => {
     dispatch(getGroup(groupId));
+    dispatch(getMembers(groupId));
   }, [dispatch, groupId]);
 
   const handleDelete = (e) => {
@@ -24,12 +32,24 @@ export default function OneGroupPage() {
     });
   };
 
+
+  const handleJoin = (e) => {
+    e.preventDefault();
+    setErrors([]);
+   return dispatch(
+    addMemeberThunk(groupId, {
+      id: currentUser.id,
+      firstName: currentUser.firstName,
+      lastName: currentUser.lastName,
+      Membership: {status: 'member'}
+    })
+  )};
+
+
   const toggleTab = (index) => {
     setToggleState(index);
   };
 
-  const currentGroup = useSelector((state) => state.groups.group);
-  const currentUser = useSelector((state) => state.session.user);
 
   if (!currentGroup.GroupImages) return;
 
@@ -133,6 +153,9 @@ export default function OneGroupPage() {
             >
               Discussions
             </button>
+            <button onClick={handleJoin} id='modal-btns' className="og-join-btn">
+              Join this group
+            </button>
           </div>
           <div className="content-tabs">
             <div
@@ -148,29 +171,30 @@ export default function OneGroupPage() {
                 toggleState === 2 ? "contents  active-content" : "contents"
               }
             >
-              stuff
+
             </div>
             <div
               className={
                 toggleState === 3 ? "contents  active-content" : "contents"
               }
             >
-              more
+
             </div>
             <div
               className={
                 toggleState === 4 ? "contents  active-content" : "contents"
               }
             >
-              more stuff
+
             </div>
             <div
               className={
                 toggleState === 5 ? "contents  active-content" : "contents"
               }
             >
-              work
+
             </div>
+
           </div>
         </div>
         <div className="user-btns">

@@ -5,6 +5,9 @@ const GET_GROUP = 'groups/GET_GROUPS'
 const EDIT_GROUP = 'groups/EDIT_GROUP'
 const CREATE_GROUP = 'groups/CREATE_GROUP'
 const DELETE_GROUP = 'groups/DELETE_GROUP'
+const GET_MEMBERS = 'groups/GET_MEMBERS'
+const ADD_MEMBER = 'groups/ADD_MEMBER'
+const DELETE_MEMBER = 'groups/DELETE_MEMBER'
 
 export const loadGroups = (groups) => {
   return {
@@ -38,6 +41,27 @@ export const deleteGroup = (groupId) => {
   return {
     type: DELETE_GROUP,
     payload: groupId
+  }
+}
+
+export const loadMembers = (members) => {
+  return {
+    type: GET_MEMBERS,
+    payload: members
+  }
+}
+
+export const addMemeber = (member) => {
+  return {
+    type: ADD_MEMBER,
+    payload: member
+  }
+}
+
+export const deleteMemeber = (membership) => {
+  return {
+    type: DELETE_MEMBER,
+    payload: membership
   }
 }
 
@@ -109,7 +133,49 @@ export const deleteGroupThunk = (groupId) => async (dispatch) => {
   }
 }
 
-const initialState = {allGroups: {}, group: {}}
+export const getMembers = (groupId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/groups/${groupId}/members`)
+
+  if (response.ok) {
+    const data = await response.json()
+    console.log('group???', data)
+    dispatch(loadMembers(data))
+    return data
+  }
+}
+
+export const addMemeberThunk = (groupId, member) => async (dispatch) => {
+  const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(member)
+  });
+  console.log('i got here', member)
+  if (response.ok) {
+    // const data = await response.json();
+    console.log('member', member)
+    dispatch(addMemeber(member));
+    return member;
+  }
+}
+
+export const deleteMemeberThunk = (groupId, memberId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
+    method: "DELETE"
+  })
+  if (response.ok) {
+    const data = await response.json()
+    dispatch(deleteMemeber(memberId))
+    return data
+  }
+}
+
+
+
+
+const initialState = {allGroups: {}, group: {}, allMembers: {}}
 
 const groupsReducer = (state = initialState, action) => {
   let newState;
@@ -142,6 +208,21 @@ const groupsReducer = (state = initialState, action) => {
       newState = { ...state, allGroups: {...state.allGroups} }
       delete newState.allGroups[action.payload]
       return newState
+    case GET_MEMBERS:
+      newState = {...state, allMembers: {}}
+      action.payload.Members.forEach(member => (
+        newState.allMembers[member.id] = member
+      ))
+      return newState
+    case ADD_MEMBER:
+      newState = {...state, ...state.allMembers}
+      newState.allMembers[action.payload.id] = action.payload;
+      newState.group.numMembers += 1
+      return newState;
+    case DELETE_MEMBER:
+      // newState = { ...state, allGroups: {...state.allGroups} }
+      // delete newState.allGroups[action.payload]
+      return newState;
     default:
       return state;
   }

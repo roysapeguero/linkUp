@@ -260,6 +260,14 @@ router.post("/", requireAuth, validateGroup, async (req, res, next) => {
     state,
   });
   res.status(201);
+
+  let newMem = await Membership.create({
+    userId: user.id,
+    groupId: newGroup.id,
+    status: "co-host",
+  })
+  // res.json(newMem);
+  console.log('hiiiiiii', newMem)
   res.json(newGroup);
 });
 
@@ -627,13 +635,13 @@ router.get("/:groupId/members", async (req, res, next) => {
     },
   });
 
-  const isPending = await Membership.findOne({
-    where: {
-      groupId: req.params.groupId,
-      userId: user.id,
-      status: "pending",
-    },
-  });
+  // const isPending = await Membership.findOne({
+  //   where: {
+  //     groupId: req.params.groupId,
+  //     userId: user.id,
+  //     status: "pending",
+  //   },
+  // });
 
   let members;
 
@@ -647,22 +655,25 @@ router.get("/:groupId/members", async (req, res, next) => {
 
   group = group.toJSON();
 
-  if (group.organizerId === user.id || isCohost) {
+  // if (group.organizerId === user.id || isCohost) {
     members = await Membership.findAll({
       where: {
-        groupId: req.params.groupId,
-      },
+        groupId: req.params.groupId
+        // status: {
+        //           [Op.or]: ["co-host", "member", "pending"],
+        //         },
+      }
+    // });
+  // } else {
+  //   members = await Membership.findAll({
+  //     where: {
+  //       groupId: req.params.groupId,
+  //       status: {
+  //         [Op.or]: ["co-host", "member"],
+  //       },
+  //     },
     });
-  } else {
-    members = await Membership.findAll({
-      where: {
-        groupId: req.params.groupId,
-        status: {
-          [Op.or]: ["co-host", "member"],
-        },
-      },
-    });
-  }
+  // }
 
   members.forEach((member) => {
     membersArr.push(member.toJSON());
@@ -677,10 +688,16 @@ router.get("/:groupId/members", async (req, res, next) => {
         attributes: ["status"],
       },
     });
+
+    // let organizer = await User.findByPk(group.organizerId, {
+    //   attributes: ["id", "firstName", "lastName"],
+    // })
+
     user = user.toJSON();
     user.Membership = user.Memberships[0];
     delete user.Memberships;
     allMembers.push(user);
+    // allMembers.push(organizer);
   }
   res.json({ Members: allMembers });
 });
@@ -711,19 +728,21 @@ router.post("/:groupId/membership", requireAuth, async (req, res, next) => {
     let newMem = await Membership.create({
       userId: user.id,
       groupId: group.id,
-      status: "pending",
+      status: "member",
     });
     return res.json({
       memberId: newMem.userId,
       status: newMem.status,
     });
-  } else if (membership.status === "pending") {
-    const err = new Error("Duplicate request");
-    err.title = "Duplicate request";
-    err.status = 400;
-    err.message = "Membership has already been requested";
-    return next(err);
-  } else {
+  }
+  //  else if (membership.status === "pending") {
+  //   const err = new Error("Duplicate request");
+  //   err.title = "Duplicate request";
+  //   err.status = 400;
+  //   err.message = "Membership has already been requested";
+  //   return next(err);
+  // }
+  else {
     const err = new Error("Already member");
     err.title = "Already member";
     err.status = 400;
@@ -758,13 +777,13 @@ router.put("/:groupId/membership", requireAuth, async (req, res, next) => {
     return next(err);
   }
 
-  if (status === "pending") {
-    const err = new Error("Validation Error");
-    err.title = "Validation Error";
-    err.status = 400;
-    err.message = "Cannot change a membership status to pending";
-    return next(err);
-  }
+  // if (status === "pending") {
+  //   const err = new Error("Validation Error");
+  //   err.title = "Validation Error";
+  //   err.status = 400;
+  //   err.message = "Cannot change a membership status to pending";
+  //   return next(err);
+  // }
 
   let isMember = await Membership.findOne({
     where: {
