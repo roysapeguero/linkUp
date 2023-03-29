@@ -6,7 +6,7 @@ import "./OneGroup.css";
 import EditGroupModal from "../EditGroup";
 import CreateEventModal from "../../Events/CreateEvent";
 import OpenModalButton from "../../OpenModalButton";
-import { getMembers, addMemeberThunk } from "../../../store/groups";
+import { getMembers, addMemeberThunk, deleteMemberThunk } from "../../../store/groups";
 
 export default function OneGroupPage() {
   const dispatch = useDispatch();
@@ -36,19 +36,30 @@ export default function OneGroupPage() {
   const handleJoin = (e) => {
     e.preventDefault();
     setErrors([]);
-   return dispatch(
-    addMemeberThunk(groupId, {
-      id: currentUser.id,
-      firstName: currentUser.firstName,
-      lastName: currentUser.lastName,
-      Membership: {status: 'member'}
-    })
-  )};
+    return dispatch(
+      addMemeberThunk(groupId, {
+        id: currentUser.id,
+        firstName: currentUser.firstName,
+        lastName: currentUser.lastName,
+        Membership: {status: 'member'}
+      })
+    )};
+
+  const handleLeave = (e) => {
+    e.preventDefault();
+    setErrors([]);
+    dispatch(deleteMemberThunk(groupId, currentUser))
+  };
 
 
   const toggleTab = (index) => {
     setToggleState(index);
   };
+
+  const isMember = userId => {
+    return userId in groupMemsObj
+  }
+
 
 
   if (!currentGroup.GroupImages) return;
@@ -153,9 +164,15 @@ export default function OneGroupPage() {
             >
               Discussions
             </button>
+            {isMember(currentUser?.id) ?
+            <button onClick={handleLeave} id='modal-btns' className="og-join-btn">
+            Leave this group
+          </button>
+            :
             <button onClick={handleJoin} id='modal-btns' className="og-join-btn">
               Join this group
             </button>
+          }
           </div>
           <div className="content-tabs">
             <div

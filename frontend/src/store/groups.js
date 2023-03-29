@@ -58,10 +58,10 @@ export const addMemeber = (member) => {
   }
 }
 
-export const deleteMemeber = (membership) => {
+export const deleteMember = (memberId) => {
   return {
     type: DELETE_MEMBER,
-    payload: membership
+    payload: memberId
   }
 }
 
@@ -161,13 +161,18 @@ export const addMemeberThunk = (groupId, member) => async (dispatch) => {
   }
 }
 
-export const deleteMemeberThunk = (groupId, memberId) => async (dispatch) => {
+export const deleteMemberThunk = (groupId, member) => async (dispatch) => {
+  console.log('yes?', member)
   const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
-    method: "DELETE"
+    method: "DELETE",
+    body: JSON.stringify(member)
   })
+  console.log('hi', response)
   if (response.ok) {
     const data = await response.json()
-    dispatch(deleteMemeber(memberId))
+  console.log('no way', member.id)
+
+    dispatch(deleteMember(member.id))
     return data
   }
 }
@@ -220,8 +225,9 @@ const groupsReducer = (state = initialState, action) => {
       newState.group.numMembers += 1
       return newState;
     case DELETE_MEMBER:
-      // newState = { ...state, allGroups: {...state.allGroups} }
-      // delete newState.allGroups[action.payload]
+      newState = { ...state, allMembers: {...state.allMembers} }
+      newState.group.numMembers -= 1
+      delete newState.allMembers[action.payload]
       return newState;
     default:
       return state;

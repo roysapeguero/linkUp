@@ -850,8 +850,12 @@ router.put("/:groupId/membership", requireAuth, async (req, res, next) => {
 // Delete membership to a group specified by id
 router.delete("/:groupId/membership", requireAuth, async (req, res, next) => {
   let reqGroupId = req.params.groupId;
-  let { memberId } = req.body;
+  let memberId  = req.body.id;
   let { user } = req;
+
+  console.log('1-------------------------------------', memberId)
+  console.log('2`````````````````````````````````````````',user)
+
 
   let group = await Group.findByPk(reqGroupId);
 
@@ -863,7 +867,12 @@ router.delete("/:groupId/membership", requireAuth, async (req, res, next) => {
     return next(err);
   }
 
+  console.log('3`````````````````````````````````````````',group)
+
+
   let reqUser = await User.findByPk(memberId);
+
+  console.log('4==============================',reqUser)
 
   if (!reqUser) {
     const err = new Error("Validation Error");
