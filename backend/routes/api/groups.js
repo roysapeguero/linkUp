@@ -685,7 +685,7 @@ router.get("/:groupId/members", async (req, res, next) => {
       attributes: ["id", "firstName", "lastName"],
       include: {
         model: Membership,
-        attributes: ["status"],
+        attributes: ["status", "createdAt"],
       },
     });
 
@@ -730,9 +730,11 @@ router.post("/:groupId/membership", requireAuth, async (req, res, next) => {
       groupId: group.id,
       status: "member",
     });
+    console.log(newMem)
     return res.json({
       memberId: newMem.userId,
       status: newMem.status,
+      createdAt: newMem.createdAt
     });
   }
   //  else if (membership.status === "pending") {

@@ -7,6 +7,7 @@ import EditGroupModal from "../EditGroup";
 import CreateEventModal from "../../Events/CreateEvent";
 import OpenModalButton from "../../OpenModalButton";
 import { getMembers, addMemeberThunk, deleteMemberThunk } from "../../../store/groups";
+import MemberItem from "./MemberItem";
 
 export default function OneGroupPage() {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ export default function OneGroupPage() {
   const [errors, setErrors] = useState([]);
   const currentUser = useSelector((state) => state.session.user);
   const groupMemsObj = useSelector((state) => state.groups.allMembers);
+  const groupMemsArr = Object.values(groupMemsObj)
   const currentGroup = useSelector((state) => state.groups.group);
   const groupMems = useSelector((state) => state.groups.group.numMembers);
 
@@ -195,7 +197,9 @@ export default function OneGroupPage() {
                 toggleState === 3 ? "contents  active-content" : "contents"
               }
             >
-
+              {groupMemsArr.map(member => (
+                <MemberItem key={member.id} member={member} />
+              ))}
             </div>
             <div
               className={
