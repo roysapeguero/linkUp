@@ -24,6 +24,16 @@ function Navigation({ isLoaded }){
   } else {
     sessionLinks = (
       <div>
+        {/* <button className="contact-btns">
+          <a target='_blank' href="https://github.com/roysapeguero">
+            <i class="fa-brands fa-github"></i>
+          </a>
+        </button>
+        <button className="contact-btns">
+          <a target='_blank' href="https://www.linkedin.com/in/roysapeguero/">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+        </button> */}
         <OpenModalButton
           buttonText="Log in"
           modalComponent={<LoginFormModal />}
@@ -38,11 +48,24 @@ function Navigation({ isLoaded }){
 
   return (
     <div className='nav-bar'>
+
       <div className='nav-bar-left'>
         <NavLink exact to="/"><img alt='' className='home-logo' src='https://see.fontimg.com/api/renderfont4/dEqR/eyJyIjoiZnMiLCJoIjoxMDIsInciOjIwMDAsImZzIjo1MSwiZmdjIjoiI0Y2NTg1OCIsImJnYyI6IiNGRkZGRkYiLCJ0IjoxfQ/bGlua1Vw/lemon-jelly-personal-use.png' /></NavLink>
       </div>
       <div className='nav-bar-right'>
-        {isLoaded && sessionLinks}
+        <button className="contact-btns">
+          <a target='_blank' href="https://github.com/roysapeguero">
+            <i class="fa-brands fa-github"></i>
+          </a>
+        </button>
+        <button className="contact-btns">
+          <a target='_blank' href="https://www.linkedin.com/in/roysapeguero/">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+        </button>
+        <div className='logged-in-drop-down'>
+          {isLoaded && sessionLinks}
+        </div>
       </div>
     </div>
   );

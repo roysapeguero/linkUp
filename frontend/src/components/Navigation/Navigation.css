@@ -42,13 +42,29 @@
 	/* height: 34px; */
 	/* z-index: 1000; */
 	padding-right: 20px;
-	height: 40px;
+	height: 100px;
+	display: flex;
+	align-items: center;
+}
 
+.logged-in-drop-down {
+	display: flex;
+	flex-direction: row;
+	/* border: 1px solid red; */
+	height: fit-content;
+}
+
+ul.profile-dropdown {
+	/* margin-top: 150px; */
+	/* margin-top: 0; */
+	/* border: 1px solid red; */
+	position: absolute;
+	right: 30;
+	top: 40;
 }
 
 .profile-dropdown {
-	z-index: 1000;
-	right: 30;
+	z-index: 1010;
 }
 
 #logout-btn {
@@ -108,4 +124,13 @@ button:hover {
 	color: black;
 	font-weight: 300;
 	font-size: 20px;
+}
+
+.contact-btns {
+	background-color: transparent;
+  margin: 0 10px;
+  font-size: 20px;
+  border-radius: 5px;
+  width: 25px;
+  height: 25px;
 }
