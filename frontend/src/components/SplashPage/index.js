@@ -99,7 +99,7 @@ function SplashPage() {
             modalComponent={<SignupFormModal />} />
         </p>
       </div>
-      <div className="footer">
+      {/* <div className="footer">
         <h3 className="dev-info">Developer Information:</h3>
         <div className="contact-div">
           <button className="contact-btns">
@@ -113,7 +113,7 @@ function SplashPage() {
             </a>
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

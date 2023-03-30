@@ -10,7 +10,7 @@ import OneEventPage from "./components/Events/OneEvent";
 import HomePage from "./components/HomePage";
 import Events from "./components/Events/Events";
 import GroupsEvents from "./components/GroupsEvents";
-
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +43,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      <Footer />
     </>
   );
 }

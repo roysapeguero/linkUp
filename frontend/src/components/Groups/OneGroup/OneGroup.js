@@ -38,14 +38,20 @@ export default function OneGroupPage() {
   const handleJoin = (e) => {
     e.preventDefault();
     setErrors([]);
-    return dispatch(
-      addMemeberThunk(groupId, {
-        id: currentUser.id,
-        firstName: currentUser.firstName,
-        lastName: currentUser.lastName,
-        Membership: {status: 'member', createdAt: Date.now()}
-      })
-    )};
+    if (currentUser) {
+      return dispatch(
+        addMemeberThunk(groupId, {
+          id: currentUser.id,
+          firstName: currentUser.firstName,
+          lastName: currentUser.lastName,
+          Membership: {status: 'member', createdAt: Date.now()}
+        })
+      )
+    }
+    else {
+      alert('Create an account or log in to join this group')
+    }
+  };
 
   const handleLeave = (e) => {
     e.preventDefault();
@@ -166,6 +172,7 @@ export default function OneGroupPage() {
             >
               Discussions
             </button>
+
             {isMember(currentUser?.id) ?
             <button onClick={handleLeave} id='modal-btns' className="og-join-btn">
             Leave this group
@@ -174,7 +181,9 @@ export default function OneGroupPage() {
             <button onClick={handleJoin} id='modal-btns' className="og-join-btn">
               Join this group
             </button>
+
           }
+
           </div>
           <div className="content-tabs">
             <div
