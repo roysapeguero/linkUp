@@ -43,7 +43,7 @@ export default function OneGroupPage() {
         id: currentUser.id,
         firstName: currentUser.firstName,
         lastName: currentUser.lastName,
-        Membership: {status: 'member'}
+        Membership: {status: 'member', createdAt: Date.now()}
       })
     )};
 
@@ -190,22 +190,29 @@ export default function OneGroupPage() {
                 toggleState === 2 ? "contents  active-content" : "contents"
               }
             >
-
+              <h3 className='og-new-feature'>COMMING SOON!</h3>
             </div>
             <div
               className={
                 toggleState === 3 ? "contents  active-content" : "contents"
               }
             >
-              {groupMemsArr.map(member => (
-                <MemberItem key={member.id} member={member} />
-              ))}
+              <div className="og-mambers-container">
+                <h3 className="og-mambers-container-title">All Members <span>({currentGroup.numMembers})</span></h3>
+                <div className="og-member-display-container">
+                {groupMemsArr.map(member => (
+                  <MemberItem key={member.id} member={member} />
+                ))}
+
+                </div>
+              </div>
             </div>
             <div
               className={
                 toggleState === 4 ? "contents  active-content" : "contents"
               }
             >
+              <h3 className='og-new-feature'>COMMING SOON!</h3>
 
             </div>
             <div
@@ -213,6 +220,7 @@ export default function OneGroupPage() {
                 toggleState === 5 ? "contents  active-content" : "contents"
               }
             >
+              <h3 className='og-new-feature'>COMMING SOON!</h3>
 
             </div>
 

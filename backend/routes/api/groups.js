@@ -627,13 +627,13 @@ router.get("/:groupId/members", async (req, res, next) => {
 
   let group = await Group.findByPk(req.params.groupId);
 
-  const isCohost = await Membership.findOne({
-    where: {
-      groupId: req.params.groupId,
-      userId: user.id,
-      status: "co-host",
-    },
-  });
+  // const isCohost = await Membership.findOne({
+  //   where: {
+  //     groupId: req.params.groupId,
+  //     userId: user.id,
+  //     status: "co-host",
+  //   },
+  // });
 
   // const isPending = await Membership.findOne({
   //   where: {
@@ -694,6 +694,7 @@ router.get("/:groupId/members", async (req, res, next) => {
     // })
 
     user = user.toJSON();
+    console.log('what this is', user.Memberships)
     user.Membership = user.Memberships[0];
     delete user.Memberships;
     allMembers.push(user);
@@ -855,8 +856,8 @@ router.delete("/:groupId/membership", requireAuth, async (req, res, next) => {
   let memberId  = req.body.id;
   let { user } = req;
 
-  console.log('1-------------------------------------', memberId)
-  console.log('2`````````````````````````````````````````',user)
+  // console.log('1-------------------------------------', memberId)
+  // console.log('2`````````````````````````````````````````',user)
 
 
   let group = await Group.findByPk(reqGroupId);
@@ -869,12 +870,12 @@ router.delete("/:groupId/membership", requireAuth, async (req, res, next) => {
     return next(err);
   }
 
-  console.log('3`````````````````````````````````````````',group)
+  // console.log('3`````````````````````````````````````````',group)
 
 
   let reqUser = await User.findByPk(memberId);
 
-  console.log('4==============================',reqUser)
+  // console.log('4==============================',reqUser)
 
   if (!reqUser) {
     const err = new Error("Validation Error");
