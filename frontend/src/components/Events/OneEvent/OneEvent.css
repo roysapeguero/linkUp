@@ -130,8 +130,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: left;
-  padding: 0 20px;
+  padding: 20px;
   text-decoration: none;
+  box-sizing: border-box;
 }
 
 .oe-group-info:hover {
@@ -169,12 +170,12 @@
 .date-times {
   font-size: 14px;
   line-height: 20px;
-  width: 70%;
+  max-width: 70%;
 }
 
 .one-event-type {
   font-size: 14px;
-  width: 70%;
+  max-width: 70%;
 
 }
 
