@@ -4,6 +4,9 @@ const LOAD_EVENTS = 'events/LOAD_EVENTS'
 const GET_EVENT = 'events/GET_EVENT'
 const CREATE_EVENT = 'events/CREATE_EVENT'
 const DELETE_EVENT = 'events/DELETE_EVENT'
+const GET_ATTENDEES = 'events/GET_ATTENDEES'
+const ADD_ATTENDEE = 'events/ADD_ATTENDEE'
+const DELETE_ATTENDEE = 'events/DELETE_ATTENDEE'
 
 export const loadEvents = (events) => {
   return {
@@ -30,6 +33,27 @@ export const deleteEvent = (eventId) => {
   return {
     type: DELETE_EVENT,
     payload: eventId
+  }
+}
+
+export const loadAttendees = (attendees) => {
+  return {
+    type: GET_ATTENDEES,
+    payload: attendees
+  }
+}
+
+export const addAttendee = (attendee) => {
+  return {
+    type: ADD_ATTENDEE,
+    payload: attendee
+  }
+}
+
+export const deleteAttendee = (attendeeId) => {
+  return {
+    type: DELETE_ATTENDEE,
+    payload: attendeeId
   }
 }
 
@@ -93,8 +117,48 @@ export const deleteEventThunk = (eventId) => async (dispatch) => {
   }
 }
 
+export const getAttendees = (eventId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/events/${eventId}/attendees`)
 
-const initialState = {allEvents: {}, event: {}}
+  if (response.ok) {
+    const data = await response.json()
+    dispatch(loadAttendees(data))
+    return data
+  }
+}
+
+export const addAttendeeThunk = (eventId, attendee) => async (dispatch) => {
+  const response = await csrfFetch(`/api/events/${eventId}/attendance`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(attendee)
+  });
+  // console.log('i got here', attendee)
+  if (response.ok) {
+    dispatch(addAttendee(attendee));
+    return attendee;
+  }
+}
+
+export const deleteAttendeeThunk = (eventId, attendee) => async (dispatch) => {
+  console.log('firsttt -------------------', attendee)
+  const response = await csrfFetch(`/api/events/${eventId}/attendance`, {
+    method: "DELETE",
+    body: JSON.stringify(attendee)
+  })
+  console.log('second======', response)
+  if (response.ok) {
+    const data = await response.json()
+    dispatch(deleteAttendee(attendee.id))
+    return data
+  }
+}
+
+
+
+const initialState = {allEvents: {}, event: {}, allEvents: {}}
 
 const eventsReducer = (state = initialState, action) => {
   let newState;
@@ -118,6 +182,22 @@ const eventsReducer = (state = initialState, action) => {
       newState = {...state, allEvents: {...state.allEvents}, event: {} }
       delete newState.allEvents[action.payload]
       return newState
+    case GET_ATTENDEES:
+      newState = {...state, allAttendees: {}}
+      action.payload.Attendees.forEach(attendee => (
+        newState.allAttendees[attendee.id] = attendee
+      ))
+      return newState
+    case ADD_ATTENDEE:
+      newState = {...state, ...state.allAttendees}
+      newState.allAttendees[action.payload.id] = action.payload;
+      newState.event.numAttending += 1
+      return newState;
+    case DELETE_ATTENDEE:
+      newState = { ...state, allAttendees: {...state.allAttendees} }
+      newState.event.numAttending -= 1
+      delete newState.allAttendees[action.payload]
+      return newState;
     default:
       return state;
   }

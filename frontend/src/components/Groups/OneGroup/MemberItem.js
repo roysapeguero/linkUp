@@ -5,7 +5,6 @@ import { getMembers } from "../../../store/groups";
 
 export default function MemberItem({member}) {
   const memberJoinDate = new Date(member.Membership.createdAt).toDateString().split(' ')
-  console.log(memberJoinDate)
   const dispatch = useDispatch()
 
   return (

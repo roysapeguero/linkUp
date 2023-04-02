@@ -138,7 +138,6 @@ export const getMembers = (groupId) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json()
-    console.log('group???', data)
     dispatch(loadMembers(data))
     return data
   }
@@ -154,23 +153,18 @@ export const addMemeberThunk = (groupId, member) => async (dispatch) => {
   });
   console.log('i got here', member)
   if (response.ok) {
-    // const data = await response.json();
-    console.log('member', member)
     dispatch(addMemeber(member));
     return member;
   }
 }
 
 export const deleteMemberThunk = (groupId, member) => async (dispatch) => {
-  console.log('yes?', member)
   const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
     method: "DELETE",
     body: JSON.stringify(member)
   })
-  console.log('hi', response)
   if (response.ok) {
     const data = await response.json()
-  console.log('no way', member.id)
 
     dispatch(deleteMember(member.id))
     return data

@@ -6,7 +6,6 @@
   flex-direction: column;
   align-items: center;
   border-top: 1px solid rgba(211, 211, 211, 0.599);
-
 }
 
 .one-event-page {
@@ -237,7 +236,35 @@
 .attendees {
   font-size: 20px;
   width:  100%;
-  /* margin: 40px 0; */
+  padding-bottom: 100px;
+}
+
+.oe-attend-footer {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid red;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  margin-top: 20px;
+  /* padding: 20px; */
+  box-sizing: border-box;
+}
+
+.left-attend-footer {
+  width: fit-content;
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  /* margin: 0 10px; */
+  height: 70px;
+  justify-content: center;
+
+}
+
+.left-attend-footer p {
+  margin: 5px 20px;
 }
 /*
 @media only screen and (max-width: 1024px) {

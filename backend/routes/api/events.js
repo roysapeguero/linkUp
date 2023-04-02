@@ -447,29 +447,29 @@ router.get("/:eventId/attendees", async (req, res, next) => {
       attributes: ["status"],
     });
 
-    const { user } = req;
-    const group = await Group.findByPk(event.groupId);
-    const membership = await Membership.findOne({
-      where: {
-        groupId: event.groupId,
-      },
-    });
+    // const { user } = req;
+    // const group = await Group.findByPk(event.groupId);
+    // const membership = await Membership.findOne({
+    //   where: {
+    //     groupId: event.groupId,
+    //   },
+    // });
 
-    if (
-      user.id === group.organizerId ||
-      (membership.userId === group.userId && membership.status === "co-host")
-    ) {
-      attendee = attendee.toJSON();
-      attendee.Attendance = attendStatus.dataValues;
+    // if (
+    //   user.id === group.organizerId ||
+    //   (membership.userId === group.userId && membership.status === "co-host")
+    // ) {
+    //   attendee = attendee.toJSON();
+    //   attendee.Attendance = attendStatus.dataValues;
 
-      allUsers.push(attendee);
-    }
-    if (user.id !== group.organizerId && attendStatus.status !== "pending") {
+    //   allUsers.push(attendee);
+    // }
+    // if (user.id !== group.organizerId && attendStatus.status !== "pending") {
       attendee = attendee.toJSON();
       attendee.Attendance = attendStatus;
 
       allUsers.push(attendee);
-    }
+    // }
   }
 
   res.json({
@@ -495,23 +495,23 @@ router.post("/:eventId/attendance", requireAuth, async (req, res, next) => {
   let { user } = req;
   user = user.toJSON();
 
-  let membership = await Membership.findOne({
-    where: {
-      groupId: event.groupId,
-      userId: user.id,
-      status: {
-        [Op.ne]: "pending",
-      },
-    },
-  });
+  // let membership = await Membership.findOne({
+  //   where: {
+  //     groupId: event.groupId,
+  //     userId: user.id,
+  //     status: {
+  //       [Op.ne]: "pending",
+  //     },
+  //   },
+  // });
 
-  if (!membership) {
-    const err = new Error("Authorization error");
-    err.title = "Authorization error";
-    err.status = 403;
-    err.message = "User must be a member";
-    return next(err);
-  }
+  // if (!membership) {
+  //   const err = new Error("Authorization error");
+  //   err.title = "Authorization error";
+  //   err.status = 403;
+  //   err.message = "User must be a member";
+  //   return next(err);
+  // }
 
   let attendee = await Attendance.findOne({
     where: {
@@ -520,31 +520,34 @@ router.post("/:eventId/attendance", requireAuth, async (req, res, next) => {
     },
   });
 
-  let pendAtt = await Attendance.findOne({
-    where: {
-      eventId: event.id,
-      userId: user.id,
-      status: "pending",
-    },
-  });
+  // let pendAtt = await Attendance.findOne({
+  //   where: {
+  //     eventId: event.id,
+  //     userId: user.id,
+  //     status: "pending",
+  //   },
+  // });
 
-  if (membership && !attendee && !pendAtt) {
+  // if (membership && !attendee && !pendAtt) {
+  if (!attendee) {
     let newAtt = await Attendance.create({
       userId: user.id,
       eventId: event.id,
-      status: "pending",
+      status: "attending",
     });
     return res.json({
       userId: newAtt.userId,
       status: newAtt.status,
     });
-  } else if (pendAtt) {
-    const err = new Error("Duplicate request");
-    err.title = "Duplicate request";
-    err.status = 400;
-    err.message = "Attendance has already been requested";
-    return next(err);
-  } else if (attendee) {
+  }
+  // else if (pendAtt) {
+  //   const err = new Error("Duplicate request");
+  //   err.title = "Duplicate request";
+  //   err.status = 400;
+  //   err.message = "Attendance has already been requested";
+  //   return next(err);
+  // }
+  else if (attendee) {
     const err = new Error("Already attending");
     err.title = "Already attending";
     err.status = 400;
@@ -558,6 +561,7 @@ router.put("/:eventId/attendance", requireAuth, async (req, res, next) => {
   let { user } = req;
   user = user.toJSON();
   const { userId, status } = req.body;
+
 
   let event = await Event.findByPk(req.params.eventId);
 
@@ -635,10 +639,11 @@ router.put("/:eventId/attendance", requireAuth, async (req, res, next) => {
 
 // Delete attendance to an event specified by id
 router.delete("/:eventId/attendance", requireAuth, async (req, res, next) => {
+  console.log('hi', req.body.id)
   let reqEventId = req.params.eventId;
   let deleteMe = await Attendance.findOne({
     where: {
-      userId: req.body.userId,
+      userId: req.body.id,
       eventId: reqEventId,
     },
   });
@@ -652,7 +657,7 @@ router.delete("/:eventId/attendance", requireAuth, async (req, res, next) => {
     return next(err);
   }
 
-  let validUser = await User.findByPk(req.body.userId);
+  let validUser = await User.findByPk(req.body.id);
 
   if (!validUser) {
     const err = new Error("User not found");
@@ -674,7 +679,7 @@ router.delete("/:eventId/attendance", requireAuth, async (req, res, next) => {
 
   let group = await Group.findByPk(event.groupId);
 
-  if (user.id === group.organizerId || user.id === req.body.userId) {
+  if (user.id === group.organizerId || user.id === req.body.id) {
     await deleteMe.destroy();
     return res.json({
       message: "Successfully deleted",
