@@ -1,11 +1,6 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getMembers } from "../../../store/groups";
-
 
 export default function MemberItem({member}) {
   const memberJoinDate = new Date(member.Membership.createdAt).toDateString().split(' ')
-  const dispatch = useDispatch()
 
   return (
     <div className="og-member-item-container">

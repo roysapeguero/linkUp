@@ -4,6 +4,7 @@ import { useParams, useHistory, Link } from "react-router-dom";
 import { deleteEventThunk, getEvent, addAttendeeThunk, deleteAttendeeThunk, getAttendees } from "../../../store/events";
 // import { login } from "../../../store/session";
 import "./OneEvent.css";
+import AttendeeItem from "./AttendeeItem";
 
 export default function OneEventPage() {
   const dispatch = useDispatch();
@@ -14,10 +15,15 @@ export default function OneEventPage() {
   const currentUser = useSelector((state) => state.session.user);
   const eventAttendeeObj = useSelector((state) => state.events.allAttendees);
 
+
   useEffect(() => {
-    dispatch(getEvent(eventId));
     dispatch(getAttendees(eventId));
+    dispatch(getEvent(eventId));
   }, [dispatch, eventId]);
+
+  if (!eventAttendeeObj) {return null}
+  const eventAttendeeArr = Object.values(eventAttendeeObj)
+
 
   const handleDelete = async (e, eventId) => {
     e.preventDefault();
@@ -98,7 +104,7 @@ export default function OneEventPage() {
           <div className="name-info">
             <h1 className="one-event-group-name">{`${currentEvent.name}`}</h1>
             <div className="oe-host-info">
-              <p className="circle">
+              <p className="nav-user">
                 {currentEvent.Group.Organizer.firstName[0]}
               </p>
               <div className="oe-hosted">
@@ -189,7 +195,12 @@ export default function OneEventPage() {
             <div className="detail-div">
               <h2 className="detail-title">Details</h2>
               <p className="event-details">{currentEvent.description}</p>
-              <h2 className="attendees">{`Attendees(${currentEvent.numAttending})`}</h2>
+              <h2 className="attendees">{`Attendees (${currentEvent.numAttending})`}</h2>
+              <div className="attendee-item-container">
+                {eventAttendeeArr.map(attendee => (
+                  <AttendeeItem key={attendee.id} attendee={attendee} event={currentEvent}/>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -200,14 +211,16 @@ export default function OneEventPage() {
           </div>
           <div className="right-attend-footer">
           {isAttendee(currentUser?.id) ?
-            <button onClick={handleNoAttend} id='modal-btns' className="og-join-btn">
-            Not attending
-          </button>
+            <div className="going-container">
+              <p className="going-p-tag">You're going!</p>
+              <button onClick={handleNoAttend} className="not-going-button">
+                Cancel RSVP
+              </button>
+            </div>
             :
             <button onClick={handleAttend} id='modal-btns' className="og-join-btn">
               Attend this event
             </button>
-
           }
           </div>
         </div>

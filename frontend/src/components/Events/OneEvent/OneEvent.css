@@ -1,6 +1,6 @@
 
 .one-event-container {
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@
 
 .one-event-page {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   overflow-x: hidden;
 }
 
@@ -196,7 +196,7 @@
 
 .page-bottom {
   width: 100%;
-  height: 200px;
+  height: fit-content;
 }
 
 
@@ -216,11 +216,11 @@
 
 .detail-div {
   width:  100%;
-  height: 100px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   /* line-height: 2px; */
-  padding: 24px 8%;
+  padding: 10px 8% 100px;
 }
 
 .detail-title {
@@ -236,13 +236,13 @@
 .attendees {
   font-size: 20px;
   width:  100%;
-  padding-bottom: 100px;
+  /* padding-bottom: 100px; */
 }
 
 .oe-attend-footer {
   display: flex;
   justify-content: space-between;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   width: 100%;
   position: fixed;
   bottom: 0;
@@ -266,9 +266,71 @@
 .left-attend-footer p {
   margin: 5px 20px;
 }
-/*
-@media only screen and (max-width: 1024px) {
-  .detail-div {
-    margin-left: 20px;
-  }
-} */
+
+.not-going-button {
+  color: teal;
+  font-weight: 400;
+  padding: 0;
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.going-p-tag {
+  font-weight: 700;
+  margin: 10px 0 5px;
+}
+
+.going-container {
+  margin-right: 20px;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.attendee-item-container {
+  display: flex;
+}
+
+.oe-attendee-item-container {
+  width: 150px;
+  height: 200px;
+  background-color: white;
+  padding: 20px 8px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 5px;
+  margin-right: 2%;
+}
+
+.attendee-name-status {
+  margin-top: 15px;
+
+  height: fit-content;
+  text-align: center;
+}
+
+.attendee-name-status p {
+  margin: 0;
+  padding: 0;
+  line-height: 13px;
+}
+
+.attendee-name {
+  font-size: 14px;
+  font-weight: 700;
+
+}
+
+.nav-user.event-attendee {
+  width: 70px;
+  height: 70px;
+  font-size: 30px;
+}
+
+.attendee-title {
+  font-size: 12px;
+  opacity: .6;
+}
