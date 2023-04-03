@@ -11,8 +11,8 @@ export default function AttendeeItem({attendee, event}) {
         <p className="attendee-name">{`${attendee.firstName} ${attendee.lastName[0]}.`}</p>
         {console.log(attendee)}
         {groupOrgId === attendee.id ?
-          <p className="attendee-title">Member</p> :
-          <p className="attendee-title">Event Organizer</p>
+          <p className="attendee-title">Event Organizer</p> :
+          <p className="attendee-title">Member</p>
         }
       </div>
     </div>
