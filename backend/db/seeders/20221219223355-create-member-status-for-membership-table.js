@@ -23,12 +23,12 @@ module.exports = {
       {
         userId: 3,
         groupId: 3,
-        status: 'pending'
+        status: 'member'
       },
       {
         userId: 4,
         groupId: 4,
-        status: 'pending'
+        status: 'member'
       },
       {
         userId: 5,
