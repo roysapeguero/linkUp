@@ -15,17 +15,17 @@
 }
 
 .one-group-image {
-  border-radius: 10px;
-  height: auto;
+  border-radius: 8px;
+  height: 337px;
   min-width: 500px;
-  width: 100%;
+  width: 600px;
   object-fit: cover;
 }
 
 .one-group-image-container {
-  width: 500px;
+  width: 600px;
   height: auto;
-  margin: 50px 30px;
+  margin: 50px 10px;
 }
 
 .one-group-description {
