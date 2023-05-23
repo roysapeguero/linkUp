@@ -141,8 +141,9 @@
   display: flex;
   flex-direction: column;
   height: fit-content;
-  align-items: center;
+  align-items: left;
   width: 100%;
+
 }
 
 
@@ -155,7 +156,7 @@
   background-color: white;
   border-bottom: 1px solid rgba(211, 211, 211, 0.599);
   align-items: center;
-  margin-left: -170px;
+  /* margin-left: -170px; */
 }
 
 .tabs {
@@ -202,8 +203,15 @@
   min-height: 100px;
   height: fit-content;
   background-color: transparent;
-
+  width: 68%;
+  margin: 0 auto;
+  /* align-items: center;
+   */
 }
+
+/* .contents.active-content {
+  margin: 0 auto;
+} */
 
 .og-mambers-container-title span{
   /* border: 1px solid red; */
