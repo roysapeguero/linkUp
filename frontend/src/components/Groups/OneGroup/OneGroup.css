@@ -132,7 +132,7 @@
 }
 
 #modal-btns.og-join-btn {
-  width: fit-content;
+  width: 145px;
   font-size: 15px;
   margin: 15px 225px 15px 35px;
 }
@@ -204,7 +204,7 @@
   height: fit-content;
   background-color: transparent;
   width: 68%;
-  margin: 0 auto;
+  margin: 0 15%;
   /* align-items: center;
    */
 }
