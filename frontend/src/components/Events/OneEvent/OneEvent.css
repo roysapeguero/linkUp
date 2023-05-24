@@ -109,7 +109,7 @@
 
 .event-image {
   max-height: 372px;
-  max-width: auto;
+  width: 656px;
   object-fit: cover;
 }
 
@@ -215,12 +215,13 @@
 }
 
 .detail-div {
-  width:  100%;
+  width:  78%;
   height: 100%;
   display: flex;
   flex-direction: column;
   /* line-height: 2px; */
-  padding: 10px 8% 100px;
+  padding: 10px 0 100px;
+  margin: 0 auto;
 }
 
 .detail-title {
