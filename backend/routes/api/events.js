@@ -39,16 +39,16 @@ const validateEvent = [
   check("startDate")
     .exists({ checkFalsy: true })
     .custom((value, { req }) => {
-      if(new Date(value) <= new Date()) {
-        throw new Error ("Start date must be in the future");
+      if (new Date(value) <= new Date()) {
+        throw new Error("Start date must be in the future");
       }
       return true;
     }),
   check("endDate")
     .exists({ checkFalsy: true })
     .custom((value, { req }) => {
-      if(new Date(value) <= new Date(req.body.startDate)) {
-        throw new Error ('End date must be after start date');
+      if (new Date(value) <= new Date(req.body.startDate)) {
+        throw new Error("End date must be after start date");
       }
       return true;
     }),
@@ -68,10 +68,7 @@ const validatePagination = [
     .withMessage(
       "Size must be greater than or equal to 1 and less than or equal to 20"
     ),
-  check("name")
-    .optional()
-    .isString()
-    .withMessage("Name must be a string"),
+  check("name").optional().isString().withMessage("Name must be a string"),
   check("type")
     .optional()
     .isIn(["Online", "In person"])
@@ -84,6 +81,103 @@ const validatePagination = [
     .withMessage("Start date must be a valid datetime"),
   handleValidationErrors,
 ];
+
+const getNumAttending = async (event) => {
+  let count = await Attendance.count({
+    where: {
+      eventId: event.id,
+    },
+  });
+  return (event.numAttending = count);
+};
+
+const getEventImages = async (event) => {
+  const eventImages = await EventImage.findAll({
+    where: {
+      eventId: event.id,
+    },
+  });
+
+  return eventImages.length
+    ? (event.EventImages = eventImages)
+    : (event.EventImages = "No images yet");
+};
+
+const getEventsInfo = async (events) => {
+  const eventInfo = [];
+  await Promise.all(
+    events.map(async (event) => {
+      event = event.toJSON();
+      await getNumAttending(event);
+      await getEventImages(event);
+      eventInfo.push(event);
+    })
+  );
+  return eventInfo;
+};
+
+const getIsAttending = async (user, event) => {
+  const attending = await User.findOne({
+    where: {
+      id: user.id,
+    },
+    include: {
+      model: Attendance,
+      where: {
+        eventId: event.id,
+      },
+    },
+  });
+  return !!attending;
+};
+
+const getEventAtendees = async (user, event) => {
+  const attendees = await Attendance.findAll({
+    where: {
+      eventId: event.id,
+    },
+  });
+
+  const allAttendees = [];
+
+  for (let attendee of attendees) {
+    attendee = await User.findOne({
+      where: {
+        id: attendee.userId,
+      },
+      attributes: ["id", "firstName", "lastName"],
+    });
+
+    memOf = memOf.toJSON();
+    let group = await Group.findByPk(memOf.groupId);
+    if (memOf && group.organizerId === userId) {
+      continue;
+    }
+    memberGroups.push(group);
+  }
+  return memberGroups;
+};
+
+const isCohost = async (user, event) => {
+  const cohostMembership = await Membership.findOne({
+    where: {
+      userId: user.id,
+      groupId: event.groupId,
+      status: "co-host",
+    },
+  });
+  return !!cohostMembership;
+};
+
+const isOrganizer = async (user, event) => {
+  const eventOrganizer = await Group.findOne({
+    where: {
+      id: event.groupId,
+      organizerId: user.id,
+    },
+  });
+  return !!eventOrganizer;
+};
 
 // Get all events
 router.get("/", validatePagination, async (req, res, next) => {
@@ -136,35 +230,9 @@ router.get("/", validatePagination, async (req, res, next) => {
     ],
   });
 
-  const eventsInfo = [];
+  const eventsInfo = await getEventsInfo(events);
 
-  for (let event of events) {
-    event = event.toJSON();
-
-    const numAttending = await Attendance.count({
-      where: {
-        eventId: event.id,
-      },
-    });
-
-    const eventImage = await EventImage.findOne({
-      where: {
-        eventId: event.id,
-      },
-      attributes: ["url"],
-    });
-
-    if (!eventImage) {
-      event.previewImage = "No images yet";
-    } else {
-      event.previewImage = eventImage.toJSON().url;
-    }
-
-    event.numAttending = numAttending;
-
-    eventsInfo.push(event);
-  }
-
+  console.log("------------------------", eventsInfo);
   res.json({
     Events: eventsInfo,
   });
@@ -173,7 +241,6 @@ router.get("/", validatePagination, async (req, res, next) => {
 // Get details of an Event specified by its id
 router.get("/:eventId", async (req, res, next) => {
   let event = await Event.scope("nonoScope").findByPk(req.params.eventId, {
-
     include: [
       {
         model: Group,
@@ -196,30 +263,11 @@ router.get("/:eventId", async (req, res, next) => {
 
   event = event.toJSON();
 
-  const numAttending = await Attendance.count({
-    where: {
-      eventId: event.id,
-    },
-  });
-
-  const eventImages = await EventImage.findAll({
-    where: {
-      eventId: event.id,
-    },
-    attributes: ["id", "url", "preview"],
-  });
-
-  for (let eventImage of eventImages) {
-    if (!eventImage) {
-      event.EventImages = "No images yet";
-    } else {
-      event.EventImages = eventImages;
-    }
-  }
   // event['Venue'].lat = +event['Venue'].lat
   // event['Venue'].lng = +event['Venue'].lng
-  event.price = +event.price
-  event.numAttending = numAttending;
+  await getNumAttending(event);
+  await getEventImages(event);
+  event.price = +event.price;
 
   res.json(event);
 });
@@ -247,34 +295,12 @@ router.post("/:eventId/images", requireAuth, async (req, res, next) => {
   event = event.toJSON();
   let { user } = req;
   user = user.toJSON();
-  let attending = await User.findOne({
-    where: {
-      id: user.id,
-    },
-    include: {
-      model: Attendance,
-      where: {
-        eventId: event.id,
-      },
-    },
-  });
 
-  let isOrganizer = await Group.findOne({
-    where: {
-      id: event.groupId,
-      organizerId: user.id,
-    },
-  });
-
-  let isCohost = await Membership.findOne({
-    where: {
-      userId: user.id,
-      groupId: event.groupId,
-      status: "co-host",
-    },
-  });
-
-  if (attending || isOrganizer || isCohost) {
+  if (
+    (await getIsAttending(user, event)) ||
+    (await isOrganizer(user, event)) ||
+    (await isCohost(user, event))
+  ) {
     const reqImg = await EventImage.create({
       eventId: event.id,
       url,
@@ -465,10 +491,10 @@ router.get("/:eventId/attendees", async (req, res, next) => {
     //   allUsers.push(attendee);
     // }
     // if (user.id !== group.organizerId && attendStatus.status !== "pending") {
-      attendee = attendee.toJSON();
-      attendee.Attendance = attendStatus;
+    attendee = attendee.toJSON();
+    attendee.Attendance = attendStatus;
 
-      allUsers.push(attendee);
+    allUsers.push(attendee);
     // }
   }
 
@@ -562,7 +588,6 @@ router.put("/:eventId/attendance", requireAuth, async (req, res, next) => {
   user = user.toJSON();
   const { userId, status } = req.body;
 
-
   let event = await Event.findByPk(req.params.eventId);
 
   if (!event) {
@@ -639,7 +664,7 @@ router.put("/:eventId/attendance", requireAuth, async (req, res, next) => {
 
 // Delete attendance to an event specified by id
 router.delete("/:eventId/attendance", requireAuth, async (req, res, next) => {
-  console.log('hi', req.body.id)
+  console.log("hi", req.body.id);
   let reqEventId = req.params.eventId;
   let deleteMe = await Attendance.findOne({
     where: {
@@ -688,7 +713,8 @@ router.delete("/:eventId/attendance", requireAuth, async (req, res, next) => {
     const err = new Error("Authorization error");
     err.title = "Authorization error";
     err.status = 403;
-    err.message = "User must be organizer or request user to delete an attendance";
+    err.message =
+      "User must be organizer or request user to delete an attendance";
     return next(err);
   }
 });

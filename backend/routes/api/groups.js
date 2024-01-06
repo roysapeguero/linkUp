@@ -638,25 +638,11 @@ router.get("/:groupId/members", async (req, res, next) => {
 
   group = group.toJSON();
 
-  // if (group.organizerId === user.id || isCohost) {
   members = await Membership.findAll({
     where: {
       groupId: req.params.groupId,
-      // status: {
-      //           [Op.or]: ["co-host", "member", "pending"],
-      //         },
     },
-    // });
-    // } else {
-    //   members = await Membership.findAll({
-    //     where: {
-    //       groupId: req.params.groupId,
-    //       status: {
-    //         [Op.or]: ["co-host", "member"],
-    //       },
-    //     },
   });
-  // }
 
   members.forEach((member) => {
     membersArr.push(member.toJSON());
@@ -672,16 +658,10 @@ router.get("/:groupId/members", async (req, res, next) => {
       },
     });
 
-    // let organizer = await User.findByPk(group.organizerId, {
-    //   attributes: ["id", "firstName", "lastName"],
-    // })
-
     user = user.toJSON();
-    console.log("what this is", user.Memberships);
     user.Membership = user.Memberships[0];
     delete user.Memberships;
     allMembers.push(user);
-    // allMembers.push(organizer);
   }
   res.json({ Members: allMembers });
 });

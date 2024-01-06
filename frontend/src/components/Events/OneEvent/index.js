@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory, Link } from "react-router-dom";
-import { deleteEventThunk, getEvent, addAttendeeThunk, deleteAttendeeThunk, getAttendees } from "../../../store/events";
+import {
+  deleteEventThunk,
+  getEvent,
+  addAttendeeThunk,
+  deleteAttendeeThunk,
+  getAttendees,
+} from "../../../store/events";
 // import { login } from "../../../store/session";
 import "./OneEvent.css";
 import AttendeeItem from "./AttendeeItem";
@@ -15,15 +21,15 @@ export default function OneEventPage() {
   const currentUser = useSelector((state) => state.session.user);
   const eventAttendeeObj = useSelector((state) => state.events.allAttendees);
 
-
   useEffect(() => {
     dispatch(getAttendees(eventId));
     dispatch(getEvent(eventId));
   }, [dispatch, eventId]);
 
-  if (!eventAttendeeObj) {return null}
-  const eventAttendeeArr = Object.values(eventAttendeeObj)
-
+  if (!eventAttendeeObj) {
+    return null;
+  }
+  const eventAttendeeArr = Object.values(eventAttendeeObj);
 
   const handleDelete = async (e, eventId) => {
     e.preventDefault();
@@ -42,28 +48,23 @@ export default function OneEventPage() {
           id: currentUser.id,
           firstName: currentUser.firstName,
           lastName: currentUser.lastName,
-          Attendance: {status: 'attending'}
+          Attendance: { status: "attending" },
         })
-      )
-      .then(() => dispatch(getAttendees(eventId)))
-
-
-    }
-    else {
-      alert('Create an account or log in to attend this event')
+      ).then(() => dispatch(getAttendees(eventId)));
+    } else {
+      alert("Create an account or log in to attend this event");
     }
   };
 
   const handleNoAttend = (e) => {
     e.preventDefault();
     setErrors([]);
-    dispatch(deleteAttendeeThunk(eventId, currentUser))
+    dispatch(deleteAttendeeThunk(eventId, currentUser));
   };
-  console.log(eventAttendeeObj)
-  const isAttendee = userId => {
-    return userId in eventAttendeeObj
-  }
 
+  const isAttendee = (userId) => {
+    return userId in eventAttendeeObj;
+  };
 
   let isOrganizer = false;
   if (!currentEvent.EventImages) return;
@@ -81,8 +82,10 @@ export default function OneEventPage() {
     day: "numeric",
   };
 
-  const footerEventStart = new Date(currentEvent.startDate).toDateString().toUpperCase().split(' ')
-
+  const footerEventStart = new Date(currentEvent.startDate)
+    .toDateString()
+    .toUpperCase()
+    .split(" ");
 
   const dMD = new Date(currentEvent.startDate).toLocaleDateString(
     "en-US",
@@ -123,9 +126,9 @@ export default function OneEventPage() {
                 className="event-image"
                 alt={`${currentEvent.name}'s preview`}
                 src={
-                  currentEvent.EventImages.length > 0
-                    ? `${currentEvent.EventImages[0].url}`
-                    : "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                  currentEvent.EventImages === "No images yet"
+                    ? "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                    : currentEvent.EventImages[0]?.url
                 }
               />
             </div>
@@ -135,7 +138,11 @@ export default function OneEventPage() {
                   <img
                     className="one-event-group-img"
                     alt="event's group preview"
-                    src={currentEvent.groupImg}
+                    src={
+                      !currentEvent.groupImg
+                        ? "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                        : currentEvent.groupImg
+                    }
                   />
                 </Link>
                 <Link
@@ -197,8 +204,12 @@ export default function OneEventPage() {
               <p className="event-details">{currentEvent.description}</p>
               <h2 className="attendees">{`Attendees (${currentEvent.numAttending})`}</h2>
               <div className="attendee-item-container">
-                {eventAttendeeArr.map(attendee => (
-                  <AttendeeItem key={attendee.id} attendee={attendee} event={currentEvent}/>
+                {eventAttendeeArr.map((attendee) => (
+                  <AttendeeItem
+                    key={attendee.id}
+                    attendee={attendee}
+                    event={currentEvent}
+                  />
                 ))}
               </div>
             </div>
@@ -206,22 +217,37 @@ export default function OneEventPage() {
         </div>
         <div className="oe-attend-footer">
           <div className="left-attend-footer">
-            <p>{`${footerEventStart.slice(0,1)}, ${footerEventStart.slice(1,2)} ${footerEventStart.slice(2,3)}`} &#x2022; {`${newStartDateTime.slice(0, -6)} ${newEndDateTime.slice(-2)} EST`}</p>
-            <p><strong>{`${currentEvent.name}`}</strong></p>
+            <p>
+              {`${footerEventStart.slice(0, 1)}, ${footerEventStart.slice(
+                1,
+                2
+              )} ${footerEventStart.slice(2, 3)}`}{" "}
+              &#x2022;{" "}
+              {`${newStartDateTime.slice(0, -6)} ${newEndDateTime.slice(
+                -2
+              )} EST`}
+            </p>
+            <p>
+              <strong>{`${currentEvent.name}`}</strong>
+            </p>
           </div>
           <div className="right-attend-footer">
-          {isAttendee(currentUser?.id) ?
-            <div className="going-container">
-              <p className="going-p-tag">You're going!</p>
-              <button onClick={handleNoAttend} className="not-going-button">
-                Cancel RSVP
+            {isAttendee(currentUser?.id) ? (
+              <div className="going-container">
+                <p className="going-p-tag">You're going!</p>
+                <button onClick={handleNoAttend} className="not-going-button">
+                  Cancel RSVP
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={handleAttend}
+                id="modal-btns"
+                className="og-join-btn"
+              >
+                Attend this event
               </button>
-            </div>
-            :
-            <button onClick={handleAttend} id='modal-btns' className="og-join-btn">
-              Attend this event
-            </button>
-          }
+            )}
           </div>
         </div>
       </div>
