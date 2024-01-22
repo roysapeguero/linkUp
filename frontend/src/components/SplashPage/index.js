@@ -2,7 +2,6 @@ import "./SplashPage.css";
 import { NavLink } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import SignupFormModal from "./SignupModal";
-import CreateGroupModal from "../Groups/CreateGroup";
 
 function SplashPage() {
   return (
