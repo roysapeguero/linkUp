@@ -74,17 +74,17 @@
 ## Get Started
 
 1. Download project from starter.
-2. CD into /backend folder
-3. NPM install
-4. NPM start
+2. cd into /backend folder
+3. npm install
+4. npm start
 5. Open seperate terminal
-6. CD into /frontend folder
-7. NPM install
-8. NPM start
+6. cd into /frontend folder
+7. npm install
+8. npm start
 
 ## Contact Information
 
 - [LinkedIn](https://www.linkedin.com/in/roysapeguero/)
 - <roysapeguero@outlook.com>
 
-[1]:https://linkup-d9ua.onrender.com/
+[1]:https://linkup-ybrh.onrender.com/
