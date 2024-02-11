@@ -2,18 +2,15 @@
 body {
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
+  padding: 20px;
   font-family: Graphik Meetup, -apple-system, BlinkMacSystemFont, Roboto,
     Helvetica, Arial, sans-serif;
   color: #212121;
   word-break: break-word;
-  /* overflow: hidden; */
-  /* overflow-x: hidden; */
 }
 
 html,
 body {
-  margin: 0;
   width: 100%;
 }
 

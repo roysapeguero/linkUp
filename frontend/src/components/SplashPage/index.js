@@ -6,7 +6,7 @@ import SignupFormModal from "./SignupModal";
 function SplashPage() {
   return (
     <div className="splash-page-container">
-      <img
+      {/* <img
         className="red-blob"
         src="https://secure.meetupstatic.com/next/images/blobs/red-blob.svg"
         alt="red blob"
@@ -20,7 +20,7 @@ function SplashPage() {
         className="green-blob"
         src="https://secure.meetupstatic.com/next/images/blobs/green-blob.svg"
         alt="green blob"
-      />
+      /> */}
       <div className="splash-page-content">
         <div className="page-left">
           <h1 className="page-title">
@@ -32,6 +32,14 @@ function SplashPage() {
             to make friends and have fun, look no further! Fake your next group
             event here!
           </p>
+          <div className="join-div">
+            <p className="join-btn">
+              <OpenModalButton
+                buttonText="Join LinkUp"
+                modalComponent={<SignupFormModal />}
+              />
+            </p>
+          </div>
         </div>
         <div className="page-right">
           <img
@@ -142,14 +150,7 @@ function SplashPage() {
           </div>
         </div>
       </div>
-      <div className="join-div">
-        <p className="join-btn">
-          <OpenModalButton
-            buttonText="Join LinkUp"
-            modalComponent={<SignupFormModal />}
-          />
-        </p>
-      </div>
+
       {/* <div className="footer">
         <h3 className="dev-info">Developer Information:</h3>
         <div className="contact-div">
