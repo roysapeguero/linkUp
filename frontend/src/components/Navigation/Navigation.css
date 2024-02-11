@@ -1,133 +1,119 @@
-
 .hidden {
-	display: none;
+  display: none;
 }
 
 .home-logo {
-	width: 94px;
-	height: 34px;
-	margin: 5px;
-	position: absolute;
-	z-index: 1000;
+  width: 94px;
+  height: 34px;
+  margin: 5px;
+  position: absolute;
+  z-index: 1000;
 }
 
 .nav-bar {
-	width: 100%;
-	height: 40px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	/* position: fixed; */
-	/* background-color: white; */
-	z-index: 500;
-	/* border-bottom: 1px solid rgb(222,222,222); */
-	padding: 10px;
-	margin: 10px 0 15px;
-	/* margin-top: 10px; */
-	box-sizing: border-box;
-
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 500;
+  padding: 10px 0;
+  margin: 10px 0 15px;
+  box-sizing: border-box;
 }
 
-
-
 .nav-bar-left {
-	display: flex;
-	/* align-items: center; */
-	height: 40px;
+  display: flex;
+  height: 40px;
 }
 
 .nav-bar-right {
-	/* float: right; */
-	/* display: flex; */
-	/* height: 34px; */
-	/* z-index: 1000; */
-	padding-right: 20px;
-	height: 100px;
-	display: flex;
-	align-items: center;
+  /* padding-right: 20px; */
+  height: 100px;
+  display: flex;
+  align-items: center;
 }
 
 .logged-in-drop-down {
-	display: flex;
-	flex-direction: row;
-	/* border: 1px solid red; */
-	height: fit-content;
+  display: flex;
+  flex-direction: row;
+  height: fit-content;
 }
 
 ul.profile-dropdown {
-	/* margin-top: 150px; */
-	/* margin-top: 0; */
-	/* border: 1px solid red; */
-	position: absolute;
-	right: 30;
-	top: 40;
+  position: absolute;
+  right: 25;
+  top: 65;
+  background-color: rgb(246, 247, 248);
+  padding-inline: 0;
+  padding: 0 20px;
+  border-radius: 10px;
+  height: 100px;
 }
 
 .profile-dropdown {
-	z-index: 1010;
+  z-index: 1010;
 }
 
 #logout-btn {
-	display: block;
-	height: 30px;
-	font-size: 14px;
-	font-weight: 600;
-	width: 100%;
-	background-color: rgb(246, 88, 88);
-	color: #fff;
-	padding: 8px 12px;
-	border-radius: 8px;
-	border: none;
-	margin-bottom: 15px;
+  display: block;
+  height: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  width: 100%;
+  background-color: rgb(246, 88, 88);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
 }
 
 #logout-btn:hover {
-	background-color: #f65858e2;
-	cursor: pointer;
+  background-color: #f65858e2;
+  cursor: pointer;
 }
 
-
 button {
-	font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
-	border: none;
-	background-color: transparent;
-	font-size: 15px;
-	color: rgb(33, 33, 33);
-	font-weight: 500;
-	z-index: 100 !important;
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial,
+    sans-serif;
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
+  color: rgb(33, 33, 33);
+  font-weight: 500;
+  z-index: 100 !important;
 }
 
 button:hover {
-	cursor: pointer;
-	color: rgb(0, 130, 148);
+  cursor: pointer;
+  color: rgb(0, 130, 148);
 }
 
 .user-name {
-	margin-right: 15px;
-	color:rgb(0, 130, 148);
-	font-weight: 500;
+  color: rgb(0, 130, 148);
+  font-weight: 500;
 }
 
 #profile-icon {
-	margin: 0 10px
+  margin: 0 10px;
 }
 
 .nav-user {
-	background-color: rgb(179,195,172);
-	border: 1px solid black;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 43px;
+  background-color: rgb(179, 195, 172);
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 43px;
   height: 43px;
   border-radius: 50%;
-	color: black;
-	font-weight: 300;
-	font-size: 20px;
+  color: black;
+  font-weight: 300;
+  font-size: 20px;
 }
 
 .contact-btns {
-	background-color: transparent;
+  background-color: transparent;
   margin: 0 10px;
   font-size: 20px;
   border-radius: 5px;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux';
-import * as sessionActions from '../../store/session';
+import { useDispatch } from "react-redux";
+import * as sessionActions from "../../store/session";
 import "./Navigation.css";
 
 function ProfileButton({ user }) {
@@ -17,12 +17,12 @@ function ProfileButton({ user }) {
     if (!showMenu) return;
 
     const closeMenu = (e) => {
-        if (!ulRef.current.contains(e.target)) {
-            setShowMenu(false);
-        }
+      if (!ulRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
     };
 
-    document.addEventListener('click', closeMenu);
+    document.addEventListener("click", closeMenu);
 
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
@@ -40,8 +40,10 @@ function ProfileButton({ user }) {
         <div className="nav-user">{user.firstName[0]}</div>
       </button>
       <ul className={ulClassName} ref={ulRef}>
-          <p className="user-name">{`${user.firstName} ${user.lastName}`}</p>
-          <button id='logout-btn' onClick={logout}>Log Out</button>
+        <p className="user-name">{`${user.firstName} ${user.lastName}`}</p>
+        <button id="logout-btn" onClick={logout}>
+          Log Out
+        </button>
       </ul>
     </>
   );
