@@ -35,7 +35,6 @@ const Events = () => {
         key={event.id}
         className="event-container"
       >
-        <hr />
         <div className="img-container">
           <img
             className="preview-img"
@@ -46,25 +45,25 @@ const Events = () => {
             }
             alt={`${event.name}'s preview`}
           />
+          <p className="event-type">{`${event.type} Event`}</p>
         </div>
         <div className="events-description">
-          <p className="event-name">{event.name}</p>
-          <p className="event-dates">{`${dMD[0].toUpperCase()}, ${dMD[1].toUpperCase()} ${
-            dMD[2]
-          } - ${newStartDateTime.slice(0, -6)} ${newStartDateTime.slice(
-            -2
-          )}`}</p>
-        </div>
-        <div>
-          <p className="event-group-name-location">
-            {" "}
-            {`${event.Group?.name}`} &#x2022;{" "}
-            {`${event.Group?.city}, ${event.Group?.state}`}
-          </p>
-          <p className="event-info-members">{`${event.numAttending} ${
+          <div>
+            <p className="event-dates">{`${dMD[0].toUpperCase()}, ${dMD[1].toUpperCase()} ${
+              dMD[2]
+            } - ${newStartDateTime.slice(0, -6)} ${newStartDateTime.slice(
+              -2
+            )}`}</p>
+            <p className="event-name">{event.name}</p>
+            <div className="event-group-name-location">
+              {" "}
+              {`${event.Group?.name}`} &#x2022;{" "}
+              {`${event.Group?.city}, ${event.Group?.state}`}
+            </div>
+          </div>
+          <div className="event-info-members">{`${event.numAttending} ${
             event.numAttending > 1 ? "attendees" : "attendant"
-          } `}</p>
-          <p className="event-type">{`${event.type} Event`}</p>
+          } `}</div>
         </div>
       </div>
     );
