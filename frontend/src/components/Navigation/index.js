@@ -50,12 +50,20 @@ function Navigation({ isLoaded }) {
       </div>
       <div className="nav-bar-right">
         <button className="contact-btns">
-          <a target="_blank" href="https://github.com/roysapeguero">
+          <a
+            rel="noreferrer"
+            target="_blank"
+            href="https://github.com/roysapeguero"
+          >
             <i class="fa-brands fa-github"></i>
           </a>
         </button>
         <button className="contact-btns">
-          <a target="_blank" href="https://www.linkedin.com/in/roysapeguero/">
+          <a
+            rel="noreferrer"
+            target="_blank"
+            href="https://www.linkedin.com/in/roysapeguero/"
+          >
             <i class="fa-brands fa-linkedin-in"></i>
           </a>
         </button>
