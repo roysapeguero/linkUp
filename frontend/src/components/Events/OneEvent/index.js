@@ -8,7 +8,6 @@ import {
   deleteAttendeeThunk,
   getAttendees,
 } from "../../../store/events";
-// import { login } from "../../../store/session";
 import "./OneEvent.css";
 import AttendeeItem from "./AttendeeItem";
 

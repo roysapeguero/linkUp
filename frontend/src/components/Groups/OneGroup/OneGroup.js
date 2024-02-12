@@ -6,7 +6,11 @@ import "./OneGroup.css";
 import EditGroupModal from "../EditGroup";
 import CreateEventModal from "../../Events/CreateEvent";
 import OpenModalButton from "../../OpenModalButton";
-import { getMembers, addMemeberThunk, deleteMemberThunk } from "../../../store/groups";
+import {
+  getMembers,
+  addMemeberThunk,
+  deleteMemberThunk,
+} from "../../../store/groups";
 import MemberItem from "./MemberItem";
 
 export default function OneGroupPage() {
@@ -17,10 +21,9 @@ export default function OneGroupPage() {
   const [errors, setErrors] = useState([]);
   const currentUser = useSelector((state) => state.session.user);
   const groupMemsObj = useSelector((state) => state.groups.allMembers);
-  const groupMemsArr = Object.values(groupMemsObj)
+  const groupMemsArr = Object.values(groupMemsObj);
   const currentGroup = useSelector((state) => state.groups.group);
   const groupMems = useSelector((state) => state.groups.group.numMembers);
-
 
   useEffect(() => {
     dispatch(getGroup(groupId));
@@ -34,7 +37,6 @@ export default function OneGroupPage() {
     });
   };
 
-
   const handleJoin = (e) => {
     e.preventDefault();
     setErrors([]);
@@ -44,31 +46,27 @@ export default function OneGroupPage() {
           id: currentUser.id,
           firstName: currentUser.firstName,
           lastName: currentUser.lastName,
-          Membership: {status: 'member', createdAt: Date.now()}
+          Membership: { status: "member", createdAt: Date.now() },
         })
-      )
-    }
-    else {
-      alert('Create an account or log in to join this group')
+      );
+    } else {
+      alert("Create an account or log in to join this group");
     }
   };
 
   const handleLeave = (e) => {
     e.preventDefault();
     setErrors([]);
-    dispatch(deleteMemberThunk(groupId, currentUser))
+    dispatch(deleteMemberThunk(groupId, currentUser));
   };
-
 
   const toggleTab = (index) => {
     setToggleState(index);
   };
 
-  const isMember = userId => {
-    return userId in groupMemsObj
-  }
-
-
+  const isMember = (userId) => {
+    return userId in groupMemsObj;
+  };
 
   if (!currentGroup.GroupImages) return;
 
@@ -129,7 +127,6 @@ export default function OneGroupPage() {
                 Organized by{" "}
                 <strong>{`${currentGroup.Organizer.firstName} ${currentGroup.Organizer.lastName}`}</strong>
               </p>
-              {/* <p className="org-user-name">{`${currentGroup.Organizer.firstName} ${currentGroup.Organizer.lastName}`}</p> */}
             </div>
           </div>
         </div>
@@ -173,17 +170,23 @@ export default function OneGroupPage() {
               Discussions
             </button>
 
-            {isMember(currentUser?.id) ?
-            <button onClick={handleLeave} id='modal-btns' className="og-join-btn">
-            Leave this group
-          </button>
-            :
-            <button onClick={handleJoin} id='modal-btns' className="og-join-btn">
-              Join this group
-            </button>
-
-          }
-
+            {isMember(currentUser?.id) ? (
+              <button
+                onClick={handleLeave}
+                id="modal-btns"
+                className="og-join-btn join-leave-btn"
+              >
+                Leave this group
+              </button>
+            ) : (
+              <button
+                onClick={handleJoin}
+                id="modal-btns"
+                className="og-join-btn join-leave-btn"
+              >
+                Join this group
+              </button>
+            )}
           </div>
           <div className="content-tabs">
             <div
@@ -199,7 +202,7 @@ export default function OneGroupPage() {
                 toggleState === 2 ? "contents  active-content" : "contents"
               }
             >
-              <h3 className='og-new-feature'>COMMING SOON!</h3>
+              <h3 className="og-new-feature">COMMING SOON!</h3>
             </div>
             <div
               className={
@@ -207,12 +210,13 @@ export default function OneGroupPage() {
               }
             >
               <div className="og-mambers-container">
-                <h3 className="og-mambers-container-title">All Members <span>({currentGroup.numMembers})</span></h3>
+                <h3 className="og-mambers-container-title">
+                  All Members <span>({currentGroup.numMembers})</span>
+                </h3>
                 <div className="og-member-display-container">
-                {groupMemsArr.map(member => (
-                  <MemberItem key={member.id} member={member} />
-                ))}
-
+                  {groupMemsArr.map((member) => (
+                    <MemberItem key={member.id} member={member} />
+                  ))}
                 </div>
               </div>
             </div>
@@ -221,18 +225,15 @@ export default function OneGroupPage() {
                 toggleState === 4 ? "contents  active-content" : "contents"
               }
             >
-              <h3 className='og-new-feature'>COMMING SOON!</h3>
-
+              <h3 className="og-new-feature">COMMING SOON!</h3>
             </div>
             <div
               className={
                 toggleState === 5 ? "contents  active-content" : "contents"
               }
             >
-              <h3 className='og-new-feature'>COMMING SOON!</h3>
-
+              <h3 className="og-new-feature">COMMING SOON!</h3>
             </div>
-
           </div>
         </div>
         <div className="user-btns">
