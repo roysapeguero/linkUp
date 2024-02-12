@@ -243,7 +243,7 @@ export default function OneEventPage() {
               <button
                 onClick={handleAttend}
                 id="modal-btns"
-                className="og-join-btn"
+                className="og-join-btn attend-btn"
               >
                 Attend this event
               </button>
