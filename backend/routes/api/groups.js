@@ -694,21 +694,13 @@ router.post("/:groupId/membership", requireAuth, async (req, res, next) => {
       groupId: group.id,
       status: "member",
     });
-    console.log(newMem);
+
     return res.json({
       memberId: newMem.userId,
       status: newMem.status,
       createdAt: newMem.createdAt,
     });
-  }
-  //  else if (membership.status === "pending") {
-  //   const err = new Error("Duplicate request");
-  //   err.title = "Duplicate request";
-  //   err.status = 400;
-  //   err.message = "Membership has already been requested";
-  //   return next(err);
-  // }
-  else {
+  } else {
     const err = new Error("Already member");
     err.title = "Already member";
     err.status = 400;

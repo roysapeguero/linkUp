@@ -135,7 +135,6 @@ export const addAttendeeThunk = (eventId, attendee) => async (dispatch) => {
     },
     body: JSON.stringify(attendee),
   });
-  // console.log('i got here', attendee)
   if (response.ok) {
     dispatch(addAttendee(attendee));
     return attendee;
@@ -143,12 +142,10 @@ export const addAttendeeThunk = (eventId, attendee) => async (dispatch) => {
 };
 
 export const deleteAttendeeThunk = (eventId, attendee) => async (dispatch) => {
-  console.log("firsttt -------------------", attendee);
   const response = await csrfFetch(`/api/events/${eventId}/attendance`, {
     method: "DELETE",
     body: JSON.stringify(attendee),
   });
-  console.log("second======", response);
   if (response.ok) {
     const data = await response.json();
     dispatch(deleteAttendee(attendee.id));

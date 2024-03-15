@@ -232,7 +232,6 @@ router.get("/", validatePagination, async (req, res, next) => {
 
   const eventsInfo = await getEventsInfo(events);
 
-  console.log("------------------------", eventsInfo);
   res.json({
     Events: eventsInfo,
   });
@@ -664,7 +663,6 @@ router.put("/:eventId/attendance", requireAuth, async (req, res, next) => {
 
 // Delete attendance to an event specified by id
 router.delete("/:eventId/attendance", requireAuth, async (req, res, next) => {
-  console.log("hi", req.body.id);
   let reqEventId = req.params.eventId;
   let deleteMe = await Attendance.findOne({
     where: {

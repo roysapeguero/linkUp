@@ -1,7 +1,9 @@
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 
-export default function AttendeeItem({attendee, event}) {
-  const groupOrgId = useSelector(state => state.events.event.Group.Organizer.id)
+export default function AttendeeItem({ attendee, event }) {
+  const groupOrgId = useSelector(
+    (state) => state.events.event.Group.Organizer.id
+  );
   return (
     <div className="oe-attendee-item-container">
       <div className="attendee-image-container">
@@ -9,12 +11,12 @@ export default function AttendeeItem({attendee, event}) {
       </div>
       <div className="attendee-name-status">
         <p className="attendee-name">{`${attendee.firstName} ${attendee.lastName[0]}.`}</p>
-        {console.log(attendee)}
-        {groupOrgId === attendee.id ?
-          <p className="attendee-title">Event Organizer</p> :
+        {groupOrgId === attendee.id ? (
+          <p className="attendee-title">Event Organizer</p>
+        ) : (
           <p className="attendee-title">Member</p>
-        }
+        )}
       </div>
     </div>
-  )
+  );
 }
