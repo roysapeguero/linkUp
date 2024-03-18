@@ -323,7 +323,9 @@
 
 .og-event-description {
   margin-top: 0;
-  font-size: medium;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.55px;
 }
 
 .og-event-attendee-details {
@@ -343,15 +345,19 @@
 .og-attend-button {
   border: 2px solid teal;
   color: teal;
-  padding: 10px 15px;
+  padding: 10px 12px;
   border-radius: 8px;
-  font-size: larger;
+  font-size: medium;
   font-weight: 400;
 }
 
 .og-attend-button:hover {
   color: white;
   background-color: teal;
+}
+
+.og-no-events {
+  text-align: center;
 }
 
 @media screen and (max-width: 990px) {

@@ -209,9 +209,16 @@ export default function OneGroupPage() {
               }
             >
               <div className="og-events-container">
-                {groupEventsArr.map((event) => (
-                  <EventItem key={event.id} event={event} />
-                ))}
+                {groupEventsArr.length ? (
+                  groupEventsArr.map((event) => (
+                    <EventItem key={event.id} event={event} />
+                  ))
+                ) : (
+                  <h3 className="og-no-events">
+                    This group currently has no events, please check again
+                    later!
+                  </h3>
+                )}
               </div>
             </div>
             <div
