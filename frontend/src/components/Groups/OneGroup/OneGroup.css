@@ -282,7 +282,7 @@
   /* border: 1px solid red; */
   width: 100%;
   background-color: white;
-  padding: 10px 20px;
+  padding: 10px 20px 20px;
   border-radius: 8px;
 }
 
@@ -295,19 +295,30 @@
 
 .og-event-name {
   margin-top: 10px;
+  margin-bottom: 0;
+  font-size: 25px;
 }
 
 .og-event-type {
+  display: flex;
+  align-items: center;
   color: rgb(117, 117, 117);
-  font-size: larger;
+  font-size: large;
+}
+
+.og-event-type > img,
+.og-event-type > p {
+  margin: 0 8px 8px 0;
 }
 
 .og-event-description {
+  margin-top: 0;
 }
 
 .og-event-attendee-details {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .og-event-attendees {
@@ -316,6 +327,20 @@
 .og-attendee-count {
   color: rgb(117, 117, 117);
   font-size: large;
+}
+
+.og-attend-button {
+  border: 2px solid teal;
+  color: teal;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: larger;
+  font-weight: 400;
+}
+
+.og-attend-button:hover {
+  color: white;
+  background-color: teal;
 }
 
 @media screen and (max-width: 990px) {

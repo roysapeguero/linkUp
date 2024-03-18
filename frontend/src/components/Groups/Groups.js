@@ -12,7 +12,6 @@ const Groups = () => {
 
   const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
-  const redirectOneGroupPage = (groupId) => history.push(`/groups/${groupId}`);
 
   useEffect(() => {
     dispatch(getGroups()).then(() => {
@@ -21,7 +20,7 @@ const Groups = () => {
   }, [dispatch]);
 
   const handleGroupClick = (groupId) => {
-    redirectOneGroupPage(groupId);
+    history.push(`/groups/${groupId}`);
   };
 
   if (!groups) return null;
