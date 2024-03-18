@@ -90,6 +90,11 @@
   color: black;
 }
 
+.og-about-tab-content {
+  width: 95%;
+  margin-top: 15px;
+}
+
 .about-title {
   font-weight: 600;
   width: 100%;
@@ -291,32 +296,34 @@
 }
 
 .og-event-date {
-  font-weight: 700;
+  font-weight: 600;
   color: teal;
-  font-size: medium;
+  font-size: small;
   margin-bottom: 0;
 }
 
 .og-event-name {
   margin-top: 10px;
   margin-bottom: 0;
-  font-size: 25px;
+  font-size: 22px;
+  font-weight: 800;
 }
 
 .og-event-type {
   display: flex;
   align-items: center;
   color: rgb(117, 117, 117);
-  font-size: large;
 }
 
 .og-event-type > img,
 .og-event-type > p {
-  margin: 0 8px 8px 0;
+  margin: 0 10px 8px -5px;
+  font-size: medium;
 }
 
 .og-event-description {
   margin-top: 0;
+  font-size: medium;
 }
 
 .og-event-attendee-details {
@@ -330,7 +337,7 @@
 
 .og-attendee-count {
   color: rgb(117, 117, 117);
-  font-size: large;
+  font-size: medium;
 }
 
 .og-attend-button {

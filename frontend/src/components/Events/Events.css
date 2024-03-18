@@ -10,6 +10,10 @@
   align-items: center;
 }
 
+.event-container:hover {
+  cursor: pointer;
+}
+
 .img-container {
   height: 150px;
   position: relative;

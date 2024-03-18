@@ -198,8 +198,10 @@ export default function OneGroupPage() {
                 toggleState === 1 ? "contents  active-content" : "contents"
               }
             >
-              <h3 className="about-title">What we're about</h3>
-              <p className="one-group-about">{currentGroup.about}</p>
+              <div className="og-about-tab-content">
+                <h3 className="about-title">What we're about</h3>
+                <p className="one-group-about">{currentGroup.about}</p>
+              </div>
             </div>
             <div
               className={
