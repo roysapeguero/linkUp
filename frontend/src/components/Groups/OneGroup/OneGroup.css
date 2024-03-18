@@ -286,6 +286,10 @@
   border-radius: 8px;
 }
 
+.og-event-details-container:hover {
+  cursor: pointer;
+}
+
 .og-event-date {
   font-weight: 700;
   color: teal;

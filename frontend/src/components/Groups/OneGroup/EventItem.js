@@ -5,12 +5,15 @@ export default function EventItem({ event }) {
   const dMD = new Date(event.startDate).toDateString().split(" ");
   const newStartDateTime = new Date(event.startDate).toLocaleTimeString();
 
-  const handleAttendClick = (eventId) => {
+  const handleClick = (eventId) => {
     history.push(`/events/${eventId}`);
   };
   return (
     <div className="og-event-item-container">
-      <div className="og-event-details-container">
+      <div
+        onClick={() => handleClick(event.id)}
+        className="og-event-details-container"
+      >
         <p className="og-event-date">{`${dMD[0].toUpperCase()}, ${dMD[1].toUpperCase()} ${
           dMD[2]
         }, ${dMD[3]},
@@ -37,7 +40,7 @@ export default function EventItem({ event }) {
               : "1 attendant"}
           </div>
           <button
-            onClick={() => handleAttendClick(event.id)}
+            onClick={() => handleClick(event.id)}
             className="og-attend-button"
           >
             Attend
