@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { deleteGroupThunk, getGroup } from "../../../store/groups";
+import { deleteGroupThunk, getEvents, getGroup } from "../../../store/groups";
 import "./OneGroup.css";
 import EditGroupModal from "../EditGroup";
 import CreateEventModal from "../../Events/CreateEvent";
@@ -12,6 +12,7 @@ import {
   deleteMemberThunk,
 } from "../../../store/groups";
 import MemberItem from "./MemberItem";
+import EventItem from "./EventItem";
 
 export default function OneGroupPage() {
   const dispatch = useDispatch();
@@ -20,6 +21,8 @@ export default function OneGroupPage() {
   const [toggleState, setToggleState] = useState(1);
   const [errors, setErrors] = useState([]);
   const currentUser = useSelector((state) => state.session.user);
+  const groupEventsObj = useSelector((state) => state.groups.allEvents);
+  const groupEventsArr = Object.values(groupEventsObj);
   const groupMemsObj = useSelector((state) => state.groups.allMembers);
   const groupMemsArr = Object.values(groupMemsObj);
   const currentGroup = useSelector((state) => state.groups.group);
@@ -28,6 +31,7 @@ export default function OneGroupPage() {
   useEffect(() => {
     dispatch(getGroup(groupId));
     dispatch(getMembers(groupId));
+    dispatch(getEvents(groupId));
   }, [dispatch, groupId]);
 
   const handleDelete = (e) => {
@@ -202,7 +206,11 @@ export default function OneGroupPage() {
                 toggleState === 2 ? "contents  active-content" : "contents"
               }
             >
-              <h3 className="og-new-feature">COMMING SOON!</h3>
+              <div className="og-events-container">
+                {groupEventsArr.map((event) => (
+                  <EventItem key={event.id} event={event} />
+                ))}
+              </div>
             </div>
             <div
               className={

@@ -224,7 +224,8 @@
   opacity: 0.3;
 }
 
-.og-member-item-container {
+.og-member-item-container,
+.og-event-item-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -259,7 +260,8 @@
   font-weight: 600;
 }
 
-.og-mambers-container {
+.og-mambers-container,
+.og-events-container {
   width: 95%;
   background-color: white;
   border-radius: 8px;
@@ -268,8 +270,52 @@
   box-sizing: border-box;
 }
 
+.og-events-container {
+  background-color: transparent;
+}
+
 .og-new-feature {
   text-align: center;
+}
+
+.og-event-details-container {
+  /* border: 1px solid red; */
+  width: 100%;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.og-event-date {
+  font-weight: 700;
+  color: teal;
+  font-size: medium;
+  margin-bottom: 0;
+}
+
+.og-event-name {
+  margin-top: 10px;
+}
+
+.og-event-type {
+  color: rgb(117, 117, 117);
+  font-size: larger;
+}
+
+.og-event-description {
+}
+
+.og-event-attendee-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.og-event-attendees {
+}
+
+.og-attendee-count {
+  color: rgb(117, 117, 117);
+  font-size: large;
 }
 
 @media screen and (max-width: 990px) {
