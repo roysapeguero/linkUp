@@ -72,8 +72,6 @@ export default function OneEventPage() {
     isOrganizer = currentEvent.Group.organizerId === currentUser.id;
   }
 
-  if (currentEvent.numAttending === 0) currentEvent.numAttending = 1;
-
   const options = {
     weekday: "long",
     year: "numeric",

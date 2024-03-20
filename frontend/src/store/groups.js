@@ -150,15 +150,6 @@ export const getMembers = (groupId) => async (dispatch) => {
   }
 };
 
-export const getEvents = (groupId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/groups/${groupId}/events`);
-
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(loadEvents(data));
-    return data;
-  }
-};
 
 export const addMemeberThunk = (groupId, member) => async (dispatch) => {
   const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
@@ -183,6 +174,16 @@ export const deleteMemberThunk = (groupId, member) => async (dispatch) => {
     const data = await response.json();
 
     dispatch(deleteMember(member.id));
+    return data;
+  }
+};
+
+export const getEvents = (groupId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/groups/${groupId}/events`);
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(loadEvents(data));
     return data;
   }
 };
