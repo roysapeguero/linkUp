@@ -242,14 +242,14 @@ export default function OneGroupPage() {
                 toggleState === 4 ? "contents  active-content" : "contents"
               }
             >
-              <h3 className="og-new-feature">COMMING SOON!</h3>
+              <h3 className="og-new-feature">COMING SOON!</h3>
             </div>
             <div
               className={
                 toggleState === 5 ? "contents  active-content" : "contents"
               }
             >
-              <h3 className="og-new-feature">COMMING SOON!</h3>
+              <h3 className="og-new-feature">COMING SOON!</h3>
             </div>
           </div>
         </div>
