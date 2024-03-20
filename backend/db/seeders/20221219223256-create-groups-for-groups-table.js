@@ -12,7 +12,7 @@ module.exports = {
       options,
       [
         {
-          organizerId: 1,
+          organizerId: 7,
           name: "Fruit Cakes",
           about:
             "Welcome to Fruit Cakes, where we celebrate the art of baking with a focus on delicious fruit-infused treats! Our group is a haven for baking enthusiasts who are passionate about creating and sharing mouthwatering desserts. Whether you're a seasoned baker or a novice, you'll find a warm and welcoming community here. Join us for weekly baking sessions, where we explore new recipes, exchange tips and tricks, and indulge in the sweet satisfaction of homemade fruit cakes. Let's bake memories together!",
